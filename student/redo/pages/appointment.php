@@ -18,6 +18,15 @@
    <!-- AJAX -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+
+   <!-- flatpickr -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" integrity="sha512-K/oyQtMXpxI4+K0W7H25UopjM8pzq0yrVdFdG21Fh5dBe91I40pDd9A4lzNlHPHBIP2cwZuoxaUSX0GJSObvGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
    <title> SMRMS | STUDENT | New Appointment </title>
 </head>
 <body>
@@ -110,36 +119,59 @@
          <div class="appointment-details-container">
 
             <div class="link-header">
-               <h3> <a href="./appointment-list.php"> Appointment List</a> > Add New Appointment </h3>
+               <h3> <a href="./appointment-list.php"> Appointment List</a> > Add New Appointment <span id="sample-mess"></span></h3>
             </div>
 
             <div class="appointment-detail">
 
                <h3> Appointment Details </h3>
 
-               <form action="../../process/validate_appointment.php" method="POST" enctype="multipart/form-data">
+               <form id="add-appointment-form" enctype="multipart/form-data">
 
                   <div class="type-of-appointment">
 
                      <div class="form-input">
-                        <select name="med_type" id="med-type"> 
-                           <option value=""> Type of Appointment </option> 
-                           <option value="Medical"> Medical Service </option> 
-                           <option value="Dental"> Dental Service </option> 
-                        </select>
-                        <span>* <span class="type-message"></span></span>
+                        <select name="med_type" id="med-type" required> 
+                           
 
-                         <select name="availableDates" id="available-dates" disabled> 
-                           <option value=""> --Select available date-- </option> 
-                           <!-- <option value="Medical"> Medical Service </option> 
-                           <option value="Dental"> Dental Service </option>  -->
+                           <?php 
+                              if(mysqli_num_rows($sel_services) > 0) {
+
+                                 ?> <option value=""> Type of Appointment </option>  <?php 
+
+                                 while($row = mysqli_fetch_assoc($sel_services)){
+
+                                    ?> <option value="<?=$row['app_id']?>"> <?=$row['app_type']?> Service </option>  <?php 
+                                 }
+
+                              } else {
+
+                                 ?> <option value=""> No Services </option>  <?php 
+
+                              } 
+                              
+                              ?>
                         </select>
-                        <span>* <span class="type-message"></span></span>
+                     </div>
+
+                     <div class="form-input flatpickr">
+                        <label for="se-dates"> Choose available dates <span>*</span><span id="date-err-mess"> </span></label>
+
+                        <div id="set-date-slot">
+                           <div id="set-date">
+                              <input type="text" id="se-dates" name="se_date[]" class="se-dates" placeholder="Select Date" disabled>
+                           </div>
+                          
+                           <div class="slot" id="set-slot"> 
+                              
+                           </div>
+                        </div>
+                     
                      </div>
 
                      <div class="form-input">
                         <label for="roa"> Reason for Appointment <span>* <span class="roa-message"></span></span> </label>
-                        <textarea name="roa" id="roa" placeholder="(Required)"></textarea>
+                        <textarea name="roa" id="roa" placeholder="(Required)" required></textarea>
                      </div>
 
 
@@ -161,12 +193,9 @@
                         </div>
                      </div>
 
-                     <div class="form-button-next">
+                   
 
-                        <div class="message-validation">
-                           
-                           
-                        </div>
+                     <div class="form-button-next">
 
                         <div class="form-button">
 
@@ -178,42 +207,20 @@
 
 
                      </div>
-
                   </div>
 
-                  <!-- <div class="set-schedule">
+                  
+                  <div class="preview-app-modal" id="preview-app-modal">
 
-                     <div class="header-title">
-                        <p> Please review your appointment </p>
-                     </div>
-
-                     <div class="review-appointment">
-
-                        <div class="form-review">
-                           <label for=""> Service Type: </label>
-                           <span id="se-type"> </span>
-                        </div>
-
-                         <div class="form-review">
-                           <label for=""> Date Schedule: </label>
-                           <span id="se-date"> </span>
-                        </div>
-
-                         <div class="form-review">
-                           <label for=""> Reason: </label>
-                           <span id="se-reason"> </span>
-                        </div>
-
-                     </div> 
-
-                     <div class="form-button-next">
-                        <button type="button" id="back-btn"> back </button>
-                        <button type="submit" name="submitBtn" id="submit-btn"> Submit </button>
-                     </div>
-
-                  </div> -->
-
+                     
+                    
+                  </div>
+               
                </form>
+
+            </div>
+
+            <div class="overlay-modal">
 
             </div>
 
@@ -229,127 +236,123 @@
 <script src="../js/image_viewer.js"> </script>
 
 <script>
+
+
+ 
+</script>
+
+<script>
    $(document).ready(function(){
 
       $('.type-of-appointment').show();
-      $('.set-schedule').hide();
+      $('#preview-app-modal').hide();
+
 
       $('#med-type').change(function(){
 
-         let med_type = $(this).val();
+         let se_id = $(this).val();
 
+         if(se_id != '') {
 
-         if(med_type != ""){
-
-            $('#available-dates').attr('disabled', false);
-
-            console.log(med_type);
-
-            $('#available-dates').load('../ajax/process/med_type.php', {
-               med_type: med_type,
-            });
-
+            $('#set-date').load('../ajax/view/service_dates.php', {
+               se_id: se_id
+            });     
+              
          } else {
-            $('#available-dates').attr('disabled', true);
-         }
 
-       
+            $('#set-date-slot').load('../ajax/view/default_date.php');
+
+         }
 
       });
 
+
+      $('#add-appointment-form').submit(function(e){
+
+         let se_date = $('#se-dates').val();
+
+         const form = $('#add-appointment-form')[0];
+         const formData = new FormData(form);
+
+
+         if(se_date != ''){
+
+
+            $.ajax({
+
+               type: 'POST',
+               url: '../../process/validate_appointment.php',
+               data: formData,
+               contentType: false, 
+               processData: false,
+               cache: false,
+               success: function(data){
+
+                 
+                  window.location.href = "./appointment.php?mess=success";               
+               },
+
+            });
+
+
+            $('.loader').show();
+
+            $('#submit-btn-text').text('Sending Email...');
+
+            $('#submit-btn').attr('disabled', true);
+            $('#close-modal-message').attr('disabled', true);
+
+
+
+          
+            
+            
+          
+
+         } else {
+
+            $('#date-err-mess').html("Please select date");
+         }
+
+         
+
+         e.preventDefault();
+
+      });
 
 
       $('#appoint-next').click(function(){
 
-         let fileLen = `${document.getElementById('multi-image').files.length}`;
+         let se_date = $('#se-dates').val();
+         let med_type = $('#med-type').val();
+         let roa = $('#roa').val();
 
-         // console.log($('#med-type').val());
+         if(se_date != '' && med_type != '' && roa != ''){
 
-         if($('#med-type').val() === ''){
+            $('#preview-app-modal').show();
 
-            $('.type-message').html("Required!");
-            $('.roa-message').html("");
-            $('.message-validation').html('<span style="color: var(--decline);"></span>');
-            $('#available-dates').css('border', '1px solid red');
-            
-         } else {
+            $('#preview-app-modal').load('../ajax/view/preview_app.php', {
 
-            if($('#med-type').val() === 'Medical'){
+               se_date: se_date,
+               med_type: med_type,
+               roa: roa,
 
-               $('.type-message').html("");
-
-               if($('#roa').val() === '' && fileLen == 0) {
-                  
-                  $('.roa-message').html("Required!");
-                  $('.message-validation').html('<span style="color: var(--decline);"> Image required </span>');
-                  
-               } else if($('#roa').val() !== '' && fileLen == 0) {
-
-                  $('.roa-message').html("");
-                  $('.message-validation').html('<span style="color: var(--decline);"> Image required </span>');
-
-               } else if($('#roa').val() === '' && fileLen != 0) {
-
-                  $('.roa-message').html("Required!");
-                  $('.message-validation').html('<span style="color: var(--decline);"></span>');
-
-               } else {
-                  
-                  $('.roa-message').html("");
-                  $('.message-validation').html('<span style="color: var(--decline);"></span>');
-
-                  // $('.type-of-appointment').hide();
-                  
-                  // $('.set-schedule').show();
-
-                  $('#appoint-next').attr('type', 'submit');
-
-                  
-               }
-
-               
-            } else if ($('#med-type').val() === 'Dental'){
-
-               $('.type-message').html("");
-               $('.roa-message').html("Required!");
-               $('.message-validation').html('<span style="color: var(--decline);"></span>');
-
-               if($('#roa').val() === ''){
-                  
-                  $('.roa-message').html("Required!");
-                  
-               } else {
-                  
-                  $('.roa-message').html("");
-                  // $('.type-of-appointment').hide();
-                  // $('.set-schedule').show();
-                  $('#appoint-next').attr('type', 'submit');
-                  
-               }
-            }
+            });
 
          }
 
-         
-      });
-
-
       
 
+         if(se_date != ''){
 
-      $('#back-btn').click(function(){
+            $('#date-err-mess').html("");
 
-         $('.type-of-appointment').show();
-         $('.set-schedule').hide();
+         } else {
 
+            $('#date-err-mess').html("Please select date");
+         }
+         
       });
-
-
-      // $('.day input[type="radio"]:checked').click(function(){
-
-      //    $('.day label').css("background", "var(--primary)");
-
-      // });
 
    });
 </script>

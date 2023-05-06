@@ -28,11 +28,10 @@ function moveFile($path, $file_name, $file_tmp_name, $file_tmp_error, $new_fileN
 
    }
 
-}
+}  
 
 
-
-function moveImg($path, $file_name, $file_tmp_name, $file_tmp_error){
+function moveImg($path, $file_name, $file_tmp_name, $file_tmp_error, $date_today){
 
    if($file_tmp_error === 0) {
          
@@ -46,7 +45,7 @@ function moveImg($path, $file_name, $file_tmp_name, $file_tmp_error){
 
       if(in_array($file_ext_lc, $allowed_ext)) {
 
-         $new_img_name = $file_name_lc;
+         $new_img_name = $date_today."_".$file_name_lc;
 
          $img_path = "$path/".$new_img_name;
 

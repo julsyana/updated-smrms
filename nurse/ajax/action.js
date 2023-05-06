@@ -77,19 +77,22 @@ $(document).ready(function () {
     console.log(parent);
   });
 
+
   $(document).on("click", "#view_appointment", function () {
     let ref_no = $(this).attr("data-ref_no");
-    console.log(ref_no);
 
     $.ajax({
       url: "fetchData.php",
       method: "POST",
       data: { appointment: 1, ref_no: ref_no },
       success: function (data) {
+
         $("#appointment_content").html(data);
+        
       },
     });
   });
+
   $(document).on("click", "#change_status", function () {
     let student_id = $(this).attr("data-id");
     $.ajax({
@@ -102,20 +105,20 @@ $(document).ready(function () {
     });
   });
 
-  $(document).on("click", "#done", function () {
-    let ref_no = $(this).attr("data_ref_no");
+  // $(document).on("click", "#done", function () {
+  //   let ref_no = $(this).attr("data_ref_no");
 
-    console.log(ref_no);
+  //   console.log(ref_no);
 
-    $.ajax({
-      url: "fetchData.php",
-      method: "POST",
-      data: { done: 1, ref_no: ref_no },
-      success: function (data) {
-        console.log(data);
-      },
-    });
-  });
+  //   $.ajax({
+  //     url: "fetchData.php",
+  //     method: "POST",
+  //     data: { done: 1, ref_no: ref_no },
+  //     success: function (data) {
+  //       console.log(data);
+  //     },
+  //   });
+  // });
 
   $(document).on("click", "#consultation_submit", function () {
     const date = new Date();

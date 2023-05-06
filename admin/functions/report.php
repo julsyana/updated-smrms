@@ -29,15 +29,15 @@ function fetchConsult($conn){
    return $res;
 }
 
-function totalService($conn, $service){
+// function totalService($conn, $service){
 
-   $cnt = "SELECT * FROM `stud_appointment` WHERE `app_type` = '$service'";
-   $res = mysqli_query($conn, $cnt);
-   $total = mysqli_num_rows($res);
+//    $cnt = "SELECT * FROM `stud_appointment` WHERE `app_type` = '$service'";
+//    $res = mysqli_query($conn, $cnt);
+//    $total = mysqli_num_rows($res);
 
-   return $total;
+//    return $total;
 
-}  
+// }  
 
 
 function fetchMeds($conn){

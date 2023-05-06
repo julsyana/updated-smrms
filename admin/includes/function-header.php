@@ -58,9 +58,6 @@
 
    // select all student appointment
    $stud_app = fetchReport($conn);
-
-   $total_medical = totalService($conn, "Medical");
-   $total_dental = totalService($conn, "Dental");
    
 
 

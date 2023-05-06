@@ -3,24 +3,17 @@
     include "../includes/date.php";
     include "../functions/appointment.php";
 
-    $app_slot = $_POST['app_slot'];
     $app_type = $_POST['app_type'];
-    $app_date = $_POST['date_selected']; 
 
     try {
 
-        $app_id = "app".generateAppID(14);
+        $app_id = "se".generateAppID(14);
+
+        $idToUpper = strtoupper($app_id);
         
-        $insApp = insApp($conn, $app_id, $app_type, $date_today);
+        $insApp = insApp($conn, $idToUpper, $app_type, $date_today);
 
         if($insApp){
-
-            foreach($app_date as $i => $sched){
-
-                // echo "$app_id: $sched - $app_slot <br>";
-                insAppSched($conn, $app_id, $sched, $app_slot);
-
-            }
 
             ?>
 
@@ -37,7 +30,7 @@
             <script>
                 window.location.href = "./appointment.php";
             </script>
-            
+
             <?php 
 
         } else {

@@ -2,7 +2,7 @@
 
    include "../includes/db_con.php";
    include "../functions/student_function.php";
-   include "../functions/sendemail.php";
+   include "../functions/service.php";
 
    // error_reporting(0);
 
@@ -46,6 +46,9 @@
 
    // Student's Entrance log
    $sel_ent_log_stud = fetchentrancelog($conn, $stud_id);
+
+   // Select all services
+   $sel_services = selAllServices($conn);
 
    
 

@@ -13,7 +13,7 @@
    $studApp = fetchStudAppointment($conn, $stud_id, $ref_no);
    $studAppImages = fetchStudAppointmentImages($conn, $ref_no, $stud_id);
 
-   $appDate = $studApp['app_date'];
+   $appDate = $studApp['app_dates'];
    $appDate = new DateTime("$appDate");
    $appDate = $appDate->format("l, F d, Y");
 
@@ -75,19 +75,19 @@
                <label for=""> Time: </label>
    
                <div class="detail-label">
-                  <p> <?=$studApp['app_time']?> </p>
+                  <p> 7:00 AM - 5:00 PM </p>
                </div>
             </div>
                
    
          </div>
-   
+         <!--    
          <div class="app-qr">
             <div class="qr-handler">
               
                <img src="../app_qr/<?=$studApp['app_qr']?>" alt="">
             </div>
-         </div>
+         </div> -->
       </div>
    
       <div class="app-reason">
