@@ -36,26 +36,40 @@ a {
   color: #000;
 }
 
+.side-panel::-webkit-scrollbar{
+  width: 7px;
+}
+
+.side-panel::-webkit-scrollbar-track{
+  background: #577cdc;
+}
+
+.side-panel::-webkit-scrollbar-thumb {
+  background: #4462ac;
+  border-radius: 5em;
+}
+
 .side-panel {
   background-color: #577cdc;
-  height: 100%;
+  height: 100vh;
   width: 20%;
   color: #fff;
   font-size: 1rem;
   padding: 2%;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .side-panel .stud-profile {
   width: 100%;
-  height: 30%;
+  /* height: 30%; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  /* overflow-y: scroll; */
 }
 
 .side-panel .stud-profile .stud-image {

@@ -708,10 +708,11 @@
           
           <div class="modal fade"  id="email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-                      <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
                     <div class="modal-body d-grid justify-content-center">
                           <h4 class="fw-semibold text-center">SUCCESSFULLY SENT TO THE EMAIL OF BSIT DEPARTMENT!</h4>
                           <div class="container-fluid d-flex justify-content-center align-items-center">
@@ -864,50 +865,155 @@
     }
 
   } 
+  
 
-                            if(isset($_POST['appointment'])){
-                               $ref_no = $_POST['ref_no'];
-                               $info = "SELECT * FROM stud_appointment where reference_no = '$ref_no'";
-                                  $run_query = mysqli_query($conn1,$info) or die(mysqli_error($conn1));
-                                  
-                                  if(mysqli_num_rows($run_query) > 0){
-                                    while($row = mysqli_fetch_array($run_query)){
-                                      echo'
-                                      <div class="modal-view">
-                                        <div class="modal-header d-grid" id="modal-header">
-                                          <h1 class="modal-title fs-5" id="staticBackdropLabel">APPOINTMENT</h1>
-                                         <div> <span class="fw-semibold">Date of Application: </span><span>'.$row['date_apply'].'</span></div>
-                                        </div>
+  // view appointment details
+  if(isset($_POST['appointment'])){     // if appointment has value
 
-                                        <div class="modal-body" id="modal-body">
-                                            <div class="d-flex justify-content-between mb-2"><span class="fw-semibold">Type of Service:</span> <span>'.$row['app_type'].'</span></div>
-                                            <div class="d-flex justify-content-between mb-2" ><span class="fw-semibold" >Reference Number:</span> <span>'.$row['reference_no'].'</span></div>
-                                            <div class="d-flex justify-content-between mb-2"><span class="fw-semibold">Date: </span> <span>'.$row['app_date'].'</span></div>
-                                            <div class="d-flex justify-content-between mb-2"><span  class="fw-semibold">Time: </span> <span>'.$row['app_time'].'</span></div>
-                                            <hr/>
-                                            <h5>Reason</h5>
-                                            <span>'.$row['app_reason'].'</span>
-                                        </div>
+    $ref_no = $_POST['ref_no'];
 
-                                        <div class="modal-footer" id="modal-footer">
-                                          <a href="appointment.php"><button type="button" class="btn btn-secondary">Cancel</button></a> 
-                                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data_ref_no ="'.$row['reference_no'].'" aria-label="Close" id="done">Done</button>
-                                        </div>
-                                      </div>';
-                                      }
-                                   }
+    $info = "SELECT *, a.app_status as `appointment_status` FROM `stud_appointment` a
+    JOIN `mis.student_info` b
+    ON a.student_id = b.student_id
+    JOIN `appointment_dates` c
+    ON a.app_date_id = c.app_date_id
+    JOIN `appointment` d
+    ON a.se_id = d.app_id 
+    WHERE a.reference_no = '$ref_no'";
 
-                                
-                                }
-                                  if(isset($_POST['done'])){
-                                     $ref_no = $_POST['ref_no'];
-                                   
-                                     $info = "UPDATE `stud_appointment` SET app_status = 'Done' where  reference_no = '$ref_no'";
-                                    
-                                     $run_query = mysqli_query($conn1,$info) or die(mysqli_error($conn1));
-                                   }
-                           
-                          
+    $run_query = mysqli_query($conn1,$info) or die(mysqli_error($conn1));
+      
+    if(mysqli_num_rows($run_query) > 0){
+
+      while($row = mysqli_fetch_array($run_query)) {
+
+        $appDateFormat = $row['app_dates'];
+        $appDateFormat = new DateTime($appDateFormat);
+        $appDateFormat = $appDateFormat->format("l, F d, Y");
+        
+        $dateApplyFormat = $row['date_apply'];
+        $dateApplyFormat = new DateTime($dateApplyFormat);
+        
+        $dateApplyFormat = $dateApplyFormat->format("l, F d, Y h:i A");
+
+        ?>
+        
+        <div class="modal-view">
+
+          <div class="modal-header d-grid" id="modal-header">
+
+            <h1 class="modal-title fs-5" id="staticBackdropLabel"> APPOINTMENT </h1>
+
+            <div> 
+              <span class="fw-semibold"> Date of Application: </span><span> <?=$dateApplyFormat?>  </span>
+            </div>
+
+          </div>
+          
+          <div class="modal-body" id="modal-body">
+
+            <div class="d-flex justify-content-between mb-2">
+
+              <span class="fw-semibold"> Student name: </span> 
+
+              <span> <?=$row['lastname']?>, <?=$row['firstname']?> <?=$row['middlename']?> </span>
+
+            </div>
+
+
+            <div class="d-flex justify-content-between mb-2">
+
+              <span class="fw-semibold"> Type of Service: </span> 
+
+              <span> <?=$row['app_type']?> </span>
+
+            </div>
+
+            <div class="d-flex justify-content-between mb-2" >
+
+              <span class="fw-semibold" >Reference Number:</span>
+
+              <span> <?=$row['reference_no']?> </span>
+
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+
+              <span class="fw-semibold">Date: </span> 
+
+              <span> <?=$appDateFormat?> </span>
+
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <span  class="fw-semibold">Time: </span> 
+              <span> 7:00 AM - 5:00 PM </span>
+            </div>
+
+            <hr/>
+
+            <h5> Reason </h5>
+
+            <span> <?=$row['app_reason']?> </span>
+
+          </div>
+
+          <div class="modal-footer" id="modal-footer">
+
+            <div class="sample-message">
+
+            </div>
+
+          
+
+            <button type="button" class="btn btn-secondary" id="cancel"> Cancel </button>
+
+            <button type="button" class="btn btn-primary" data-ref_no ="<?=$row['reference_no']?>" id="done"> Attended </button>
+          </div>
+        </div>
+
+        <script>
+          
+          $('#cancel').click(function(){
+
+            window.location.href = "./appointment.php";
+            
+          });
+
+          $('#done').click(function(){
+
+            let ref_no = $(this).data('ref_no');
+
+            $.ajax({
+
+              url: "./process/appointment.php",
+              type: "POST",
+              data: {ref_no: ref_no}, 
+              success: function(data){
+
+                window.location.href = "./appointment.php";
+                
+              } 
+
+            })
+
+          });
+
+        
+          
+        </script>
+
+     
+        <?php 
+        
+
+  
+      }
+    }
+    
+  }
+  
+
   ?>
 
 

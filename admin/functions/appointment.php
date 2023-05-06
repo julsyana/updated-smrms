@@ -3,7 +3,7 @@
 
 function generateAppID($len){
 
-   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
    $code = '';
 
@@ -50,21 +50,23 @@ function selAppSched($conn, $appID){
 function insApp($conn, $appID, $appType, $dateFiled){
 
     $ins = "INSERT INTO `appointment`
-    (`app_id`, `app_type`, `date_filed`)
+    (`app_id`, `app_type`, `date_filed`, `status`)
     VALUES 
-    ('$appID', '$appType', '$dateFiled')";
+    ('$appID', '$appType', '$dateFiled', 1)";
 
     $res = mysqli_query($conn, $ins);
 
     return $res;
 }
 
-function insAppSched($conn, $appID, $appDates, $appSlot){
+
+
+function insAppSched($conn, $appDateID, $appID, $appDates, $appSlot, $dateAdded){
 
     $ins = "INSERT INTO `appointment_dates`
-    (`app_id`, `app_dates`, `app_slot`, `app_status`)
+    (`app_id`, `app_date_id`, `app_dates`, `app_slot`, `app_status`, `date_added`) 
     VALUES 
-    ('$appID', '$appDates', '$appSlot', 'on')";
+    ('$appDateID', '$appID', '$appDates', '$appSlot', 1, '$dateAdded')";
 
     $res = mysqli_query($conn, $ins);
 

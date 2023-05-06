@@ -8,7 +8,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title> SMRMS | ADMIN | Services </title>
+   <title> SMRMS | ADMIN | Dashboard </title>
    <?php include "../includes/head.php"; ?>
 
    <!-- custom css -->
@@ -102,7 +102,7 @@
             </li>
          </ul>
       </div>
-   </nav>   
+   </nav>
 
    <main>
 
@@ -113,7 +113,9 @@
          <div class="appointment-container">
 
             <div class="content-header">
-                  <h3> SERVICES </h3>
+                  <h3> SERVICES LIST </h3>
+               </select>
+
 
                <div class="form-button">
                 
@@ -134,12 +136,12 @@
 
                   <thead>
                      <tr> 
-                        <th> Service ID </th>
-                        <th> Service Type </th>
-                        <!-- <th> Status </th> -->
-                        <!-- <th> Date Scheduled </th> -->
                         <th> Date Created	</th>
-                        <th style="width: 20%; text-align: center;"> Action </th>
+                        <th> Service ID </th>
+                        <th> Type of Appointment </th>
+                        <th> Date Scheduled </th>
+                        <!-- <th width="10%"> Status </th> -->
+                        <th style="text-align:center"> Action </th>
                      </tr>
                   </thead>
                  
@@ -153,29 +155,49 @@
                               $date = $row['date_filed'];
                               $date = new DateTime($date);
                               $date = $date->format("F d, Y h:i A");
-
-                              if($row['status'] == 0){
-                                 $status = "off";
-                              } else {
-                                 $status = "on";
-                              }
                               
                            ?>
                            
                            <tr>
+                              <td> <?=$date?> </td>
                               <td> <?=$row['app_id']?> </td>
                               <td> <?=$row['app_type']?> Services	 </td>
-                              <!-- <td> <?=$status?> -->
-                              <td> <?=$date?> </td>
-                              
+                              <td class="sched"> 
+                                 <?php 
+
+                                    $sel = selAppSched($conn, $row['app_id']);
+
+                                    if(mysqli_num_rows($sel) > 0) {
+
+                                       while($rowSched = mysqli_fetch_assoc($sel)){
+
+                                          $dateSched = $rowSched['app_dates'];
+                                          $dateSched = new DateTime($dateSched);
+                                          $dateSched = $dateSched->format("m/d");
+
+                                          ?>
+
+                                             <div class="sched-date">
+                                                <?=$dateSched?>
+                                             </div>
+                                          <?php 
+
+                                       }
+                                    }
+                                 
+                                 ?>
+
+                              </td>     
+
                               <td>
                                  <div class="action-button">
-                                    <button id="edit-service" data-role="edit-se" data-se_id="<?=$row['app_id']?>"> <i class="fas fa-edit"></i> Edit </button>
+                                    <button id="app-edit" data-role="app-edit" data-id="<?=$row['app_id']?>">
+                                       <i class="fas fa-edit    "></i>
+                                    </button>
 
-                                    <a href="./service-list.php?id=<?=$row['app_id']?>"> 
-                                       <i class="fas fa-list"></i>
-                                       View list  
-                                    </a>
+                                    <!-- <button id="app-del" data-role="app-del" data-id="<?=$row['app_id']?>">
+                                    <i class="fas fa-trash-alt    "></i>
+                                    </button> -->
                                  </div>   
                               </td>
                            </tr>
@@ -200,9 +222,11 @@
 
       <!-- Modal -->
       <div id="modal-overlay-container" class="modal-overlay-container">
+
          <!-- Add new appointment -->
 
          <!-- Appointment Details -->
+
       </div>
 
 

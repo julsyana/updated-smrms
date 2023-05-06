@@ -140,7 +140,7 @@
 
                         while($row = mysqli_fetch_assoc($res_stud_appointment)) { 
                         
-                           $appointment_date = $row['app_date'];
+                           $appointment_date = $row['app_dates'];
                            $appointment_date = new DateTime("$appointment_date");
                            $appointment_date = $appointment_date->format("l, F d, Y");
                            
@@ -167,21 +167,21 @@
                         
                         <td> 
                            <div class="status"> 
-                              <?php if($row['app_status'] === 'scheduled') { ?>
+                              <?php if($row['appointment_status'] === 'scheduled') { ?>
 
-                                 <p style="color: var(--primary)"> <?=$row['app_status']?> </p>
+                                 <p style="color: var(--primary)"> <?=$row['appointment_status']?> </p>
                                  
-                              <?php } else if($row['app_status'] === 'completed') { ?>
+                              <?php } else if($row['appointment_status'] === 'attended') { ?>
 
-                                 <p style="color: var(--approve)"> <?=$row['app_status']?> </p>
+                                 <p style="color: var(--approve)"> <?=$row['appointment_status']?> </p>
 
-                              <?php } else if($row['app_status'] === 'cancelled') { ?>
+                              <?php } else if($row['appointment_status'] === 'cancelled') { ?>
 
-                                 <p style="color: var(--decline)"> <?=$row['app_status']?> </p>
+                                 <p style="color: var(--decline)"> <?=$row['appointment_status']?> </p>
 
                               <?php } else {?> 
 
-                                 <p style="color: var(--decline)"> <?=$row['app_status']?> </p>
+                                 <p style="color: var(--decline)"> <?=$row['appointment_status']?> </p>
                               
                               <?php }?>
                            </div>
@@ -196,7 +196,7 @@
 
                               <div class="form-button">
                                  <button id="appoint_cancel" data-role="cancel-appoint" data-ref_no="<?=$row['reference_no']?>"
-                                 <?php if($row['app_status'] == 'scheduled') { ?>
+                                 <?php if($row['appointment_status'] == 'scheduled') { ?>
                                     
 
                                  <?php } else { ?>

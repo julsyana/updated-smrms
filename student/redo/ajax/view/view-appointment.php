@@ -12,7 +12,7 @@
    $studApp = fetchStudAppointment($conn, $stud_id, $ref_no);
    $studAppImages = fetchStudAppointmentImages($conn, $ref_no, $stud_id);
 
-   $appDate = $studApp['app_date'];
+   $appDate = $studApp['app_dates'];
    $appDate = new DateTime("$appDate");
    $appDate = $appDate->format("l, F d, Y");
 
@@ -68,18 +68,18 @@
                <label for=""> Time: </label>
    
                <div class="detail-label">
-                  <p> <?=$studApp['app_time']?> </p>
+                  <p> 7:00 AM - 5:00 PM </p>
                </div>
             </div>
                
    
          </div>
    
-         <div class="app-qr">
+         <!-- <div class="app-qr">
             <div class="qr-handler">
               <img src="../app_qr/<?=$studApp['app_qr']?>" alt="">
            </div>
-         </div>
+         </div> -->
       </div>
    
       <div class="app-reason">
@@ -135,21 +135,21 @@
       <div class="app-status">
          <p> Status:
 
-            <?php if($studApp['app_status'] === 'scheduled') { ?>
+            <?php if($studApp['appointment_status'] === 'scheduled') { ?>
 
-               <span class="status" style="background-color: var(--primary)"> <?=$studApp['app_status']?> 
+               <span class="status" style="background-color: var(--primary)"> <?=$studApp['appointment_status']?> 
 
-            <?php } else if($studApp['app_status'] === 'completed') { ?>
+            <?php } else if($studApp['appointment_status'] === 'attended') { ?>
 
-               <span class="status" style="background-color: var(--approve)"> <?=$studApp['app_status']?> 
+               <span class="status" style="background-color: var(--approve)"> <?=$studApp['appointment_status']?> 
 
-            <?php } else if($studApp['app_status'] === 'cancelled') { ?>
+            <?php } else if($studApp['appointment_status'] === 'cancelled') { ?>
 
-               <span class="status" style="background-color: #878787"> <?=$studApp['app_status']?> 
+               <span class="status" style="background-color: #878787"> <?=$studApp['appointment_status']?> 
 
             <?php } else {?> 
 
-               <span class="status" style="background-color: var(--decline)"> <?=$studApp['app_status']?> 
+               <span class="status" style="background-color: var(--decline)"> <?=$studApp['appointment_status']?> 
 
             <?php }?>
 
