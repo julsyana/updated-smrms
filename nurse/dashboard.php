@@ -23,6 +23,17 @@ $nurse = mysqli_fetch_assoc($fetchNurseAccount);
 // $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` WHERE `emp_id` = '$emp_id' ORDER BY time DESC");
 $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC;");
 
+// SELECT ALL TODAY'S CONSULTATIONS
+$selConsult = "SELECT COUNT(*) as count FROM `consultations` a
+JOIN `nurses` b 
+ON a.`emp_id` = b.`emp_id`
+WHERE a.date_of_consultation = CURRENT_DATE();";
+
+$result = mysqli_query($conn1, $selConsult);
+
+$count = mysqli_fetch_assoc($result);
+$totalconsultation = $count['count'];
+
 
 ?>
 
@@ -154,7 +165,7 @@ $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC
           <div class="row d-flex">
             <div class="col-md-8">
 
-              <div class="px-3 rounded-3 d-flex align-items-center mt-3" style="background:#0C4079;">
+              <div class="px-3 rounded-3 d-flex align-items-center" style="background:#0C4079;">
 
                 <div class="position-relative" style="width:180px;height:150px;">
                   <img src="./assets/<?= $nurse['profile_pic'] ?>" class="position-absolute w-90 h-100">
@@ -170,7 +181,7 @@ $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC
                     <p><?= $nurse['position'] ?></p>
                   </div>
                   <div class="text-light text-center">
-                    <p class="fw-bold fs-2">20</p>
+                    <p class="fw-bold fs-2"><?=$totalconsultation?></p>
                     <p class="p-0">Consult Today</p>
                   </div>
                 </div>
@@ -252,15 +263,15 @@ $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC
                 </table>
               </div>
               <div class="d-flex justify-content-between mt-3">
-                <p class="fw-bold">ACTIVITY LOG</p>
+                <p class="fw-bold">LOGIN ACTIVITY</p>
 
               </div>
               <table class="table table-borderless">
                 <thead>
                   <tr class="text-light" style="background: #2D6DB2;">
                     <th scope="col">Date</th>
-                    <th scope="col">Time In</th>
-                    <th scope="col">Time Out</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Logout</th>
 
                   </tr>
                 </thead>
