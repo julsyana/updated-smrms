@@ -2,7 +2,7 @@
    include "../includes/header_process.php";
 
     // SELECT ALL ANNOUNCEMENT
-    $selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY time DESC");
+    $selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` WHERE `approve_status` = 'approved' ORDER BY time DESC");
    //  $selRemind = mysqli_query($profConn, "SELECT * FROM `reminders` WHERE `empid`");
    //  $selStud = mysqli_query($profConn, "SELECT * FROM `studacc` WHERE `stud_id`");
 
