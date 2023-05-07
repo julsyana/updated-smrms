@@ -16,10 +16,8 @@ $total = $count['count'];
 
 
 
-$sqlverfied = "SELECT COUNT(*) as count FROM `entrance_log` a
-JOIN `sample_stud_data` b 
-ON a.`student_number` = b.`student_id`
-WHERE b.`Status` = 'Cleared' AND a.logdate = CURRENT_DATE();";
+$sqlverfied = "SELECT COUNT(*) as count FROM `entrance_log`
+WHERE `Status` = 'Cleared' AND logdate = CURRENT_DATE();";
 
 $result1 = mysqli_query($conn, $sqlverfied);
 
