@@ -19,9 +19,12 @@ $emp_id = $_SESSION['emp_id'];
 $fetchNurseAccount = mysqli_query($conn1, "SELECT * FROM `nurses` WHERE emp_id = '$emp_id'");
 $nurse = mysqli_fetch_assoc($fetchNurseAccount);
 
+// SELECT ALL ANNOUNCEMENT
+$selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` WHERE `approve_status` = 'approved' ORDER BY date DESC");
+
 // SELECT ALL ANNOUNCEMENTS
 // $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` WHERE `emp_id` = '$emp_id' ORDER BY time DESC");
-$selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC;");
+// $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC;");
 
 // SELECT ALL TODAY'S CONSULTATIONS
 $selConsult = "SELECT COUNT(*) as count FROM `consultations` a
