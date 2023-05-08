@@ -22,6 +22,7 @@
 <html>
 <head>
 
+
 	<link rel="icon" type="image/png" href="./assets/favcon.png"/>
 	<title>SMRMS | ADMIN | LOGIN</title>
 	<link rel="stylesheet" type="text/css" href="./css/login.css">
@@ -30,44 +31,49 @@
 
 	<!-- ajax -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+	
 
 </head>
 <body>
-		 
+	
+<div class="header">
 
-         <!-- <div class="qcu-title">
-            <img src="./assets/QCUClinicLogo.png" alt="">
-            <h2> ADMIN LOGIN </h2>
-         </div> -->
+<div class="header-name">
+	<img src="./assets/QCUClinicLogo.png" alt="">
+	<h3>Student Medical Record Management System</h3>
+</div>
+
+</div>
+
+       
 
 	<form action="./process/login.php" method="post">
-	    <!--<div class="icon-holder">-->
-     <!--       <img class="icon-holder" src="./assets/settings-icon.png" alt="">-->
-     <!--    </div>-->
+	   
 
      	<div class="header_login">
-			<img src="./assets/QCUClinicLogo.png" alt="">
-			<!--<img class="icon-holder" src="./assets/settings-icon.png" alt="">-->
-			<p>ADMIN LOGIN</p>
+			<center><p>WELCOME BACK, LOGIN HERE!</p></center>
 		</div>
 		<div class="input_wrapper">
 			<?php if (isset($_SESSION['errMessage'])) { ?>
 				<p class="error"><?php echo $_SESSION['errMessage']; ?></p>
 			<?php } ?>
+			<div class="custom-select" style="width:200px;">
+				<select>
+					<option value="">Select role</option>
+					<option value="1">Head Nurse/Admin</option>
+					<option value="2">Nurse</option>
+				</select>
+			</div>
 			<div class="input">
 				<i class="fa fa-user" aria-hidden="true"></i>
-				<input type="text" name="uname" placeholder="Username">
+				<input type="text" name="uname" placeholder="Enter username">
 			</div>
-				<span></span>
+				<center><span></span></center>
 			<div class="input">
 				<i class="fa fa-lock" aria-hidden="true"></i>
-				<input type="password" name="password" id="floatingPassword" placeholder="Password">
+				<input type="password" name="password" id="floatingPassword" placeholder="Enter password">
 			</div>
-					 <div class="show-password" style="text-align: left;">
-                          <label for="show-pass" style="color: black; font-size: 15px;"> Show password  </label>
-                          <input type="checkbox" name="" id="show-pass" style="margin-top: -17px; margin-left: -20px" >
-                      </div>
-
                      <script> 
 
                         const pass = document.getElementById('floatingPassword');
@@ -90,15 +96,14 @@
 				<br>
 		</div>
 
-     		<button type="submit">LOGIN</button>
-
+     		<center><button type="submit">LOGIN</button></center>
 			<?php if(mysqli_num_rows($check_admin) > 0 ) { ?> 
 
-				<p style="color: #888; cursor:not-allowed;"> Create an account </p>
-
+				<p style="color: #888; cursor:not-allowed;"> Create an account<a href="#">Forget Password?</a></p>
+ 
 			<?php } else { ?>
 				
-				<center><a href="./registration.php" class="ca" disabled>Create an account</a> </center>
+				<center><p href="./registration.php" class="ca" disabled>Create an account<a href="#">Forget Password?</a></p></center>
 				
 			<?php } ?>
 			
@@ -117,3 +122,5 @@
 	unset($_SESSION['errMessage']);
 ?>
 </html>
+
+

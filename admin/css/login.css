@@ -1,12 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
+
+
+
+
 body {
-  background: #13182c;
+  background: #182039;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
   flex-direction: column;
+  padding: 0;
+  margin: 0;
 }
 
 * {
@@ -14,65 +19,56 @@ body {
   box-sizing: border-box;
 }
 
-/*form .icon-holder {*/
-/*  position: absolute;*/
-/*  top: 70px;*/
-/*  border-radius: 50%;*/
-/*  width: 80px;*/
-/*  height: 80px;*/
-/*  padding: 10px;*/
-/*  background-color: #182039;*/
-/*}*/
-/*form .icon-holder img {*/
-/*  width: 100%;*/
-/*  height: 100%;*/
-/*}*/
-
-/* .qcu-title {
-  text-align: center;
+.header{
+  width: 100%;
+  height: 15vh;
+  background-color: #13182C;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
+  padding: 10px 20px;
+  margin: 0;
+  top: 0;
 }
-.qcu-title h2 {
-  font-size: 1.1em;
-  letter-spacing: 1px;
+.header-name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.qcu-title img {
-  width: 40px;
-  margin-right: 10px;
-} */
+.header img{
+  width: 75px;
+  margin: 0 20px 0 50px;
+}
+.header h3{
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 600;
+}
 
 form {
-  width: 350px;
-  background: white;
+  width: 450px;
+  background: #1E2745;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 75px;
   /* border-radius: 10px; */
 }
 
 form .header_login {
-  background: #182039;
-  padding: 10px 20px;
+  background: #13182C;
+  padding: 20px 0 20px 40px;
   color: #dddddd;
-  font-size: 22px;
+  font-size: 12px;
   display: flex;
-  height: 100px;
+  height: 60px;
   align-items: center;
   /* border-radius: 10px; */
 }
 
-form .header_login img {
-  height: 50px;
-  width: auto;
-  margin-right: 55px;
-  margin-top: 20px;
-}
-
 form .header_login p {
-  font-size: 24px;
-  margin-top: 45px;
+  font-size: 20px;
+  
 }
 
 h2 {
@@ -85,13 +81,30 @@ form .input_wrapper {
 }
 form .input_wrapper span {
   display: block;
-  width: 100%;
+  width: 90%;
   height: 2px;
   background: #b9b9b9;
 }
 input::placeholder {
-  color: #000000;
+  color: #b9b9b9;
   opacity: 1; /* Firefox */
+}
+form .custom-select{
+  position: relative;
+}
+form .custom-select select{
+  width: 375px;
+  padding: 10px 10px 10px 20px;
+  margin: 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+}
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z' fill='%23212121'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
 }
 form .input {
   display: flex;
@@ -101,8 +114,9 @@ form .input i {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
-  color: #000000;
+  margin: 20px;
+  font-size: 20px;
+  color: #b9b9b9;
 }
 input {
   display: block;
@@ -110,26 +124,26 @@ input {
   outline: none;
   background: none !important;
   /* border-bottom: 1px solid #b9b9b9; */
-  color: #000000 !important;
-  font-size: 17px;
+  color: #ffffff !important;
+  font-size: 18px;
   font-weight: 400;
-  padding: 10px 0;
+  padding-left: 20px;
   width: 100%;
   margin: 5px auto;
 }
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
-  -webkit-text-fill-color: #6d6969;
+  -webkit-text-fill-color: #e6e6e6;
 }
 input:-webkit-autofill:focus {
   -webkit-box-shadow: /*your box-shadow*/ 0 0 0 50px white inset;
-  -webkit-text-fill-color: #6d6969;
+  -webkit-text-fill-color: #e6e6e6;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-box-shadow: 0 0 0 30px #1a2440 inset !important;
   color: #fff !important;
 }
 label {
@@ -147,13 +161,13 @@ input:-internal-autofill-selected {
   background: none !important;
 }
 button {
-  width: 100%;
-  float: right;
-  background: #182039;
-  padding: 10px 15px;
+  width: 375px;
+  background: #3E64FF;
+  padding: 10px;
   color: #fff;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 14px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
 }
