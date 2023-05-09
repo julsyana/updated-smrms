@@ -2,7 +2,7 @@ $(document).ready(function(){
 
    if($('#range').val() == '' && $('#type').val() == ''){
 
-      $('#report-content-container').html("Select type of report and date range.");
+      $('#report-content-container').html("<h1> Select type of report and date range. </h1>");
 
    }
 
@@ -45,11 +45,11 @@ $(document).ready(function(){
          
       } else if (range == '' && type != '') {
 
-         $('#report-content-container').html("Select date range");
+         $('#report-content-container').html("<h1> Select date range </h1>");
 
       } else {
 
-         $('#report-content-container').html("Select type of report and date range.");
+         $('#report-content-container').html("<h1> Select type of report and date range. </h1>");
 
       }
 
@@ -96,11 +96,11 @@ $(document).ready(function(){
          
       } else if (type == '' && range != '') {
 
-         $('#report-content-container').html("Select type");
+         $('#report-content-container').html("<h1> Select type of report </h1>");
 
       } else {
 
-         $('#report-content-container').html("Select type of report and date range.");
+         $('#report-content-container').html("<h1> Select type of report and date range. </h1>");
 
       }
 

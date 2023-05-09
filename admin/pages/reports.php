@@ -129,7 +129,6 @@
                      <option value=""> --Select date range-- </option>
                      <option value="monthly"> Monthly </option>
                      <option value="yearly"> Yearly </option>
-         
                   </select>
                </div>
             </div>

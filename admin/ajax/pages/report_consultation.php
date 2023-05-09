@@ -40,40 +40,15 @@
 <div class="report-box">
 
    <div class="report-header">
-      <h2> Students consultation report </h2>
+      <h2 style="text-transform:capitalize"> <?=$range?> Students consultation report </h2>
    </div>
-
-
-   <!-- <div class="graphical-data" id="graphical-data">
-      <div class="graph">
-         <div class="graph-title">
-            <h3> total number of appointments </h3>
-         </div>
-         
-         <div class="line-graph">
-            <canvas class="con-lineGraph"></canvas>
-         </div>
-
-         
-
-      </div>
-
-      <div class="graph">
-         <div class="graph-title">
-            <h3> services </h3>
-         </div>
-
-         <div class="pie-chart">
-            <canvas class="con-pieChart"></canvas>
-         </div>
-      </div>
-   </div> -->
 
    <div class="list-of-data-tbl" id="divToPrint">
       
       <table border="0">
          <thead>
             <tr> 
+               <th> No. </th>
                <th> Student Name </th>
                <th> Gender </th>
                <th> Course </th>
@@ -84,20 +59,23 @@
                <th> Nurse Assisted </th>
                <th> Campus </th>
                <th> Date of Consultation </th>
-               <!-- <th> Remarks </th> -->
             </tr>
          </thead>
 
          <tbody>
             <?php 
                if(mysqli_num_rows($stud_app) > 0){
+                  $count = 1;
                   while($row = mysqli_fetch_assoc($stud_app)){
 
-                  
+                     $date_consult = $row['date_of_consultation'];
+                     $date_consult = new DateTime($date_consult);
+                     $date_consult = $date_consult->format("F d, Y");
 
                      ?>
                      
                         <tr> 
+                           <td> <?=$count?> </td>
                            <td> <?=$row['s_lname']?>, <?=$row['s_fname']?> <?=$row['mi']?>.  </td>
                            <td> <?=$row['s_gender']?> </td>
                            <td> <?=$row['code']?> </td>
@@ -107,13 +85,12 @@
                            <td> <?=$row['quantity']?> </td>
                            <td> <?=$row['firstname']?> <?=$row['lastname']?>, RN </td>
                            <td> <?=$row['branch']?> </td>
-                           <td> <?=$row['date_of_consultation']?> </td>
-                           
-                           <!-- <td style="text-transform: capitalize"> <?=$row['app_status']?> </td> -->
+                           <td> <?=$date_consult?> </td>
                         </tr>
                      
                      
                      <?php
+                     $count++;
 
 
                   }
