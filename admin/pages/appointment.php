@@ -136,9 +136,8 @@
                      <tr> 
                         <th> Service ID </th>
                         <th> Service Type </th>
-                        <!-- <th> Status </th> -->
-                        <!-- <th> Date Scheduled </th> -->
                         <th> Date Created	</th>
+                        <th style="text-align: center;"> Status </th>
                         <th style="width: 20%; text-align: center;"> Action </th>
                      </tr>
                   </thead>
@@ -164,18 +163,39 @@
                            
                            <tr>
                               <td> <?=$row['app_id']?> </td>
-                              <td> <?=$row['app_type']?> Services	 </td>
-                              <!-- <td> <?=$status?> -->
+                              <td> <?=$row['app_type']?> </td>
                               <td> <?=$date?> </td>
+                              <td style="text-align: center;"> <?=$status?> </td>
                               
                               <td>
                                  <div class="action-button">
                                     <button id="edit-service" data-role="edit-se" data-se_id="<?=$row['app_id']?>"> <i class="fas fa-edit"></i> Edit </button>
 
-                                    <a href="./service-list.php?id=<?=$row['app_id']?>"> 
-                                       <i class="fas fa-list"></i>
-                                       View list  
-                                    </a>
+                                    <?php
+                                       if($row['status'] == 0){
+
+                                          ?>
+
+                                          <a class="disabled"> 
+                                             <i class="fas fa-list"></i>
+                                             View list  
+                                          </a>
+
+                                          <?php
+                                          
+
+                                       } else {
+                                          ?>
+
+                                          <a href="./service-list.php?id=<?=$row['app_id']?>"> 
+                                             <i class="fas fa-list"></i>
+                                             View list  
+                                          </a>
+
+                                          <?php
+                                       }
+                                    ?>
+                                   
                                  </div>   
                               </td>
                            </tr>

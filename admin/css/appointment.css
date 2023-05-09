@@ -98,9 +98,9 @@
   tr
   td
   .action-button {
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  grid-gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .appointment-container
@@ -127,12 +127,24 @@
 }
 
 .appointment-container .appointment-list-container table
-  tbody
-  tr
-  td
-  .action-button
-  a:hover {
-    background-color: var(--secondaryColor);
+tbody
+tr
+td
+.action-button
+a:hover {
+  background-color: var(--secondaryColor);
+  
+}
+
+.appointment-container .appointment-list-container table
+tbody
+tr
+td
+.action-button
+a.disabled{
+
+  background-color: #adadad;
+  cursor: not-allowed;
 }
 
 .appointment-container .appointment-list-container table tbody tr td .action-button button {
@@ -356,24 +368,234 @@
   color: var(--successBgButton);
 }
 
+
+
+
+
+
+
+
 /* edit */
 
 .modal-overlay-container
-  .edit-appointment-container
-  > div
-  .app-dates-tbl
-  tr
-  th {
-  text-align: center;
+.edit-appointment-container{
+  /* background-color: red; */
+  padding: 0;
+}
+
+
+.modal-overlay-container
+.edit-appointment-container .modal-header{
+  /* background-color: red; */
+  padding: 3% 4%;
+  border-bottom: 1px solid #0003;
 }
 
 .modal-overlay-container
-  .edit-appointment-container
-  > div
-  .form-button
-  button#edit-app-save {
-  background-color: var(--primaryBgButton);
+.edit-appointment-container .modal-content form .se-details{
+  border-bottom: 1px solid #0003;
+  padding: 2% 4%;
 }
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .se-details .form-input{
+  margin: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: red; */
+  padding: 0;;
+  
+}
+
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status{
+  border-bottom: 1px solid #0003;
+  padding: 2% 4%;
+}
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .form-input{
+  margin: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: red; */
+  padding: 0;
+}
+
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .form-input select{
+  padding: 4px 10px;
+  margin-left: 10px;
+}
+
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email {
+  margin-top: 10px;
+  height: max-content;
+  max-height: 200px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 1%;
+}
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email ul li {
+  /* list-style: none; */
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email ul li .student{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email ul li .student p{
+  font-size: .9em;
+} 
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email ul li .student .profile{
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.modal-overlay-container
+.edit-appointment-container .modal-content form .app-status .students-email ul li .student .profile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover ;
+}
+
+
+.modal-overlay-container
+.edit-appointment-container
+> div form
+.form-button{
+  margin: 0;
+  padding:  4%;
+}
+
+
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save {
+  background-color: var(--primaryBgButton);
+
+}
+
+
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save:hover{
+  background-color: var(--hoverButton);
+}
+
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#archive-app-btn{
+  background-color: var(--alertBgButton);
+}  
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#archive-app-btn:hover{
+  background-color: var(--hoverAlertButton);
+}
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save .loader{
+  width: 20px;
+  width: 20px;
+  overflow: hidden;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+
+
+.loader{
+  width: 20px;
+  width: 20px;
+  overflow: hidden;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+
+
+.loader img{
+  width: 100%;
+  height: 100%;
+  
+}
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save .loader img{
+  width: 100%;
+  height: 100%;
+  
+}
+
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-save:disabled{
+  background-color: #b8b8b8;
+  cursor: not-allowed;
+}
+
+.modal-overlay-container
+.edit-appointment-container
+> div
+.form-button
+button#edit-app-cancel:disabled{
+  background-color: #b8b8b8;
+  cursor: not-allowed;
+}
+
 
 
 .modal-overlay-container .new-appointment-container{
@@ -395,7 +617,7 @@
   width: 100%;
   height: 100%;
 
-  display: flex;
+  display: none;
   align-items: flex-start;
   justify-content: center;
 
@@ -557,7 +779,28 @@
   flex-wrap: wrap;
 }
 
+.service-list-container .se-date > div .date-student .student-list .student{
+  position: relative;
+  /* background-color: red; */
+}
 
+.service-list-container .se-date > div .date-student .student-list .student:hover .hover{
+  display: flex;
+}
+
+.service-list-container .se-date > div .date-student .student-list .student .hover{
+  position: absolute;
+  top: -80%;
+  left: -20%;
+
+  display: none;
+  background-color: rgba(61, 61, 61, 0.482);
+  width: max-content;
+  padding: 5px;
+  border-radius: 3px;
+  color: #fff;
+  z-index: 1;
+}
 
 .service-list-container .se-date > div .date-student .student-list .stud-img{
   width: 40px;
@@ -570,7 +813,9 @@
   align-items: center;
   justify-content: center;
   background-color: var(--primaryBgButton);
+  
 }
+
 
 .service-list-container .se-date > div .date-student .student-list .stud-img p{
   font-size: .8em;
@@ -618,7 +863,223 @@
 }
 
 
+.service-list-container .se-date .date-action .cancel-app button.add-slot-btn:disabled{
+  background-color: #b4b4b4;
+  cursor: not-allowed;
+}
+
 .service-list-container .se-date .date-action .cancel-app button:disabled{
   background-color: #b4b4b4;
   cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* cancel appointment modal */
+
+.cancel-appointment-overlay{
+  position: fixed;
+  background-color: #0003;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: 1;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.cancel-appointment-overlay > div{
+  background-color: #fff;
+  width: 50%;
+  height: max-content;
+  /* max-height: 80%; */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cancel-appointment-overlay > div > form > div{
+  border-bottom: 1px solid #0003;
+  padding: 3% 4%;
+  font-size: 1em;
+}
+
+.cancel-appointment-overlay > div > form > .modal-header{
+  background-color: #e1e6e9;
+}
+
+.cancel-appointment-overlay > div > form > .modal-header p{
+  font-size: 1.2em;
+}
+
+.cancel-appointment-overlay > div > form > .modal-header span{
+  font-size: .9em;
+}
+
+.cancel-appointment-overlay > div > form > .list-of-students{
+  padding: 0;
+}
+
+.cancel-appointment-overlay > div > form > .list-of-students p{
+  padding: 2% 4%;
+  font-weight: 500;
+}
+
+.cancel-appointment-overlay > div > form > .list-of-students .students-list{
+
+  padding: 2% 4%;
+  height: max-content;
+  max-height: 150px;
+  overflow: hidden;
+  overflow: scroll;
+}
+
+.cancel-appointment-overlay > div > form > .list-of-students .students-list ol li{
+  list-style: none;
+  margin-bottom: 2%;
+  /* background-color: red; */
+}
+
+
+.cancel-appointment-overlay > div > form > .cancel-reason .form-input{
+  display: flex;
+  flex-direction: column;
+
+}
+.cancel-appointment-overlay > div > form > .form-button{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
+.cancel-appointment-overlay > div > form > .form-button button{
+  font-size: .9em;
+  padding: 10px 20px;
+  background-color: var(--alertBgButton);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all ease-out .2s;
+  margin-left: 5px;
+}
+
+.cancel-appointment-overlay > div > form > .form-button button:first-child{
+  background-color: rgb(202, 202, 202)
+}
+
+
+.cancel-appointment-overlay > div > form > .form-button button#yes-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+
+.cancel-appointment-overlay > div > form > .form-button button:disabled{
+  background-color: #b4b4b4;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+/* add slot modal */
+.add-slot-overlay{
+  position: fixed;
+  z-index: 1;
+  background-color: #0003;
+  top:0 ;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.add-slot-overlay > div{
+  background-color: #fff;
+  border-radius: 4px;
+  width: 40%;
+}
+
+.add-slot-overlay > div > div{
+  padding: 3% 4%;
+  border-bottom: 1px solid #0003;
+}
+
+
+.add-slot-overlay > div > .modal-header{
+  background-color: #e2e7ec;
+}
+
+
+.add-slot-overlay > div > .modal-header span{
+  font-size: .8em;
+}
+
+.add-slot-overlay > div > .modal-header p{
+  font-size: 1.1em;
+}
+
+.add-slot-overlay > div > .add-slot-content .form-input{
+  display: grid;
+  grid-template-columns: 40% 30%;
+  margin-bottom: 5px;
+  align-items: center;
+
+}
+
+.add-slot-overlay > div > .add-slot-content .form-input input{
+  padding: 5px 12px;
+  font-size: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.521);
+  border-radius: 3px;
+  outline: none;
+}
+
+
+.add-slot-overlay > div > .add-slot-content .form-input input:disabled{
+  background-color: #d5d5d5;
+  border: 1px solid rgba(0, 0, 0, 0.248);
+}
+
+
+.add-slot-overlay > div > .form-button{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-slot-overlay > div > .form-button button{
+  background-color: #afafaf;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  margin-right: 5px;
+  border-radius: 3px;
+  transition: all ease-out 0.2s;
+  cursor: pointer;
+}
+
+.add-slot-overlay > div > .form-button button:last-child{
+  background-color: var(--primaryBgButton);
 }

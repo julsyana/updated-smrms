@@ -117,7 +117,24 @@
 
                   <h2> Appointment List </h2>
 
-                  <a href="./appointment.php"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Appointment </a>
+                  <?php
+                  
+                     if(mysqli_num_rows($sel_services) == 0){
+
+                        ?>
+                           <a class="disabled"> <i class="fa fa-plus" aria-hidden="true" ></i> Add New Appointment </a>
+                        <?php 
+                  
+                     } else {
+
+                        ?>
+                        <a href="./appointment.php"> <i class="fa fa-plus" aria-hidden="true"></i> Add New Appointment </a>
+                     <?php 
+
+                     }
+                  ?>
+
+               
                </div>
 
                <table>
@@ -146,6 +163,8 @@
                            
                            $conDate = strtotime($row['date_apply']); 
                            $formattedDate = date('F d, Y g:i A', $conDate);
+
+                           $appID = $row['se_id'];
                         ?>
 
                      <tr>
@@ -157,10 +176,11 @@
                            </div>
                         <td> 
                            <div class="type">
-
-                              <?=$row['app_type']?> Service 
-                              
+                            
+                              <?=$row['app_type']?> 
+                            
                            </div>
+                           
                         </td>
                         <td> <?=$row['reference_no']?> </td>
                         <td> <?=$appointment_date?></td>

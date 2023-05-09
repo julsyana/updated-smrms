@@ -6,8 +6,8 @@
    // select all student appointment
    $stud_app = fetchReport($conn);
 
-   $total_medical = totalService($conn, "Medical");
-   $total_dental = totalService($conn, "Dental");
+   // $total_medical = totalService($conn, "Medical");
+   // $total_dental = totalService($conn, "Dental");
 
 
 ?>
@@ -67,9 +67,9 @@
                               if(mysqli_num_rows($stud_app) > 0){
                                  while($row = mysqli_fetch_assoc($stud_app)){
 
-                                    $app_date = $row['app_date'];
-                                    $app_date = new DateTime($app_date);
-                                    $app_date = $app_date->format("F d, Y");
+                                    $app_dates = $row['app_dates'];
+                                    $app_dates = new DateTime($app_dates);
+                                    $app_dates = $app_dates->format("F d, Y");
 
                                     ?>
                                     
@@ -80,7 +80,7 @@
                                           <td> <?=$row['section']?> </td>
                                           <td> <?=$row['app_type']?> Service </td>
                                           <!-- <td> <?=$row['app_reason']?> </td> -->
-                                          <td> <?=$app_date?> </td>
+                                          <td> <?=$app_dates?> </td>
                                           <td> <?=$row['app_time']?> </td>
                                           <!-- <td>  </td> -->
                                           <td> <?=$row['branch']?> </td>

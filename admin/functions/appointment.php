@@ -27,13 +27,57 @@ function selApp($conn, $appID){
     return $app;
 }
 
+function selStudPerDate($conn, $dateID){
 
-function selAllApp($conn){
-    $sel = "SELECT * FROM `appointment` ORDER BY `id` DESC";
+    $sel = "SELECT * FROM `stud_appointment` a
+    JOIN `appointment_dates` b
+    ON a.app_date_id = b.app_date_id
+    JOIN `mis.student_info` c
+    ON a.student_id = c.student_id
+    WHERE a.app_date_id = '$dateID' AND b.app_dates >= CURDATE();";
 
     $res = mysqli_query($conn, $sel);
 
     return $res;
+
+}
+
+function selStudPerService($conn, $appID){
+
+    $sel = "SELECT DISTINCT(b.email), b.*, d.app_type FROM `stud_appointment` a
+    JOIN `mis.student_info` b
+    ON a.student_id = b.student_id
+    JOIN `appointment_dates` c
+    ON a.se_id = c.app_id
+    JOIN `appointment` d
+    ON a.se_id = d.app_id
+    WHERE a.se_id = '$appID' AND c.app_dates > CURDATE() AND a.app_status != 'attended' AND c.app_status = 1;";
+
+    $res = mysqli_query($conn, $sel);
+
+    return $res;
+
+}
+
+
+function selAllApp($conn){
+    $sel = "SELECT * FROM `appointment`  
+    ORDER BY `appointment`.`status` DESC, `appointment`.`id` DESC;";
+
+    $res = mysqli_query($conn, $sel);
+
+    return $res;
+}
+
+function selAppDate($conn, $dateID){
+
+    $sel = "SELECT * FROM `appointment_dates` WHERE app_date_id = '$dateID';";
+
+    $res = mysqli_query($conn, $sel);
+
+    $result = mysqli_fetch_assoc($res);
+
+    return $result;
 }
 
 
@@ -72,6 +116,8 @@ function insAppSched($conn, $appDateID, $appID, $appDates, $appSlot, $dateAdded)
 
     return $res;
 }
+
+
 
 
 ?>
