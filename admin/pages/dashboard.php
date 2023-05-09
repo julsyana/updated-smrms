@@ -1,8 +1,10 @@
 <?php
    include "../includes/function-header.php";
+   // include "../functions/dashboard.php";
    $id = $_SESSION['user_id'];
    // $emp_id = $_SESSION['emp_id'];
-
+   $base_url = 'http://localhost/updated-smrms';
+   //  $base_url = 'https://qcu-smrms.site';
 
    
 // SELECT ALL ANNOUNCEMENTS
@@ -257,9 +259,64 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                                             <h5> 
                                                 <img src="../assets/<?=$row['image']?>" width="30" height="40" alt="" />
                                                 <span style="margin-right: auto; font-size: 14px;"> &nbsp; <?=$row['firstname']?> <?=$row['lastname']?>, RN </span>
+                                                <span class="date-time"> <b><?=$row['approve_status'] == ""? "new" : $row['approve_status']?></b>&nbsp;</span>
                                                 <span class="date-time"> <?=$row['date']?> <?=$row['time']?></span>
                                             </h5>
                                             <p style="margin-left: auto; margin-top: -20px; font-size: 12px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
+                                            <div>
+                                             <?php 
+                                               if($row["approve_status"] == ""){
+                                                ?>
+                                                   <div class="div_approve_status_actions_container">
+                                                      <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=approve&postID=".$row['id']."&status=approved`" ?>">Approve</button>
+                                                      <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=decline&postID=".$row['id']."&status=declined`" ?>">Decline</button>
+                                                   </div>
+                                                <?php
+                                               }
+                                               else{
+                                                if($row["approve_status"] == "approved"){
+                                                   ?>
+                                                      <div class="div_approve_status_actions_container">
+                                                         <button class="btn_revert" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=revert&postID=".$row['id']."&status=pending`" ?>">Revert</button>
+                                                         <button class="btn_decline">Delete</button>
+                                                         <button class="btn_edit">Edit</button>
+                                                      </div>
+                                                   <?php
+                                                }
+                                                else if($row["approve_status"] == "new"){
+                                                   ?>
+                                                      <div class="div_approve_status_actions_container">
+                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=approve&postID=".$row['id']."&status=approved`" ?>">Approve</button>
+                                                         <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=decline&postID=".$row['id']."&status=declined`" ?>">Decline</button>
+                                                      </div>
+                                                   <?php
+                                                }
+                                                else if($row["approve_status"] == "pending"){
+                                                   ?>
+                                                      <div class="div_approve_status_actions_container">
+                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=approve&postID=".$row['id']."&status=approved`" ?>">Approve</button>
+                                                         <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=decline&postID=".$row['id']."&status=declined`" ?>">Decline</button>
+                                                      </div>
+                                                   <?php
+                                                }
+                                                else if($row["approve_status"] == "declined"){
+                                                   ?>
+                                                      <div class="div_approve_status_actions_container">
+                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=approve&postID=".$row['id']."&status=approved`" ?>">Approve</button>
+                                                      </div>
+                                                   <?php
+                                                }
+                                                else{
+                                                   ?>
+                                                      <div class="div_approve_status_actions_container">
+                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=approve&postID=".$row['id']."&status=approved`" ?>">Approve</button>
+                                                         <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=decline&postID=".$row['id']."&status=declined`" ?>">Decline</button>
+                                                      </div>
+                                                   <?php
+                                                }
+                                               }
+                                             ?>
+                                            </div>
                                         </div>
                                  <?php }
                                 } ?>

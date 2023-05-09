@@ -458,6 +458,63 @@
   width: 50px;
 }
 
+.div_approve_status_actions_container{
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.btn_revert{
+  background-color: orange;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.btn_edit{
+  background-color: rgb(255, 115, 0);
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.btn_approve{
+  background-color: lime;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.btn_decline{
+  background-color: red;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
 @media screen and (max-width: 1280px) {
   .dashboard .dashboard_container {
     display: grid;

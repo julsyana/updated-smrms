@@ -18,7 +18,7 @@
         $announce = $_POST['announcement'];
         echo $announce;
 
-        $ins = mysqli_query($conn1, 'INSERT INTO `announce` (`emp_id`, `position`, `lastname`, `firstname`, `announcement`, `image`, `date`, `time`) VALUES ("'.$emp_id.'", "'.$position.'" , "'.$lname.'" , "'.$fname.'", "'.$announce.'", "'.$img.'", "'.$dateNow.'", "'.$timeNow.'")');
+        $ins = mysqli_query($conn1, 'INSERT INTO `announce` (`emp_id`, `position`, `lastname`, `firstname`, `announcement`, `image`, `date`, `time`, `approve_status`) VALUES ("'.$emp_id.'", "'.$position.'" , "'.$lname.'" , "'.$fname.'", "'.$announce.'", "'.$img.'", "'.$dateNow.'", "'.$timeNow.'", "new")');
 
         if($ins){
             header("location:../dashboard.php?Inserted Successfuly!");
