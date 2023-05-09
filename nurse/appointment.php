@@ -158,14 +158,14 @@ include('./includes/db_conn.php');
               <a href="medicines.php" class="nav-link"><span class="fx-5 fw-800 text-light"> <i class="fa fa-medkit mx-2" aria-hidden="true"></i><span>Medicines</span></span></a>
             </li>
   
-            <li class="px-4 w-100 mb-1 nav-item tab py-2">
+            <!-- <li class="px-4 w-100 mb-1 nav-item tab py-2">
               <a href="Report.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-book mx-2"></i><span>Reports</span></span></a>
             </li>
   
             <li class="px-4 w-100 mb-1 nav-item tab py-2">
               <a href="activityLog.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-history mx-2"></i><span>Activity Log</span></span></a>
             </li>
-            
+             -->
             <li id="account_btn" class="px-4 w-100 mb-1 nav-item tab py-2 position-relative">
   
               <div class="nav-link">

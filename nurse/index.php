@@ -10,7 +10,7 @@
 
   if(!empty($emp_id)) {
 
-	header("location: ./nurseDashboard.php");
+	header("location: ./dashboard.php");
 	 
   }
 

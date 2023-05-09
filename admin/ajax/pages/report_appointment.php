@@ -44,7 +44,7 @@
 <div class="report-box">
 
    <div class="report-header">
-      <h2> Appointments report </h2>
+   <h2 style="text-transform:capitalize"> <?=$range?> Appointments report </h2>
    </div>
 
    <div class="list-of-data-tbl" id="divToPrint">
@@ -52,6 +52,7 @@
       <table border="0">
          <thead>
             <tr> 
+               <th> No. </th>
                <th> Student Name </th>
                <th> Gender </th>
                <th> Course </th>
@@ -66,31 +67,38 @@
          <tbody>
             <?php 
                if(mysqli_num_rows($stud_app) > 0){
+                  $count = 1;
                   while($row = mysqli_fetch_assoc($stud_app)){
 
                      $app_dates = $row['app_dates'];
                      $app_dates = new DateTime($app_dates);
                      $app_dates = $app_dates->format("F d, Y");
 
+                     $dateApply = $row['date_apply'];
+                     $dateApply = new DateTime($dateApply);
+                     $dateApply = $dateApply->format("F d, Y");
+
                      ?>
                      
                         <tr> 
+                           <td> <?=$count?></td>
                            <td> <?=$row['lastname']?>, <?=$row['firstname']?> <?=$row['mi']?>.  </td>
                            <td> <?=$row['gender']?> </td>
-                           <td> <?=$row['program']?> </td>
+                           <td> <?=$row['code']?> </td>
                            <td> <?=$row['section']?> </td>
                            <td> <?=$row['app_type']?> Service </td>
                          
-                           <td> <?=$app_dates?> 7:00 AM - 5:00 PM  </td>
+                           <td> <?=$app_dates?> </td>
                           
                          
                            <td> <?=$row['branch']?> </td>
-                           <td> <?=$row['date_apply']?> </td>
+                           <td> <?=$dateApply?> </td>
                           
                         </tr>
                      
                      
                      <?php
+                     $count++;
 
 
                   }

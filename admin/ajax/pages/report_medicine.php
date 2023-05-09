@@ -38,7 +38,7 @@
 <div class="report-box">
 
    <div class="report-header">
-      <h2> Medicines report </h2>
+   <h2 style="text-transform:capitalize"> <?=$range?> Medicines report </h2>
    </div>
 
    <div class="list-of-data-tbl" id="divToPrint">
@@ -46,6 +46,7 @@
       <table border="0">
          <thead>
             <tr> 
+               <th> No. </th>
                <th> Medicine/Supply </th>
                <th> Expiration Date </th>
                <th> Total Quantity</th>
@@ -59,6 +60,7 @@
          <tbody>
             <?php 
                if(mysqli_num_rows($medicineRes) > 0){
+                  $count = 1;
                   while($row = mysqli_fetch_assoc($medicineRes)){
 
                      
@@ -76,6 +78,7 @@
                      ?>
                      
                         <tr> 
+                           <td> <?=$count?></td>
                            <td> <?=$row['name']?> </td>
                            <td> <?=$expDate?></td>
                            <td> <?=$totalQty['total']?> </td>
@@ -89,6 +92,7 @@
                      
                      
                      <?php
+                     $count++;
 
 
                   }
