@@ -6,7 +6,12 @@ function fetchReport($conn){
    ON a.student_id = b.student_id
    JOIN `mis.enrollment_status` c
    ON a.student_id = c.student_id
-   ORDER BY a.id DESC LIMIT 5";
+   JOIN `appointment_dates` d
+   ON a.app_date_id = d.app_date_id
+   JOIN `appointment` e
+   ON a.se_id = e.app_id
+   WHERE a.app_status = 'attended'
+   ORDER BY a.id DESC;";
 
    $res = mysqli_query($conn, $sel);
    
@@ -42,7 +47,7 @@ function fetchConsult($conn){
 
 function fetchMeds($conn){
 
-   $cnt = "SELECT DISTINCT(name),expirationDate FROM `medicine`";
+   $cnt = "SELECT DISTINCT(name), expirationDate FROM `medicine`";
    $res = mysqli_query($conn, $cnt);
    // $total = mysqli_num_rows($res);
 

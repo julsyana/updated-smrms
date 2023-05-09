@@ -3,6 +3,7 @@
    include "../includes/db_conn.php";
    include "../functions/function.php";
    include "../functions/medicine.php";
+   include "../includes/date.php";
 
    $randomNum = generateID(4);
 
@@ -26,7 +27,7 @@
 
       $qr_code = generateQR($tempDir, $med_id);
    
-      $insMed = insertMed($conn, $med_id, $med_name, $med_qty, $med_expDate, $med_desc, $file_name, $med_camp, $qr_code);
+      $insMed = insertMed($conn, $med_id, $med_name, $med_qty, $med_expDate, $med_desc, $file_name, $med_camp, $qr_code, $curr_date);
 
       if($insMed){
 
