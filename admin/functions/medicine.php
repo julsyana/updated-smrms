@@ -22,11 +22,11 @@ function fetchSelMedicine($conn, $prodID){
 
 
 
-function insertMed($conn, $medID, $medName, $medQty, $expDate, $medDesc, $imgName, $medCampus, $qrCode) {
+function insertMed($conn, $medID, $medName, $medQty, $expDate, $medDesc, $imgName, $medCampus, $qrCode, $dateToday) {
 
    $ins = "INSERT INTO `medicine`
    (`prod_id`, `name`, `image`, `num_stocks`, `expirationDate`, `description`, `campus`, `qr_code`) VALUES
-   ('$medID','$medName','$imgName','$medQty','$expDate','$medDesc','$medCampus','$qrCode')";
+   ('$medID','$medName','$imgName','$medQty','$expDate','$medDesc','$medCampus','$qrCode', '$dateToday')";
 
    $res = mysqli_query($conn, $ins);
 

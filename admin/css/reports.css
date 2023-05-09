@@ -161,19 +161,3 @@
   color: var(--primaryBgButton);
 }
 
-
-
-
-
-
-/* print */
-
-@media print{
-  body{
-    display: none;
-  }
-
-  .report-box{
-    display: flex;
-  }
-}
