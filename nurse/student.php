@@ -245,10 +245,6 @@ $fetchStudsAccount = mysqli_query($conn1, $fetchStudents);
 
           </div>
 
-
-          <!-- PRINT OR DOWNLOAD MODAL -->
-
-
 </body>
 <script src="./ajax/search_appointments.js"> </script>
 <script src="./ajax/search_medreq.js"> </script>
