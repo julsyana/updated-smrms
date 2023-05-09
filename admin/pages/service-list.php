@@ -1,13 +1,29 @@
 <?php
    include "../includes/function-header.php";
+
    $serviceID = $_GET['id'];
 
+   if(empty($serviceID)){
+      header("location: ./appointment.php");
+   }
+
    $serviceRes = selApp($conn, $serviceID);
+
+   if($serviceRes['status'] == 0){
+
+      header("location: ./appointment.php");
+
+   }
+
+
+   $time = date("h:i A");
+   $datetoday = date("Y-m-d");
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+   
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -140,7 +156,7 @@
                   $selSeDates = "SELECT * FROM `appointment_dates` a 
                   JOIN `appointment` b
                   ON a.app_id = b.app_id
-                  WHERE a.app_id = '$serviceID' AND a.app_dates > CURDATE()
+                  WHERE a.app_id = '$serviceID'
                   ORDER BY a.app_status DESC, a.app_dates ASC";
 
                   $resSeDates = mysqli_query($conn, $selSeDates);
@@ -164,15 +180,8 @@
 
                         $dateID = $row['app_date_id'];
 
-                        $selStud = "SELECT c.* FROM `stud_appointment` a 
-                        JOIN `appointment_dates` b
-                        ON a.app_date_id = b.app_date_id
-                        JOIN `mis.student_info` c
-                        ON a.student_id = c.student_id
-                        WHERE a.app_date_id = '$dateID';";
 
-                        $resStud = mysqli_query($conn, $selStud);
-
+                        $resStud = selStudPerDate($conn, $dateID);
                         ?>
 
                         <div class="se-date">
@@ -199,9 +208,21 @@
                                              if($counter < 10) {
 
                                                 ?> 
+
+                                                <div class="student">
+
                                                    <div class="stud-img">
                                                       <img src="../assets/<?=$studRow['id_image']?>" alt="">
                                                    </div>
+                                                   
+                                                   <div class="hover">
+                                                      <span> <?=$studRow['email']?> </span>
+                                                   </div>
+
+                                                </div>
+                                                  
+
+                                                  
 
                                                 <?php 
 
@@ -243,13 +264,18 @@
 
                                  <?php 
                                     if($row['app_status'] == 1){
+
+                                       
                                        ?> 
-                                          <button class="add-slot-btn"> <i class="fas fa-plus-circle    "></i> Add slot </button> 
-                                          <button> Cancel Appointment </button>
+                                          <button class="add-slot-btn" data-role='add-slot' data-date_id="<?=$dateID?>"> <i class="fas fa-plus-circle"></i> Add slot </button>
+
+                                          <button id="cancel-date" data-role='cancel-date' data-date_id="<?=$dateID?>"> Cancel Appointment </button>
                                        <?php
+
                                     } else {
                                        ?> 
-                                          <button class="add-slot-btn" disabled> <i class="fas fa-plus-circle    "></i> Add slot </button> 
+                                          <button class="add-slot-btn" disabled> <i class="fas fa-plus-circle"></i> Add slot </button> 
+
                                           <button disabled> <i class="fas fa-times-circle    "></i> Appointment Cancelled </button> 
                                        <?php
                                     }
@@ -298,7 +324,7 @@
 
                <div class="form-input">
                   <label for="se-slot"> Slots <span>*</span> </label>
-                  <input type="number" name="se_slot" id="se-slot" min="1" value="100" max="100" required style="display: block;">
+                  <input type="number" name="se_slot" id="se-slot" min="1" value="30" max="30" required style="display: block;">
                </div>
 
                <div class="form-input">
@@ -321,6 +347,16 @@
       </div>
 
 
+      <!-- Modal for canceling appointment -->
+      <div class="cancel-appointment-overlay">
+      </div>
+
+
+      <!-- slot modal -->
+      <div class="add-slot-overlay" id="add-slot-overlay">
+      </div>
+
+
 
    </main>
    
@@ -330,6 +366,7 @@
 
 <script>
 
+   
    var existingDates = <?=json_encode($exisDate)?>
 
    function rmydays(date) {
@@ -357,12 +394,13 @@
 <script>
    $(document).ready(function(){
 
-      $('.add-service-dates-modal').hide();
+      
 
       $('.add-service-date').click(function(){
 
          // $('.add-service-dates-modal').modal(2000);
          $('.add-service-dates-modal').show();
+         $('.add-service-dates-modal').css('display', 'flex');
 
       });
 
@@ -423,6 +461,45 @@
 
       });
       
+      $('button[data-role=cancel-date]').click(function(){
+
+         let date_id = $(this).data('date_id');
+         const se_id = "<?=$serviceID?>"
+
+         $('.cancel-appointment-overlay').css('display', 'flex');
+
+         $.ajax({
+            url: "../ajax/pages/student-per-date.php",
+            type: "POST",
+            data: {
+               date_id: date_id,
+               se_id: se_id
+            },
+
+            success: function(data){
+
+               $('.cancel-appointment-overlay').html(data);
+            }
+         });
+
+
+      });
+
+
+      $('.add-slot-btn[data-role=add-slot]').click(function(){
+
+         let date_id = $(this).data('date_id');
+
+         // alert('add slot');
+
+         $('#add-slot-overlay').css('display', 'flex');
+
+         $('#add-slot-overlay').load('../modals/add-slot_modal.php',{
+            date_id: date_id,
+         });
+
+      });
+
    });
 </script>
 

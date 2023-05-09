@@ -49,7 +49,7 @@ function fetchAllStudAppointment($conn, $StudId){
    JOIN `appointment` c
    ON b.app_id = c.app_id
    WHERE a.student_id = '$StudId'
-   ORDER BY a.app_status DESC, b.app_dates ASC;";
+   ORDER BY  a.app_status DESC, a.date_apply DESC;";
 
    $result = mysqli_query($conn, $SelQuerry);
 

@@ -991,7 +991,9 @@
               data: {ref_no: ref_no}, 
               success: function(data){
 
-                window.location.href = "./appointment.php";
+                $('.sample').html(data);
+
+                // window.location.href = "./appointment.php";
                 
               } 
 
