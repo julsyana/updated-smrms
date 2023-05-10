@@ -2,6 +2,7 @@
 
    include "../../includes/db_con.php";
    include "../../functions/student_function.php";
+   include "../../functions/nurse.php";
    session_start();
 
    $ref_no = $_POST['ref_no'];
@@ -20,6 +21,8 @@
    $dateApply = new DateTime("$dateApply");
    $dateApply = $dateApply->format("F d, Y h:i A");
 
+   $nurse_id = $studApp['processed_by'];
+   $nurse = selNurse($conn, $nurse_id);
   
 ?>
 
@@ -137,26 +140,28 @@
 
             <?php if($studApp['appointment_status'] === 'scheduled') { ?>
 
-               <span class="status" style="background-color: var(--primary)"> <?=$studApp['appointment_status']?> 
+               <span class="status" style="background-color: var(--primary)"> <?=$studApp['appointment_status']?> </span>
 
             <?php } else if($studApp['appointment_status'] === 'attended') { ?>
 
-               <span class="status" style="background-color: var(--approve)"> <?=$studApp['appointment_status']?> 
+               <span class="status" style="background-color: var(--approve)"> <?=$studApp['appointment_status']?> </span>  <p style="margin-left: 5px; font-size: .9em;"> Processed by RN. <b> <?=$nurse['firstname']?> <?=$nurse['lastname']?> </b></p> 
+         
 
             <?php } else if($studApp['appointment_status'] === 'cancelled') { ?>
 
-               <span class="status" style="background-color: #878787"> <?=$studApp['appointment_status']?> 
+               <span class="status" style="background-color: #878787"> <?=$studApp['appointment_status']?> </span>
 
             <?php } else {?> 
 
-               <span class="status" style="background-color: var(--decline)"> <?=$studApp['appointment_status']?> 
+               <span class="status" style="background-color: var(--decline)"> <?=$studApp['appointment_status']?>  </span>
 
             <?php }?>
 
-            </span>
+            
 
          </p>
-         
+
+        
       </div>
    
       <div class="form-button">

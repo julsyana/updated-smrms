@@ -29,6 +29,15 @@ main .container .appointment-list-container .appointment-list .add-new-app a{
    transition: all ease-in .4s;
 }
 
+main .container .appointment-list-container .appointment-list .add-new-app a.disabled{
+   background-color: #cacaca;
+   cursor: not-allowed;
+}
+
+main .container .appointment-list-container .appointment-list .add-new-app a.disabled:hover{
+   background-color: #cacaca;
+}
+
 main .container .appointment-list-container .appointment-list .add-new-app a:hover{
    background-color: var(--hover);
 }

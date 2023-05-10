@@ -2,12 +2,12 @@
    include "../includes/header_process.php";
 
     // SELECT ALL ANNOUNCEMENT
-    $selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` WHERE `approve_status` = 'approved' ORDER BY `date` DESC, `time` DESC;");
+    $selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` WHERE `approve_status` = 'approved' ORDER BY date DESC");
    //  $selRemind = mysqli_query($profConn, "SELECT * FROM `reminders` WHERE `empid`");
    //  $selStud = mysqli_query($profConn, "SELECT * FROM `studacc` WHERE `stud_id`");
 
     // SELECT ALL ANNOUNCMENTS
-   //  $fetchAllAnnouncement = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY `date` desc ");
+    $fetchAllAnnouncement = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY `date` desc;");
 
     $dateToday = date('m-d-y');
     $day = date("d");
@@ -18,7 +18,7 @@
     $dateNow = "$month $day, $year";
 
       //SELECT ALL ANNOUNCEMENT TODAY
-     $fetchAnnouncementToday = mysqli_query($conn, "SELECT * FROM `announce` WHERE `date` = '$dateNow'");
+     $fetchAnnouncementToday = mysqli_query($conn, "SELECT * FROM `announce` WHERE `date` = '$dateNow';");
 
      $todaysAnnouncement = mysqli_fetch_assoc($fetchAnnouncementToday);
 

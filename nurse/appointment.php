@@ -1,20 +1,18 @@
 <?php
-session_start();
+  session_start();
 
-if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
-  //redirect to login
-  header("location: index.php");
-}
-
+  if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
+    //redirect to login
+    header("location: index.php");
+  }
 
 
 ?>
 
 
 <?php
+
 include('./includes/db_conn.php');
-
-
 
     // SELECT ALL STUDENTS 
     $fetchAllAppointments = mysqli_query($conn1, "SELECT *, a.app_status as `appointment_status` FROM `stud_appointment` a
@@ -24,11 +22,11 @@ include('./includes/db_conn.php');
     ON a.app_date_id = c.app_date_id
     JOIN `appointment` d
     ON a.se_id = d.app_id
-    WHERE a.app_status = 'scheduled'
+    WHERE a.app_status = 'scheduled' AND c.app_dates = CURDATE()
     ORDER BY a.date_apply DESC;");
 
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -160,14 +158,14 @@ include('./includes/db_conn.php');
               <a href="medicines.php" class="nav-link"><span class="fx-5 fw-800 text-light"> <i class="fa fa-medkit mx-2" aria-hidden="true"></i><span>Medicines</span></span></a>
             </li>
   
-            <li class="px-4 w-100 mb-1 nav-item tab py-2">
+            <!-- <li class="px-4 w-100 mb-1 nav-item tab py-2">
               <a href="Report.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-book mx-2"></i><span>Reports</span></span></a>
             </li>
   
             <li class="px-4 w-100 mb-1 nav-item tab py-2">
               <a href="activityLog.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-history mx-2"></i><span>Activity Log</span></span></a>
             </li>
-            
+             -->
             <li id="account_btn" class="px-4 w-100 mb-1 nav-item tab py-2 position-relative">
   
               <div class="nav-link">
@@ -205,7 +203,7 @@ include('./includes/db_conn.php');
 
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 bg-body-secondary p-2 rounded-2">
 
-              <span class="fw-bold fs-5 text-uppercase"> APPOINTMENTS LIST </span>
+              <span class="fw-bold fs-5 text-uppercase"> APPOINTMENTS TODAY <span class="sample"> </span></span>
 
               <div class="d-flex gap-2 ">
 

@@ -1,128 +1,119 @@
 <?php
    include "../../includes/db_conn.php";
    include "../../functions/report.php";
+   include "../../includes/date.php";
 
+   $range = $_POST['range'];
 
-   // select all student appointment
-  $medicineRes = fetchMeds($conn);
-  
+   $query = "SELECT DISTINCT(name), expirationDate, `date_added` FROM `medicine` WHERE";
+
+   switch ($range){
+      case "monthly": {
+
+         $fromDate = date('Y-m-d', strtotime('-30 days'));
+         $today = date("Y-m-d");
+
+         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+
+         break;
+      }
+
+      case "yearly": {
+         $fromDate = date('Y-m-d', strtotime('-365 days'));
+         $today = date("Y-m-d");
+
+         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+         break;
+      }
+   }
+
+   $query .= " ORDER BY `expirationDate` ASC";
+
+   $medicineRes =  mysqli_query($conn, $query);
+   
 
 
 ?>
 
-               <div class="report-box">
+<div class="report-box">
 
-                  <div class="report-header">
-                     <h2> Medicines report </h2>
-                  </div>
+   <div class="report-header">
+   <h2 style="text-transform:capitalize"> <?=$range?> Medicines report </h2>
+   </div>
 
+   <div class="list-of-data-tbl" id="divToPrint">
+      
+      <table border="0">
+         <thead>
+            <tr> 
+               <th> No. </th>
+               <th> Medicine/Supply </th>
+               <th> Expiration Date </th>
+               <th> Total Quantity</th>
+               <th> SB (San Bartolome) </th>
+               <th> BAT (Batasan) </th>
+               <th> SF (San Fransisco) </th>
+               <th> Date added </th>
+            </tr>
+         </thead>
 
-                  <!-- <div class="graphical-data" id="graphical-data">
-                     <div class="graph">
-                        <div class="graph-title">
-                           <h3> total number of appointments </h3>
-                        </div>
-                        
-                        <div class="line-graph">
-                           <canvas class="con-lineGraph"></canvas>
-                        </div>
+         <tbody>
+            <?php 
+               if(mysqli_num_rows($medicineRes) > 0){
+                  $count = 1;
+                  while($row = mysqli_fetch_assoc($medicineRes)){
 
-                        
-
-                     </div>
-
-                     <div class="graph">
-                        <div class="graph-title">
-                           <h3> services </h3>
-                        </div>
-
-                        <div class="pie-chart">
-                           <canvas class="con-pieChart"></canvas>
-                        </div>
-                     </div>
-                  </div> -->
-
-                  <div class="list-of-data-tbl" id="divToPrint">
                      
-                     <table border="0">
-                        <thead>
-                           <tr> 
-                              <th> Medicine/Supply </th>
-                              <th> Expiration Date </th>
-                              <th> Total Quantity</th>
-                              <!-- <th> Total of Left Medicines </th>
-                              <th> Total of Reduced Medicines </th> -->
-                              <th> SB (San Bartolome) </th>
-                              <th> BAT (Batasan) </th>
-                              <th> SF (San Fransisco) </th>
-                           </tr>
-                        </thead>
+                     $totalQty = totalQty($conn, $row['name']);
 
-                        <tbody>
-                           <?php 
-                              if(mysqli_num_rows($medicineRes) > 0){
-                                 while($row = mysqli_fetch_assoc($medicineRes)){
+                     $dateAdded = $row['date_added'];
+                     $dateAdded = new DateTime($dateAdded);
+                     $dateAdded = $dateAdded->format('F d, Y');
 
-                                    // $sanBartolome = totalBranch($conn, $row['campus']);
-                                    $totalQty = totalQty($conn, $row['name']);
-                                    
+                     $expDate = $row['expirationDate'];
+                     $expDate = new DateTime($expDate);
+                     $expDate = $expDate->format('F d, Y');
+                     
 
-                                    // $app_date = $row['app_date'];
-                                    // $app_date = new DateTime($app_date);
-                                    // $app_date = $app_date->format("F d, Y");
-
-                                    ?>
-                                    
-                                       <tr> 
-                                          <td> <?=$row['name']?> </td>
-                                          <td> <?=$row['expirationDate']?></td>
-                                          <td> <?=$totalQty['total']?> </td>
-                                          <!-- <td>  Service </td>
-                                          <td>  </td> -->
-                                          <td> <?=$totalQty['sanBartolome']?> </td>
-                                          <td> <?=$totalQty['batasan']?> </td>
-                                          <td> <?=$totalQty['sanFrancisco']?> </td>
-                                          <!-- <td> , RN </td> -->
-                                          <td style="text-transform: capitalize">  </td>
-                                       </tr>
-                                    
-                                    
-                                    <?php
-
-
-                                 }
-
-                              } else {
-
-                              }
-                           ?>
+                     ?>
+                     
+                        <tr> 
+                           <td> <?=$count?></td>
+                           <td> <?=$row['name']?> </td>
+                           <td> <?=$expDate?></td>
+                           <td> <?=$totalQty['total']?> </td>
+                          
+                           <td> <?=$totalQty['sanBartolome']?> </td>
+                           <td> <?=$totalQty['batasan']?> </td>
+                           <td> <?=$totalQty['sanFrancisco']?> </td>
                            
-                        </tbody>
-                     </table>
-                  </div>
+                           <td style="text-transform: capitalize"> <?=$dateAdded?> </td>
+                        </tr>
+                     
+                     
+                     <?php
+                     $count++;
 
-               
 
-               </div>
+                  }
 
-               <div class="form-button">
-                  <button id="printAppointment" onclick="PrintDiv();"> <i class="fas fa-print"></i> Print </button> 
-                  or 
-                  <a href="#"> <i class="fa fa-download" aria-hidden="true"></i> Download </a>
-               </div>
+               } else {
 
-<script type="text/javascript">     
-    function PrintDiv() {    
-       var divToPrint = document.getElementById('divToPrint');
-       var popupWin = window.open('', '_blank', 'width=300,height=300');
-       popupWin.document.open();
-       popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
-        popupWin.document.close();
-            }
- </script>
+               }
+            ?>
+            
+         </tbody>
+      </table>
+   </div>
 
-<!-- charts -->
-<?php
-   include "../../js/charts/line-chart.php";
-   include "../../js/charts/pie-chart.php";
-?>
+</div>
+
+<div class="form-button">
+   <button id="printAppointment"> <i class="fas fa-print"></i> Print </button> 
+</div>
+
+<script>
+   $('#printAppointment').click(function(){
+      window.open('../print_details.php?type=medicine&range=<?=$range?>', '_blank');
+   });
+</script>

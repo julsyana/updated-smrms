@@ -1,5 +1,12 @@
 <?php
    include "../includes/header_process.php";
+
+   if(mysqli_num_rows($sel_services) == 0){
+
+      header("location: ./appointment-list.php");
+
+   }
+
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +126,7 @@
          <div class="appointment-details-container">
 
             <div class="link-header">
-               <h3> <a href="./appointment-list.php"> Appointment List</a> > Add New Appointment <span id="sample-mess"></span></h3>
+               <h3> <a href="./appointment-list.php"> Appointment List</a> > Add New Appointment </h3>
             </div>
 
             <div class="appointment-detail">
@@ -277,6 +284,13 @@
 
          if(se_date != ''){
 
+            $('.loader').show();
+            
+            $('#submit-btn-text').text('Sending Email...');
+
+            $('#submit-btn').attr('disabled', true);
+            $('#close-modal-message').attr('disabled', true);
+
 
             $.ajax({
 
@@ -288,19 +302,13 @@
                cache: false,
                success: function(data){
 
-                 
                   window.location.href = "./appointment.php?mess=success";               
                },
 
             });
 
 
-            $('.loader').show();
-
-            $('#submit-btn-text').text('Sending Email...');
-
-            $('#submit-btn').attr('disabled', true);
-            $('#close-modal-message').attr('disabled', true);
+         
 
 
 

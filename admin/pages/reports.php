@@ -63,19 +63,19 @@
 
             <li>
                <a href="./nurses.php">
-                  <i class="fas fa-user-shield    "></i> Nurses
+                  <i class="fas fa-user-shield"></i> Nurses
                </a>
             </li>
 
             <li>
                <a href="./hospital.php">
-                  <i class="fas fa-hospital    "></i> Hospital
+                  <i class="fas fa-hospital"></i> Hospital
                </a>
             </li>
 
             <li>
                <a href="./medicine.php">
-                  <i class="fas fa-medkit    "></i> Medicines
+                  <i class="fas fa-medkit "></i> Medicines
                </a>
             </li>
 
@@ -119,32 +119,21 @@
 
                <div class="form-button">
                   <select name="" id="type">
-                     <option value="Consultation"> Consultation </option>
-                     <option value="Appointments"> Appointments </option>
-                     <option value="Medicine"> Medicine </option>
+                     <option value=""> --Select type of report-- </option>
+                     <option value="consultation"> Consultation </option>
+                     <option value="appointments"> Appointments </option>
+                     <option value="medicine"> Medicine </option>
                   </select>
 
-                  <select name="" id="">
-                     <option value=""> Campus </option>
-                     <option value="San Fransisco"> San Bartolome </option>
-                     <option value="Batasan"> Batasan </option>
-                     <option value="San Fransisco"> San Fransisco </option>
+                  <select name="" id="range">
+                     <option value=""> --Select date range-- </option>
+                     <option value="monthly"> Monthly </option>
+                     <option value="yearly"> Yearly </option>
                   </select>
-
-                  <input type="number" maxlength="4" minlength="4" min="2005" max="2023" step="1" value="2023" />
-
-                  
-
                </div>
-
-               
-              
             </div>
             
             <div class="report-content-container" id="report-content-container">
-
-            
-                  
 
             </div>
             
@@ -155,14 +144,6 @@
    </main>
    
 </body>
-
-
-<!-- charts -->
-<?php
-   include "../js/charts/line-chart.php";
-   include "../js/charts/pie-chart.php";
-
-?>
 
 <!-- ajax -->
 <script src="../ajax/report.js"></script>

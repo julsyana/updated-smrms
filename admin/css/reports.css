@@ -32,69 +32,56 @@
   /* display: flex; */
   background-color: #fff;
   width: 100%;
-  height: 90%;
+  height: max-content;
+  max-height: 90%;
   padding: 1% 2%;
-  overflow: hidden;
 }
 
+.report-container .report-content-container > h1{
+  font-weight: 400;
+  color: rgb(184, 184, 184);
+  font-size: 1.2em;
+  text-align: center;
+  text-transform: capitalize;
+}
 
 
 
 .report-container .report-content-container .report-box{
-  /* background-color: aliceblue; */
-  /* padding: 2px; */
   width: 100%;
   height: 100%;
- 
-
 }
+
+
 
 
 .report-container .report-content-container .report-box .report-header{
   text-align: center;
   text-transform: uppercase;
   color: #2282DC;
+  padding: 10px;
 }
 
-.report-container .report-content-container .report-box .graphical-data{
-  display: grid;
-  grid-template-columns: 55% auto;
-  grid-gap: 50px;
-  margin-bottom: 10px;
+.report-container .report-content-container .report-box .list-of-data-tbl::-webkit-scrollbar{
+  width: 6px;
+  border-radius: 6px;
 }
 
-.report-container .report-content-container .report-box .graphical-data .graph{
-  display: grid;
-  grid-template-rows: 10% auto;
-  width: 100%;
-  height: max-content;
- 
-  
+.report-container .report-content-container .report-box .list-of-data-tbl::-webkit-scrollbar-track{
+  background: #ffffff;
 }
 
-.report-container .report-content-container .report-box .graphical-data .graph .line-graph{
-  background-color: #fff;
-  width: 100%;
-  height: 280px;
+.report-container .report-content-container .report-box .list-of-data-tbl::-webkit-scrollbar-thumb{
+  background: #3e65ffb1;
 }
-
-
-.report-container .report-content-container .report-box .graphical-data .graph .pie-chart{
-  background-color: #fff;
-  width: 100%;
-  height: 280px;
-}
-
-.report-container .report-content-container .report-box .graphical-data .graph .graph-title h3{
-  text-transform: capitalize;
-  font-size: 1em;
-
-}
-
 
 .report-container .report-content-container .report-box .list-of-data-tbl{
-  /* background-color: #b55c5c; */
+  height: max-content;
+  max-height: 65vh;
+  overflow: hidden;
+  overflow-y: scroll;
 }
+
 
 .report-container .report-content-container .report-box .list-of-data-tbl table{
   width: 100%;
@@ -161,19 +148,3 @@
   color: var(--primaryBgButton);
 }
 
-
-
-
-
-
-/* print */
-
-@media print{
-  body{
-    display: none;
-  }
-
-  .report-box{
-    display: flex;
-  }
-}

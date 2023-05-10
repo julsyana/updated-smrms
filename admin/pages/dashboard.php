@@ -3,7 +3,7 @@
    // include "../functions/dashboard.php";
    $id = $_SESSION['user_id'];
    // $emp_id = $_SESSION['emp_id'];
-   $base_url = 'http://localhost:8080/updated-smrms';
+   $base_url = 'http://localhost/updated-smrms';
    //  $base_url = 'https://qcu-smrms.site';
 
    

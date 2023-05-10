@@ -11,7 +11,7 @@
   ON a.app_date_id = c.app_date_id
   JOIN `appointment` d
   ON a.se_id = d.app_id
-  WHERE a.app_status = 'scheduled'";
+  WHERE a.app_status = 'scheduled' AND c.app_dates = CURDATE()";
 
   switch ($sort){
 
