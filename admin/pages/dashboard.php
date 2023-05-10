@@ -8,7 +8,7 @@
 
    
 // SELECT ALL ANNOUNCEMENTS
-$selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY date DESC;");
+$selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY  `date` DESC, `time` DESC;");
 
 // SELECT ALL NURSES
 // $fetchNurseAccount = mysqli_query($conn, "SELECT * FROM `nurses` WHERE emp_id = '$emp_id'");
@@ -257,12 +257,13 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                                     while ($row = $selAnnounce -> fetch_assoc()){ ?>
                                         <div class="announce-prof">
                                             <h5> 
-                                                <img src="../assets/<?=$row['image']?>" width="30" height="40" alt="" />
-                                                <span style="margin-right: auto; font-size: 14px;"> &nbsp; <?=$row['firstname']?> <?=$row['lastname']?>, RN </span>
+                                                <img src="../assets/<?=$row['image']?>" width="50" height="50" alt="" />
+                                                <span style="margin-right: auto; font-size: 14px; font-weight: 600;"> &nbsp; <?=$row['firstname']?> <?=$row['lastname']?>, RN </span>
                                                 <span class="date-time"> <b><?=$row['approve_status'] == ""? "new" : $row['approve_status']?></b>&nbsp;</span>
                                                 <span class="date-time"> <?=$row['date']?> <?=$row['time']?></span>
                                             </h5>
-                                            <p style="margin-left: auto; margin-top: -20px; font-size: 12px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
+                                            <br>
+                                            <p style="margin-left: auto; margin-top: -20px; font-size: 14px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
                                             <div>
                                              <?php 
                                                if($row["approve_status"] == ""){
@@ -278,8 +279,8 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                                                    ?>
                                                       <div class="div_approve_status_actions_container">
                                                          <button class="btn_revert" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=revert&postID=".$row['id']."&status=pending`" ?>">Revert</button>
+                                                         <button class="btn_approve">Edit</button>
                                                          <button class="btn_decline">Delete</button>
-                                                         <button class="btn_edit">Edit</button>
                                                       </div>
                                                    <?php
                                                 }
