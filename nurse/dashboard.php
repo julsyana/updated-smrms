@@ -21,7 +21,7 @@ $nurse = mysqli_fetch_assoc($fetchNurseAccount);
 
 // SELECT ALL ANNOUNCEMENTS
 // $selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` WHERE `emp_id` = '$emp_id' ORDER BY time DESC");
-$selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY date DESC;");
+$selAnnounce = mysqli_query($conn1, "SELECT * FROM `announce` ORDER BY `date` DESC, `time` DESC;");
 
 // SELECT ALL TODAY'S CONSULTATIONS
 $selConsult = "SELECT COUNT(*) as count FROM `consultations` a
@@ -225,11 +225,12 @@ $totalconsultation = $count['count'];
                                     while ($row = $selAnnounce -> fetch_assoc()){ ?>
                                         <div class="announce-prof">
                                             <h5> 
-                                                <img src="./assets/<?=$row['image']?>" width="30" height="40" alt="" />
-                                                <span style="margin-right: auto; font-size: 14px;"> &nbsp; <?=$row['firstname']?> <?=$row['lastname']?>, RN </span>
+                                                <img src="./assets/<?=$row['image']?>"  width="50" height="50" alt="" />
+                                                <span style="margin-right: auto; font-size: 14px; font-weight: 600;"> &nbsp; <?=$row['firstname']?> <?=$row['lastname']?>, RN </span>
                                                 <span class="date-time"> <?=$row['date']?> <?=$row['time']?></span>
                                             </h5>
-                                            <p style="margin-left: auto; font-size: 12px; margin-top: -18px; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
+                                            <br>
+                                            <p style="margin-left: auto; font-size: 16px; margin-top: -18px; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
                                         </div>
                                  <?php }
                                 } ?>

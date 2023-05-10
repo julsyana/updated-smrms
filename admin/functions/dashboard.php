@@ -4,7 +4,7 @@ echo "<p>loading...</p>";
 
 if($_GET['action'] == "approve"){
 
-   $base_url = 'http://localhost/updated-smrms';
+   $base_url = 'http://localhost:8080/updated-smrms';
 
 // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
    $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
@@ -24,8 +24,8 @@ if($_GET['action'] == "approve"){
 
 if($_GET['action'] == "decline"){
 
-    // $base_url = 'http://localhost/updated-smrms';
-    $base_url = 'https://qcu-smrms.site';
+    $base_url = 'http://localhost:8080/updated-smrms';
+   //  $base_url = 'https://qcu-smrms.site';
  
  // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
     $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
@@ -45,7 +45,7 @@ if($_GET['action'] == "decline"){
 
  if($_GET['action'] == "revert"){
 
-    $base_url = 'http://localhost/updated-smrms';
+    $base_url = 'http://localhost:8080/updated-smrms';
  
  // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
     $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
