@@ -40,7 +40,7 @@
    <link rel="icon" type="image/png" href="../../assets/favcon.png"/> <!-- Icon -->
    <link rel="stylesheet" href="../css/style.css">
    <link rel="stylesheet" href="../css/dashboard.css">
-   <title> SMRMS | STUDENT | Personal Information </title>
+   <title> SMRMS | STUDENT | Dashboard </title>
 </head>
 <body>
 
@@ -148,8 +148,8 @@
                                     while ($row = $selAnnounce -> fetch_assoc()){ ?>
                                         <div class="announce-prof">
                                             <h5> 
-                                                <img src="../../assets/<?=$row['image']?>" width="30" height="40" alt="" />
-                                                <span style="margin-right: auto; margin-top: 10px; font-size: 17px;"> &nbsp; <?=$row['position']?> <?=$row['firstname']?> <?=$row['lastname']?> posted </span>
+                                                <img src="../../assets/<?=$row['image']?>" width="50" height="50" alt="" />
+                                                <span style="margin-right: auto; margin-top: 10px; font-size: 16px;"> &nbsp; <?=$row['position']?> <?=$row['firstname']?> <?=$row['lastname']?> posted </span>
                                                 <span class="date-time"> <?=$row['date']?> <?=$row['time']?></span>
                                             </h5>
                                             <p style="margin-left: auto; font-size: 18px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?=$row['announcement'];?> </p>
