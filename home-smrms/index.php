@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="./assets/favcon.png"/>
     <title>SMRMS | Quezon City University</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
     <div class="header">
@@ -16,7 +17,10 @@
           </div>
 
           <div id="icon">
-            <a href="../student/redo/student-login.php"><button class="sigin">SIGIN</button></a>
+            <a href="../student/redo/student-login.php"><button class="sigin">SIGN IN</button></a>
+            <a href="../admin/index.php"><i class="fa-solid fa-circle-user"></i></a> 
+            <a href="../entrance/entrance-dashaboard.php"><i class="fa-sharp fa-solid fa-camera-web"></i></a> 
+            
           </div>
       </div>
 
@@ -24,15 +28,12 @@
           <div class="content-1">
               <div class="con-text">
                   <div class="text-content">
-                    <p><span class="title-text">Medical and Dental Services</span><br> <span style="font-size: 22px;">The SCHOOL CLINIC is responsible for safe-guarding the health of the students and employees of Quezon City University.</span></p>
+                    <p><span class="title-text">Medical and Dental Services</span><br> <span>The SCHOOL CLINIC is responsible for safe-guarding the <br> health of the students and employees of  <br> Quezon City University.</span></p>
                     <a href="../student/redo/register.php"><button>Register Here</button></a>
                   </div>
               </div>
-              <div class="con-img">
-                <img src="./assets/QCUClinicLogo.png" alt="" style="
-                    margin: auto;
-  display: block;padding: 80px 0;
-                    width: 45%;">
+              <div class="con-img spin">
+                <img src="./assets/QCUClinicLogo.png" alt="">
               </div>
           </div>
 

@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: #EBEBEB;
+    background-color: #ffffff;
 }
 .header{
     width: 100%;
@@ -35,28 +35,60 @@ body{
     color: #ffffff;
     font-weight: 600;
 }
-
+#icon{
+    margin: 0 10px;
+}
+#icon button {
+    padding: 10px 25px;
+    margin: 0 30px;
+    cursor: pointer;
+    background: #0e184491;
+    color: white;
+    border: none;
+    outline: none;
+    letter-spacing: 1px;
+    font-size: 20px;
+    border-radius: 5px;
+    text-transform: uppercase;   
+}
+#icon button:hover {
+    background-color: rgba(53, 63, 109, 0.569);
+}
+.fa-solid{
+    scale: 2.5;
+    cursor: pointer;
+    transition: .2s;
+    color: black;
+}
+.fa-solid:hover{
+    color: white;
+}
 /* Content */
 
 .container{
     height: 100%;
-    background-color: #EBEBEB;
 }
 .container .content-1{
-    background-color: #EBEBEB;
-    height: 70vh;
+    background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url("./assets/QCU-bg.jpg");
+    background-size: cover;
+    backdrop-filter: blur(10px);
+    height: 100vh;
     display: flex;
 }
 .con-text{
     width: 50%;
     height: 100%;
-    background-color: #EBEBEB;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .con-text p{
     margin: 0 80px;
+    background:linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 10px;
 }
 .con-text p .title-text{
     font-weight: 600;
@@ -65,8 +97,32 @@ body{
 .con-img{
     width: 50%;
     height: 100%;
-    background-color: #EBEBEB;
+    background-color:transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 1000px;
 }
+.con-img img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    animation: spin 5s linear infinite;
+    transform-style: preserve-3d;
+    transform: translateY(-70px);
+    width: 100%;
+    scale: .5;
+}
+@keyframes spin {
+    from {
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
 /* .text-content button{
     margin: 20px 80px;
     padding: 10px 15px;
@@ -78,7 +134,7 @@ body{
     margin: 20px 80px;
     padding: 10px 15px;
     cursor: pointer;
-
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
     background: #3E64FF;
     color: white;
     border: none;
@@ -98,14 +154,14 @@ body{
 }
 
 .container .content-2{
-    background-color: #EBEBEB;
-    height: 70vh;
+    background-color: #ffffff;
+    height: 100vh;
     display: flex;
 }
 .content-2 .con-text{
     width: 50%;
     height: 100%;
-    background-color: #EBEBEB;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +169,7 @@ body{
 .content-2 .con-img{
     width: 50%;
     height: 100%;
-    background-color: #EBEBEB;
+    background-color: #ffffff;
 }
 
 /* footer */
@@ -122,25 +178,3 @@ footer{
     background-color: #577CDC;
 }
 
-#icon button {
-    margin: 20px 60px;
-    padding: 10px 15px;
-    cursor: pointer;
-
-    background: #0e184491;
-    color: white;
-    border: none;
-    outline: none;
-    letter-spacing: 1px;
-    font-size: 20px;
-    border-radius: 5px;
-    width: 150px;
-    height: 50px;
-    text-transform: uppercase;
-    padding: 4px;
-    
-}
-
-#icon button:hover {
-    background-color: rgba(53, 63, 109, 0.569);
-}
