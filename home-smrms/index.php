@@ -18,8 +18,8 @@
 
           <div id="icon">
             <a href="../student/redo/student-login.php"><button class="sigin">SIGN IN</button></a>
-            <a href="../admin/index.php"><i class="fa-solid fa-circle-user"></i></a> 
-            <a href="../entrance/entrance-dashaboard.php"><i class="fa-sharp fa-solid fa-camera-web"></i></a> 
+            <!-- <a href="../admin/index.php"><i class="fa-solid fa-circle-user"></i></a>  -->
+            <a href="../entrance/entrance-dashboard.php"><i class="fa-solid fa-camera"></i></a> 
             
           </div>
       </div>
@@ -48,8 +48,8 @@
               <div class="con-text">
                   <div class="text-content">
                     <p><span class="title-text">SCHEDULE</span><br><br><b><span style="font-size: 22px;"> <i class="fas fa-clinic-medical"></i>
-                    🔘 Medical Clinic 7:00 am to 7:00 pm</span><br><span style="font-size: 22px;"> <i class="fas fa-tooth"></i>
-                    🔘 Dental Clinic 7:00 am to 7:00 pm</span></p>
+                    Medical Clinic 7:00 am to 7:00 pm</span><br><span style="font-size: 22px;"> <i class="fas fa-tooth"></i>
+                    Dental Clinic 7:00 am to 7:00 pm</span></p>
                     <br> <br>
                     <p style="font-size: 24px;"> <em> Monday to Friday except Saturdays, Sundays and Holidays </b></em> </p>
 
