@@ -10,12 +10,20 @@
 	$check_admin = fetchAdmin($conn, null);
 
 	$id = $_SESSION['user_id'];
+	$emp_id = $_SESSION['emp_id'];
 
 	if(!empty($id)) {
 
 		header("location: ./pages/dashboard.php");
+		
 
- 	}
+ 	} else if(!empty($emp_id)){
+
+		header("Location: ../nurse/dashboard.php");
+		
+	}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +67,10 @@
 				<p class="error"><?php echo $_SESSION['errMessage']; ?></p>
 			<?php } ?>
 			<div class="custom-select" style="width:200px;">
-				<select>
+				<select name="role" id="role" required>
 					<option value="">Select role</option>
-					<option value="1">Head Nurse/Admin</option>
-					<option value="2">Nurse</option>
+					<option value="admin">Head Nurse/Admin</option>
+					<option value="nurse">Nurse</option>
 				</select>
 			</div>
 			<div class="input">
@@ -74,25 +82,7 @@
 				<i class="fa fa-lock" aria-hidden="true"></i>
 				<input type="password" name="password" id="floatingPassword" placeholder="Enter password">
 			</div>
-                     <script> 
-
-                        const pass = document.getElementById('floatingPassword');
-                        const showPass = document.getElementById('show-pass');
-                        
-                        showPass.addEventListener('change', (e)=> {
-
-                          if(showPass.checked === true) {
-                            
-                            pass.type = 'text';
-
-                          } else {
-                            
-                            pass.type = 'password';
-
-                          }
-                            
-                        });
-                     </script>
+                 
 				<br>
 		</div>
 
@@ -116,6 +106,27 @@
 		$('.error').fadeOut(3500);
 
 	});
+	
+</script>
+
+<script> 
+
+const pass = document.getElementById('floatingPassword');
+const showPass = document.getElementById('show-pass');
+
+showPass.addEventListener('change', (e)=> {
+
+  if(showPass.checked === true) {
+	 
+	 pass.type = 'text';
+
+  } else {
+	 
+	 pass.type = 'password';
+
+  }
+	 
+});
 </script>
 
 <?php 

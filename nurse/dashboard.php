@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
-  //redirect to login
-  header("location: index.php");
+if(empty($_SESSION['emp_id'])){
+
+  header("Location: ../admin/index.php");
+  
 }
 
 

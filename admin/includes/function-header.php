@@ -18,6 +18,7 @@
    
    $id = $_SESSION['user_id'];
 
+
    // check if id is empty
    if(empty($id)){
 
