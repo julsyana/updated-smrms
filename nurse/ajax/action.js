@@ -19,50 +19,58 @@ $(document).ready(function () {
       // listItem.textContent =
 
       var close_span = ` 
-          <li class="d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto" id="content">
-             ${selectedOption.textContent}
-            </div>
-              <button class="btn badge bg-body-secondary text-dark rounded-pill" id="remove_medicine">X</button>
+          <li class="medicine">
+
+            <input type="text" name="medicine[]" value="${selectedOption.textContent}" required readonly>            
+
+            <input type="text" name="med_slot[]" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+            placeholder="Qty" required>
+
+            
+            <button class="btn badge bg-body-secondary text-dark rounded-pill" id="remove_medicine"> <i class="fas fa-times"> </i> </button>
+            
           </li>`;
 
       $("#list").append(close_span);
+
       select.remove(select.selectedIndex);
+
       medicine_arr.push(selectedOption.textContent);
     });
     return medicine_arr;
   })();
 
-  const hospital = (() => {
-    $(document).on("change", "#hospital", function () {
-      var select = document.getElementById("hospital");
-      var li = document.createElement("li");
-      var selectedOption = select.options[select.selectedIndex];
+  // const hospital = (() => {
+  //   $(document).on("change", "#hospital", function () {
+  //     var select = document.getElementById("hospital");
+  //     var li = document.createElement("li");
+  //     var selectedOption = select.options[select.selectedIndex];
 
-      li.textContent = selectedOption.value;
-      $("#hospital-list").html(li.textContent);
-      $("#hospital-list").attr("data-hospital", selectedOption.text);
-    });
-  })();
+  //     li.textContent = selectedOption.value;
+  //     $("#hospital-list").html(li.textContent);
+  //     $("#hospital-list").attr("data-hospital", selectedOption.text);
+  //   });
+  // })();
 
-  $(document).on("change", "input[name='referred[]']", function () {
-    var select = document.getElementById("hospital");
-    if ($(this).val() === "Yes" || $(this).val() === "yes") {
-      $("#hospital").prop("disabled", false);
-    } else {
-      $("#hospital").prop("disabled", true);
-      select.selectedIndex = 0;
-      $("#hospital-list").text("");
-    }
-  });
-  $(document).on("change", "input[name='confined[]']", function () {
-    if ($(this).val() === "Yes" || $(this).val() === "yes") {
-      $("#how_long").prop("disabled", false);
-    } else {
-      $("#how_long").prop("disabled", true);
-      $("#how_long").val("");
-    }
-  });
+  // $(document).on("change", "input[name='referred']", function () {
+  //   var select = document.getElementById("hospital");
+  //   if ($(this).val() === "Yes" || $(this).val() === "yes") {
+  //     $("#hospital").prop("disabled", false);
+  //   } else {
+  //     $("#hospital").prop("disabled", true);
+  //     select.selectedIndex = 0;
+  //     $("#hospital-list").text("");
+  //   }
+  // });
+
+  // $(document).on("change", "input[name='confined[]']", function () {
+  //   if ($(this).val() === "Yes" || $(this).val() === "yes") {
+  //     $("#how_long").prop("disabled", false);
+  //   } else {
+  //     $("#how_long").prop("disabled", true);
+  //     $("#how_long").val("");
+  //   }
+  // });
 
   $(document).on("click", "#remove_medicine", function () {
     var select = document.getElementById("medicine");
@@ -77,7 +85,6 @@ $(document).ready(function () {
     console.log(parent);
   });
 
-
   $(document).on("click", "#view_appointment", function () {
     let ref_no = $(this).attr("data-ref_no");
 
@@ -86,9 +93,7 @@ $(document).ready(function () {
       method: "POST",
       data: { appointment: 1, ref_no: ref_no },
       success: function (data) {
-
         $("#appointment_content").html(data);
-        
       },
     });
   });
@@ -261,58 +266,88 @@ $(document).ready(function () {
       },
     });
   }
-  $(document).on("click", "#med-his", function () {
-    let id = $(this).attr("data-id");
 
-    consultation(id);
+  $("#med-his").click(function () {
+    let id = $(this).data("id");
+
     console.log(id);
+
+    $.ajax({
+      url: "../ajax/view/med_history.php",
+      type: "POST",
+      data: {
+        stud_id: id,
+      },
+      success: function (data) {
+        $("#medical-content").html(data);
+      },
+    });
   });
 
-  $(document).on("click", "#covac-info", function () {
-    let id = $(this).attr("data-id");
+  $("#covac-info").click(function () {
+    let id = $(this).data("id");
+
+    console.log(id);
+
     $.ajax({
-      url: "fetchData.php",
-      method: "POST",
-      data: { med_info: 1, id: id },
-      success: function (response) {
-        console.log(response);
-        $("#medical-content").html(response);
+      url: "../ajax/view/vaccine_info.php",
+      type: "POST",
+      data: {
+        stud_id: id,
+      },
+      success: function (data) {
+        $("#medical-content").html(data);
       },
     });
   });
-  $(document).on("click", "#med-req", function () {
-    let id = $(this).attr("data-id");
+
+  $("#med-req").click(function () {
+    let id = $(this).data("id");
+
+    console.log(id);
+
     $.ajax({
-      url: "fetchData.php",
-      method: "POST",
-      data: { med_req: 1, id: id },
-      success: function (response) {
-        console.log(response);
-        $("#medical-content").html(response);
+      url: "../ajax/view/med_reqs.php",
+      type: "POST",
+      data: {
+        stud_id: id,
+      },
+      success: function (data) {
+        $("#medical-content").html(data);
       },
     });
   });
-  $(document).on("click", "#health-his", function () {
-    let id = $(this).attr("data-id");
+
+  $("#health-his").click(function () {
+    let id = $(this).data("id");
+
+    console.log(id);
+
     $.ajax({
-      url: "fetchData.php",
-      method: "POST",
-      data: { health_history: 1, id: id },
-      success: function (response) {
-        console.log(response);
-        $("#medical-content").html(response);
+      url: "../ajax/view/health_history.php",
+      type: "POST",
+      data: {
+        stud_id: id,
+      },
+      success: function (data) {
+        $("#medical-content").html(data);
       },
     });
   });
-  $(document).on("click", "#family-his", function () {
-    let id = $(this).attr("data-id");
+
+  $("#family-his").click(function () {
+    let id = $(this).data("id");
+
+    console.log(id);
+
     $.ajax({
-      url: "fetchData.php",
-      method: "POST",
-      data: { fam_history: 1, id: id },
-      success: function (response) {
-        console.log(response);
-        $("#medical-content").html(response);
+      url: "../ajax/view/fam_history.php",
+      type: "POST",
+      data: {
+        stud_id: id,
+      },
+      success: function (data) {
+        $("#medical-content").html(data);
       },
     });
   });
@@ -442,9 +477,6 @@ $(document).ready(function () {
   });
 });
 
-//still open function
-// const certificatiom = () => {};
-
 function generateCert(
   Student_name,
   degree,
@@ -500,6 +532,7 @@ function generateCert(
       },
     ],
   };
+
   var docDefinition = {
     content: [
       headerImage,
@@ -602,6 +635,7 @@ function generateCert(
       font: "Courier",
     },
   };
+
   const pdfDoc = pdfMake.createPdf(docDefinition);
 
   // pdfDoc.open();

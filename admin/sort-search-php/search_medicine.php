@@ -25,6 +25,8 @@
 
                            $description = substr($med_row['description'], 0, 120);
 
+                           $remaining_stock = ($med_row['num_stocks'] - $med_row['med_used']);
+
                            
 
                            ?>
@@ -57,7 +59,7 @@
                                  <td style="padding-left:40px;">
                                     <p> Expiration Date: <em><?=$expDate?></em> </p>
          
-                                    <p> Stocks: <span> <?=$med_row['num_stocks']?> </span></p>
+                                    <p> Stocks: <span> <?=$remaining_stock?> </span></p>
                                  </td>
          
                                  <!-- <td>

@@ -2,7 +2,7 @@
 
 function fetchMedicine($conn){
 
-   $sel = "SELECT * FROM `medicine` WHERE `isArchive` = 0 ORDER BY `id` DESC";
+   $sel = "SELECT * FROM `medicine` WHERE `isArchive` = 0 ORDER BY `expirationDate` ASC";
 
    $res = mysqli_query($conn, $sel);
 

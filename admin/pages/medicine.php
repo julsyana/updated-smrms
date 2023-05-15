@@ -105,6 +105,10 @@
 
       <?php include "../includes/main-header.php" ?>
 
+      <div class="alert-notification" id="alert-notification">
+         
+      </div>
+
       <div class="main-content">
 
          <div class="medicine-container">
@@ -153,6 +157,11 @@
 
                            $description = substr($med_row['description'], 0, 120);
 
+                           $remaining_stock = ($med_row['num_stocks'] - $med_row['med_used']);
+
+                           $date_added = new DateTime($med_row['date_added']);
+                           $date_added = $date_added->format("F d, Y");
+
                            
 
                            ?>
@@ -169,6 +178,8 @@
                                     <p class="med-id"> <?=$med_row['prod_id']?> </p>
 
                                     <p class="brand"> Campus: <span> <?=$med_row['campus']?> </span> </p>
+
+                                    <p style="font-size: .9em"> Date added: <span> <?=$date_added?> </span></p>
          
                                     
                                  </td>
@@ -185,7 +196,7 @@
                                  <td style="padding-left:40px;">
                                     <p> Expiration Date: <em><?=$expDate?></em> </p>
          
-                                    <p> Stocks: <span> <?=$med_row['num_stocks']?> </span></p>
+                                    <p> Stocks: <span> <?=$remaining_stock?> </span></p>
                                  </td>
          
                                  <!-- <td>
@@ -201,9 +212,9 @@
                                           <i class="fas fa-edit"></i>
                                        </button>
          
-                                       <button id="med-del" data-role="med-del" data-id="<?=$med_row['prod_id']?>">
+                                       <!-- <button id="med-del" data-role="med-del" data-id="<?=$med_row['prod_id']?>">
                                        <i class="fas fa-trash-alt"></i>
-                                       </button>
+                                       </button> -->
                                     </div>
                                  </td>
                               </tr>
@@ -254,6 +265,47 @@
    </main>
    
 </body>
+
+<script>
+   $(document).ready(function(){
+
+      function loadDoc() {
+
+         setInterval(function(){
+
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+
+               if (this.readyState == 4 && this.status == 200) {
+
+                  $('#alert-notification').html(this.responseText);
+
+                  // document.getElementById("demo").innerHTML = this.responseText;
+
+               }
+
+            };
+
+            xhttp.open("GET", "../ajax/pages/med_list.php", true);
+
+            xhttp.send();
+
+
+         
+         }, 1000);
+
+         
+
+      }
+
+      loadDoc();
+
+   });
+
+   
+</script>
+
 <!-- ajax -->
 <script src="../ajax/medicine.js"></script>
 
