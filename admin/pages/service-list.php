@@ -156,7 +156,7 @@
                   $selSeDates = "SELECT * FROM `appointment_dates` a 
                   JOIN `appointment` b
                   ON a.app_id = b.app_id
-                  WHERE a.app_id = '$serviceID'
+                  WHERE a.app_id = '$serviceID' AND CURDATE() < a.app_dates
                   ORDER BY a.app_status DESC, a.app_dates ASC";
 
                   $resSeDates = mysqli_query($conn, $selSeDates);
@@ -182,6 +182,8 @@
 
 
                         $resStud = selStudPerDate($conn, $dateID);
+
+                        
                         ?>
 
                         <div class="se-date">

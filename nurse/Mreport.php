@@ -69,7 +69,7 @@ include('./includes/db_conn.php');
             <ul class="navbar-nav ms-auto text-white d-flex align-items-left align-items-lg-center">
               <span></span>
               <li class="nav-item px-0 mx-2 d-flex align-items-center">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link logout" href="logout.php">Logout</a>
               </li>
 
             </ul>
@@ -233,21 +233,6 @@ include('./includes/db_conn.php');
         </div>
 </body>
 
+<script src="./ajax/isArchive.js"></script>
+
 </html>
-<thead>
-  <!-- <tr>
-                                  <th scope="col">Type of Document</th>
-                                  <th scope="col">Date Submitted</th>
-                                  <th scope="col">File</th>
-                                  <th colspan="2">Action</th>
-                                </tr>
-                              </thead>
-                              <tbody class="py-2">
-                                <tr class="p-3">
-                                  <td>Complete Blood Count (CBC)</td>
-                                  <td>August 5, 2022</td>
-                                  <td>CBC.pdf</td>
-                                  <td class="p-0"><button class="btn btn-danger">Decline</button></td>
-                                  <td class="p-0"><button class="btn btn-success">Approve</button></td>
-                                </tr>
-                              </tbody> -->
