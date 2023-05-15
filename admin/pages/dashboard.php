@@ -17,10 +17,10 @@ $selAnnounce = mysqli_query($conn, "SELECT * FROM `announce` ORDER BY  `date` DE
 $date = date("Y-m-d"); // Get current date in "YYYY-MM-DD" format
 $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `nurses` ON `nurse_schedule`.`emp_id` = `nurses`.`emp_id` WHERE `nurse_schedule`.`schedule_day` = 'Thursday'");
 
- // SELECT ALL STUDENTS 
+     // SELECT ALL STUDENTS 
      $fetchAllStudents = mysqli_query($conn, "SELECT * FROM `student_account`");
      
-      // COUNT ALL STUDENTS
+     // COUNT ALL STUDENTS
      $fetchStudents = mysqli_query($conn, "SELECT COUNT(*) as totalStud FROM `student_account`");
      $countStudents = mysqli_fetch_assoc($fetchStudents);
 
@@ -228,6 +228,8 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                     </div>
 
                </div>
+
+               
                
                 <!--<h3> ENTRANCE LOG </h3>-->
                <div class="card_content">
@@ -279,8 +281,8 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                                                    ?>
                                                       <div class="div_approve_status_actions_container">
                                                          <button class="btn_revert" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=revert&postID=".$row['id']."&status=pending`" ?>">Revert</button>
-                                                         <button class="btn_approve">Edit</button>
-                                                         <button class="btn_decline">Delete</button>
+                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=edit&postID=".$row['id']."&status=edited`"?>">Edit</button>
+                                                         <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=delete&postID=".$row['id']."&status=deleted`"?>">Delete</button>
                                                       </div>
                                                    <?php
                                                 }
@@ -369,6 +371,17 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
          </div>
 
       </div>
+
+            <!-- modal -->
+            <div class="announce-modal-container" id="announce-modal-container">
+            
+            </div>
+
+
+            <!-- message modal -->
+            <div class="announce-message-modal" id="announce-message-modal">
+
+            </div>
 
    </main>
    

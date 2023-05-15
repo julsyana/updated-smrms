@@ -1,5 +1,5 @@
 <?php
-   //error_reporting(0);
+   error_reporting(0);
    // session_start();
 
    include "./connection.php";
@@ -41,9 +41,7 @@
       ON a.student_id = b.student_id
       JOIN `sample_stud_data` c
       ON a.student_id = c.student_id
-      JOIN `appointment_dates` d
-      ON a.app_date_id = d. app_date_id
-      WHERE  a.student_id = '$student_id' AND d.app_dates = CURRENT_DATE();";
+      WHERE  a.student_id = '$student_id' AND a.`app_date` = CURRENT_DATE();";
 
       $res_appointment_today = mysqli_query($conn, $sel_appointment_today);
 

@@ -3,7 +3,7 @@
 include './connection.php';
 $uname = $_POST['text'];
 
-if(isset($_POST['text'])){
+if(isset($_POST['text']) && isset($_POST['campus'])){
     $query = "SELECT * FROM sample_stud_data WHERE student_id='$uname'";
     $result = mysqli_query($conn,$query);
     $row = mysqli_fetch_array($result);
@@ -19,6 +19,7 @@ if(isset($_POST['text'])){
         $section = $row["Section"];
         $ylevel = $row["Year Level"];
         $status = $row['Status'];
+        $campus = $_POST['campus'];
         
     if($status==$verified){
         $_SESSION["student_id"] = $row["student_id"];
@@ -28,7 +29,7 @@ if(isset($_POST['text'])){
         echo '</script>';
 
 
-        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status) VALUES ('$text','$lname','$fname','$mname','$ylevel','$section',NOW(),'$date','$status')";
+        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status,campus) VALUES ('$text','$lname','$fname','$mname','$ylevel','$section',NOW(),'$date','$status','$campus')";
         if($conn->query($sql) === TRUE){
             $_SESSION['success'] = 'Successfuly time in';
         }else{
@@ -40,7 +41,7 @@ if(isset($_POST['text'])){
         echo 'window.location.href = "entrance-dashboard.php"';
         echo '</script>';
 
-        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status) VALUES ('$text','$lname','$fname','$mname','$ylevel','$section',NOW(),'$date','$status')";
+        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status,campus) VALUES ('$text','$lname','$fname','$mname','$ylevel','$section',NOW(),'$date','$status','$campus')";
         if($conn->query($sql) === TRUE){
             $_SESSION['success'] = 'Successfuly time in';
         }else{
@@ -53,7 +54,7 @@ if(isset($_POST['text'])){
         // echo 'window.location.href = "entrance-dashboard.php"';
         echo '</script>';
 
-        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status) VALUES ('N/A','N/A','N/A','N/A','N/A','N/A',NOW(),'$date','Invalid')";
+        $sql = "INSERT INTO entrance_log (student_number,lastname,firstname,middlename,yearlevel,section,timein,logdate,status,campus) VALUES ('N/A','N/A','N/A','N/A','N/A','N/A',NOW(),'$date','Invalid','$campus')";
         if($conn->query($sql) === TRUE){
             $_SESSION['success'] = 'Successfuly time in';
         }else{

@@ -4,13 +4,16 @@
 	include_once 'insert_data.php';
 	include_once 'insert_new_patient.php';
 	include('./includes/db_conn.php');
+
+
+  header("location: ../admin/index.php");
 	
 
   $emp_id = $_SESSION['emp_id'];
 
   if(!empty($emp_id)) {
 
-	header("location: ./dashboard.php");
+    header("location: ./dashboard.php");
 	 
   }
 

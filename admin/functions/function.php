@@ -165,7 +165,18 @@ function Archive($conn, $id, $type, $datetime){
          $imgName = null;
 
          break;
-
+         
+      case "announcement":
+         $archive = "UPDATE `announce`
+         SET `isArchive` = 1
+         WHERE `id` = '$id'";
+   
+         $sel = mysqli_query($conn, "SELECT * FROM `announce` WHERE `id` = '$id'");
+         $res = mysqli_fetch_assoc($sel);
+         $name = $res['announcement'];
+         $imgName = null;
+   
+         break;
    }
 
    $archived = mysqli_query($conn, $archive);
@@ -231,6 +242,13 @@ function unArchive($conn, $id){
          SET `isArchive` = 0
          WHERE `hospi_id` = '$id'";
 
+         break;
+
+      case "announcement":
+         $unarchive = "UPDATE `announce`
+         SET `isArchive` = 0
+         WHERE `id` = '$id'";
+      
          break;
    }
 
