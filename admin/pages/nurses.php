@@ -160,7 +160,8 @@
                                     <span class="stud_id"> <?=$nurse_row['emp_id']?> </span>
                                     <!-- <span class="name"> <?=$nurse_row['firstname']?> <?=$nurse_row['lastname']?> </span> -->
 
-                                     <span class="name"> <?=$nurse_row['username']?> </span>
+                                     <!-- <span class="name"> <?=$nurse_row['username']?> </span> -->
+                                     <span class="name"> <?=$nurse_row['firstname']?> <?=$nurse_row['middlename']?> <?=$nurse_row['lastname']?>, RN </span>
                                     <span class="nurse"> <?=$nurse_row['position']?> </span>
 
                                     <div class="card_footer">

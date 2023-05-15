@@ -21,7 +21,7 @@
          <select name="nurse_position" id="nurse-position" required>
             <option value=""> --Select Position-- </option>
             <!-- <option value="Head Nurse"> Head Nurse </option> -->
-            <option value="School Nurse"> School Nurse </option>
+            <option value="University Nurse"> University Nurse </option>
          </select>
          <!-- <input type="text" name="admin_lname" id="admin-lname"> -->
       </div>

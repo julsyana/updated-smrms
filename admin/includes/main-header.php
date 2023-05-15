@@ -3,7 +3,7 @@
 <div class="admin-profile">
 
    <div class="admin-text">
-      <p> Hey, Admin <span style=""> <?=$admin_logged['lname']?> </span>! </p>             
+   <p> Hey, <?=$admin_logged['fname']?> <span style=""> <?=$admin_logged['lname']?>, RN</span>! </p>              
    </div>
 
    <div class="profile" id="profile">
