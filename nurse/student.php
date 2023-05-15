@@ -224,9 +224,12 @@ $fetchStudsAccount = mysqli_query($conn1, $fetchStudents);
                         </td>
 
                         <td class="col-1">
-                          <button class="addpatient-btn px-2" style="background-color: #163666;" id="view" data-id="<?= $studs['student_id']?>">
+                          
+                          <!-- <button class="addpatient-btn px-2" style="background-color: #163666;" id="view" data-id="<?= $studs['student_id']?>">
                             View
-                          </button>
+                          </button> -->
+
+                          <a href="./student/information.php?stud-id=<?=$studs['student_id']?>"  class="addpatient-btn px-2" style="background-color: #163666; text-decoration: none;"> View </a>
 
                         </td>
 
@@ -246,6 +249,7 @@ $fetchStudsAccount = mysqli_query($conn1, $fetchStudents);
           </div>
 
 </body>
+
 <script src="./ajax/search_appointments.js"> </script>
 <script src="./ajax/search_medreq.js"> </script>
 <script src="./ajax/search_students.js"> </script>
