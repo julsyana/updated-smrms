@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['emp_id']) && !isset($_SESSION['username'])) {
+if (!isset($_SESSION['emp_id'])) {
     //redirect to login
     header("location: index.php");
 }
@@ -81,7 +81,7 @@ $nurse = mysqli_fetch_assoc($fetchNurseAccount);
                         <ul class="navbar-nav ms-auto text-white d-flex align-items-left align-items-lg-center">
                             <span></span>
                             <li class="nav-item px-0 mx-2 d-flex align-items-center">
-                                <a class="nav-link px-2" href="logout.php">Logout</a>
+                                <a class="nav-link px-2 logout" href="logout.php">Logout</a>
                             </li>
 
                         </ul>
@@ -180,5 +180,7 @@ $nurse = mysqli_fetch_assoc($fetchNurseAccount);
     </div>
     </div>
 </body>
+
+<script src="./ajax/isArchive.js"></script>
 
 </html>

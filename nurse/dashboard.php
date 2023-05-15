@@ -114,7 +114,7 @@ $totalconsultation = $count['count'];
             <ul class="navbar-nav ms-auto text-white d-flex align-items-left align-items-lg-center">
               <span></span>
               <li class="nav-item px-0 mx-2 d-flex align-items-center">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link logout" href="logout.php">Logout</a>
               </li>
 
             </ul>
@@ -306,5 +306,7 @@ $totalconsultation = $count['count'];
 
   </div>
 </body>
+
+<script src="./ajax/isArchive.js"></script>
 
 </html>

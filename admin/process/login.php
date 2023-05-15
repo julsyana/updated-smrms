@@ -71,8 +71,19 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
 				case "nurse":{
 
-					$_SESSION['emp_id'] = $row['emp_id'];
-					header("Location: ../../nurse/dashboard.php");
+					
+
+					if($row['isArchive'] == 1) {
+
+						unset($_SESSION['emp_id']);
+						header("Location: ../index.php");
+
+					} else {
+
+						$_SESSION['emp_id'] = $row['emp_id'];
+						header("Location: ../../nurse/dashboard.php");
+					}
+
 					break;
 
 				}
