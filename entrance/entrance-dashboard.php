@@ -2,6 +2,7 @@
 // error_reporting(0);
 include './connection.php';
 include './queries.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +37,10 @@ include './queries.php';
         <style>
           .error-message {
             color: red;
+<<<<<<< Updated upstream
+=======
+            font-size: 10px;
+>>>>>>> Stashed changes
           }
         </style>
 
@@ -65,7 +70,17 @@ include './queries.php';
             <div class="numerical">
               <?php include "./total.php"; ?>
             </div>
-  
+            <!-- <div class="form-scan">
+              <form action="" method="post">
+                  <select name="campus" id="campus-select" class="form-control" onchange="disableSelect()">
+                    <option value=''>Select a campus</option>
+                    <option value="San Bartolome">San Bartolome</option>
+                    <option value="Batasan">Batasan</option>
+                    <option value="San Francisco">San Francisco</option>
+                  </select>
+                  <input type="text" name="text" id="student_id" placeholder="Student Number" class="form-control class" method="get" style="visibility: hidden">
+              </form>
+            </div> -->
             <div class="video">
               <video id="preview" width="100%"></video>
               
@@ -78,6 +93,7 @@ include './queries.php';
               <h4>Visitors Form <span></span></h4>
               
               <form action="./insert_visitor.php" method="POST" enctype="multipart/form-data" id="form_visitor">
+<<<<<<< Updated upstream
                 <input type="text" id="visitor_name" name="visitor_name" placeholder="Name">
                 <div id="visitor_name_error" class="error"></div>
 
@@ -91,6 +107,21 @@ include './queries.php';
                 <div id="visitor_purp_error" class="error"></div>
 
                 <input type="email" id="visitor_email" name="visitor_email" placeholder="Email">
+=======
+                <input type="text" id="visitor_name" name="visitor_name" placeholder="Name" disabled>
+                <div id="visitor_name_error" class="error"></div>
+
+                <input type="text" id="visitor_cnum" name="visitor_cnum" placeholder="Contact Number" maxlength="11" disabled>
+                <div id="visitor_cnum_error" class="error"></div>
+
+                <input type="text" id="visitor_dept" name="visitor_dept" placeholder="Department" disabled>
+                <div id="visitor_dept_error" class="error"></div>
+
+                <input type="text" id="visitor_purp" name="visitor_purp" placeholder="Purpose" disabled>
+                <div id="visitor_purp_error" class="error"></div>
+
+                <input type="email" id="visitor_email" name="visitor_email" placeholder="Email" disabled>
+>>>>>>> Stashed changes
                 <div id="visitor_email_error" class="error-message"></div>
 
                 <input type="button" id="visitor_btn" name="visitor_btn" value="Submit">
@@ -111,9 +142,15 @@ include './queries.php';
             </div>
 
             <div class="form-scan">
+<<<<<<< Updated upstream
               <form action="validation.php" method="post">
                   <select name="campus" id="campus-select" class="form-control">
                     <option value="">Select a campus</option>
+=======
+              <form action="" method="post">
+                  <select name="campus" id="campus-select" class="form-control" onchange="disableSelect()">
+                    <option value=''>Select a campus</option>
+>>>>>>> Stashed changes
                     <option value="San Bartolome">San Bartolome</option>
                     <option value="Batasan">Batasan</option>
                     <option value="San Francisco">San Francisco</option>
@@ -124,13 +161,13 @@ include './queries.php';
 
             <div class="form-button">
 
-              <button id="students-btn" class="selected students"> Students </button>
+              <button id="students-btn" class="selected students"> <?php //echo $verified_total;?>Cleared </button>
 
-              <button id="pending-btn"> Pending </button>
+              <button id="pending-btn"> <?php// echo $notverified_total?>PUI </button>
 
-              <button id="visitor-btn"> Visitors </button>
+              <button id="visitor-btn"><?//=$total_visitor?> Visitors </button>
 
-              <button id="archive-btn"> Archive </button>
+              <button id="archive-btn"><?//=$archive_total?>Archive </button>
 
             </div>
 
@@ -196,6 +233,7 @@ include './queries.php';
     if (!/^[a-zA-Z\s,-.]+$/.test(visitorName)) {
       $("#visitor_name_error").html("<span class='error-message'>* Please enter a valid name (only letters, spaces, commas, hyphens, and periods are allowed)</span>");
       $("#visitor_name").addClass("error-input");
+<<<<<<< Updated upstream
     } else {
       $("#visitor_name_error").text("");
       $("#visitor_name").removeClass("error-input");
@@ -214,24 +252,88 @@ include './queries.php';
     }
   }
 
+=======
+      $("#visitor_btn").css('cursor', 'not-allowed');
+      $("#visitor_btn").prop("disabled", true);
+    } else {
+      $("#visitor_name_error").text("");
+      $("#visitor_name").removeClass("error-input");
+      $("#visitor_btn").css('cursor', 'pointer');
+      $("#visitor_btn").prop("disabled", false);
+    }
+  }
+
+  $("#form_visitor").on("submit", function(event) {
+      validateVisitorName();
+      if ($("#visitor_name_error").text() !== "") {
+        event.preventDefault();
+      }
+    });
+
+  // Validate visitor contact number
+  function validateVisitorCNum() {
+    var visitorCNum = $("#visitor_cnum").val().trim().substr(0, 11);
+    if (!/^09\d{9}$/.test(visitorCNum)) {
+      $("#visitor_cnum_error").html("<span class='error-message'>* Please enter a valid contact number (11 digits starting with '09')</span>");
+      $("#visitor_cnum").addClass("error-input");
+      $("#visitor_btn").css('cursor', 'not-allowed');
+      $("#visitor_btn").prop("disabled", true);
+    } else {
+      $("#visitor_cnum_error").text("");
+      $("#visitor_cnum").removeClass("error-input");
+      $("#visitor_btn").css('cursor', 'pointer');
+      $("#visitor_btn").prop("disabled", false);
+      
+    }
+  }
+
+  $("#form_visitor").on("submit", function(event) {
+      validateVisitorCNum();
+      if ($("#visitor_cnum_error").text() !== "") {
+        event.preventDefault();
+      }
+    });
+
+>>>>>>> Stashed changes
   // Validate visitor department
   function validateVisitorDept() {
     var visitorDept = $("#visitor_dept").val().trim();
     if (!/^[a-zA-Z\s]+$/.test(visitorDept)) {
       $("#visitor_dept_error").html("<span class='error-message'>* Please enter a valid department (only letters and spaces are allowed)</span>");
       $("#visitor_dept").addClass("error-input");
+<<<<<<< Updated upstream
     } else {
       $("#visitor_dept_error").text("");
       $("#visitor_dept").removeClass("error-input");
     }
   }
 
+=======
+      $("#visitor_btn").css('cursor', 'not-allowed');
+      $("#visitor_btn").prop("disabled", true);
+    } else {
+      $("#visitor_dept_error").text("");
+      $("#visitor_dept").removeClass("error-input");
+      $("#visitor_btn").css('cursor', 'pointer');
+      $("#visitor_btn").prop("disabled", false);
+    }
+  }
+
+  $("#form_visitor").on("submit", function(event) {
+      validateVisitorDept();
+      if ($("#visitor_dept_error").text() !== "") {
+        event.preventDefault();
+      }
+    });
+
+>>>>>>> Stashed changes
   // Validate visitor purpose
   function validateVisitorPurp() {
     var visitorPurp = $("#visitor_purp").val().trim();
     if (!/^[a-zA-Z\s]+$/.test(visitorPurp)) {
       $("#visitor_purp_error").html("<span class='error-message'>* Please enter a valid purpose (only letters and spaces are allowed)</span>");
       $("#visitor_purp").addClass("error-input");
+<<<<<<< Updated upstream
     } else {
       $("#visitor_purp_error").text("");
       $("#visitor_purp").removeClass("error-input");
@@ -249,6 +351,68 @@ include './queries.php';
       $("#visitor_email").removeClass("error-input");
     }
   }
+=======
+      $("#visitor_btn").css('cursor', 'not-allowed');
+      $("#visitor_btn").prop("disabled", true);
+    } else {
+      $("#visitor_purp_error").text("");
+      $("#visitor_purp").removeClass("error-input");
+      $("#visitor_btn").css('cursor', 'pointer');
+      $("#visitor_btn").prop("disabled", false);
+    }
+  }
+
+  $("#form_visitor").on("submit", function(event) {
+      validateVisitorPurp();
+      if ($("#visitor_purp_error").text() !== "") {
+        event.preventDefault();
+      }
+    });
+
+  // Validate visitor email
+  function validateVisitorEmail() {
+    var visitorEmail = $("#visitor_email").val().trim();
+    if (!/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(visitorEmail)) {
+      $("#visitor_email_error").html("<span class='error-message'>* Please enter a valid email address</span>");
+      $("#visitor_email").addClass("error-input");
+      $("#visitor_btn").css('cursor', 'not-allowed');
+      $("#visitor_btn").prop("disabled", true);
+    } else {
+      // Check if email already exists in database
+      $.ajax({
+        url: "./check_email.php",
+        type: "POST",
+        data: {visitor_email: visitorEmail},
+        dataType: "json",
+        success: function(response) {
+          if (response.success) {
+            $("#visitor_email_error").text("");
+            $("#visitor_email").removeClass("error-input");
+            $("#visitor_btn").css('cursor', 'pointer');
+            $("#visitor_btn").prop("disabled", false);
+          } else {
+            // Email already exists, display new error message
+            $("#visitor_email_error").html("<span class='error-message'>" + response.message + "</span>");
+            $("#visitor_email").addClass("error-input");
+            $("#visitor_btn").css('cursor', 'not-allowed');
+            $("#visitor_btn").prop("disabled", true);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    }
+  }
+
+  $("#form_visitor").on("submit", function(event) {
+      validateVisitorEmail();
+      if ($("#visitor_email_error").text() !== "") {
+        event.preventDefault();
+      }
+    });
+
+>>>>>>> Stashed changes
 });
 
 
@@ -266,8 +430,14 @@ include './queries.php';
       const visitor_name = $('#visitor_name').val();
       const visitor_dept = $('#visitor_dept').val();
       const visitor_email = $('#visitor_email').val();
+<<<<<<< Updated upstream
 
       if(visitor_cnum == '' || visitor_name === ''  || visitor_purp === '' || visitor_dept === '' || visitor_email === ''){
+=======
+      const campus = $('#campus-select').val();
+
+      if(visitor_cnum == '' || visitor_name === ''  || visitor_purp === '' || visitor_dept === '' || visitor_email === '' || campus === ''){
+>>>>>>> Stashed changes
 
         $('.visitor-form h4 span').html('<span> Fill up form </span>');
         // alert('fill up!');
@@ -282,6 +452,10 @@ include './queries.php';
           visitor_name: visitor_name,
           visitor_dept: visitor_dept,
           visitor_email: visitor_email,
+<<<<<<< Updated upstream
+=======
+          campus: campus
+>>>>>>> Stashed changes
         });
         
         $('#visitor_cnum').val('');
@@ -289,12 +463,20 @@ include './queries.php';
         $('#visitor_name').val('');
         $('#visitor_dept').val('');
         $('#visitor_email').val('');
+<<<<<<< Updated upstream
+=======
+        // $('#campus-select').val('');
+>>>>>>> Stashed changes
 
         $('#visitor_cnum').attr('placeholder', 'Contact Number');
         $('#visitor_purp').attr('placeholder', 'Purpose');
         $('#visitor_name').attr('placeholder', 'Name');
         $('#visitor_dept').attr('placeholder', 'Department');
         $('#visitor_email').attr('placeholder', 'Email');
+<<<<<<< Updated upstream
+=======
+        // $('#campus-select').attr('placeholder', 'Campus');
+>>>>>>> Stashed changes
       }
 
       
@@ -388,7 +570,12 @@ include './queries.php';
           });
 
           $('.student-id').load('./student_info.php', {
+<<<<<<< Updated upstream
             stud_id: stud_id
+=======
+            stud_id: stud_id,
+            
+>>>>>>> Stashed changes
           });
         });
       } else {
@@ -398,10 +585,57 @@ include './queries.php';
       }
     });
   });
+  
+  function disableSelect() {
+  var selectElement = document.getElementById("campus-select");
+  var selectedValue = selectElement.value;
+  if (selectedValue !== "") {
+    selectElement.disabled = true;
+  }
+}
 
+// get references to the form elements
+const form = document.getElementById('form_visitor');
+const nameInput = document.getElementById('visitor_name');
+const cnumInput = document.getElementById('visitor_cnum');
+const deptInput = document.getElementById('visitor_dept');
+const purpInput = document.getElementById('visitor_purp');
+const emailInput = document.getElementById('visitor_email');
+const submitBtn = document.getElementById('visitor_btn');
+
+// get reference to the select element
+const campusSelect = document.getElementById('campus-select');
+
+// function to enable/disable form elements
+function enableFormElements(enabled) {
+  nameInput.disabled = !enabled;
+  cnumInput.disabled = !enabled;
+  deptInput.disabled = !enabled;
+  purpInput.disabled = !enabled;
+  emailInput.disabled = !enabled;
+  submitBtn.disabled = !enabled;
+}
+
+// add event listener to the select element
+campusSelect.addEventListener('change', (event) => {
+  const campusValue = event.target.value;
+  if (campusValue === '') {
+    enableFormElements(false);
+  } else {
+    enableFormElements(true);
+  }
+});
+
+
+
+
+
+<<<<<<< Updated upstream
 
   
   
+=======
+>>>>>>> Stashed changes
   function updateClock() {
     var now = new Date();
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

@@ -11,6 +11,7 @@
          <td>Name</td>
          <td>Year Level</td>
          <td>Section</td>
+         <td>Campus</td>
          <td>Time-in</td>
       </tr>
    </thead>
@@ -36,6 +37,7 @@
                   <td><?=$student_name?> </td>
                   <td><?=$entered_student['year_level']?></td>
                   <td><?=$entered_student['section']?>
+                  <td><?=$entered_student['campus']?>
                   <td><?=$time_in?></td>
                </tr>
 

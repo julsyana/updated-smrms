@@ -1,5 +1,9 @@
 <?php
+<<<<<<< Updated upstream
    error_reporting(0);
+=======
+   // error_reporting(0);
+>>>>>>> Stashed changes
    // session_start();
 
    include "./connection.php";
@@ -10,6 +14,7 @@
 
    $stud_id = $_POST['stud_id'];
    $qr_val = $_POST['stud_id'];
+   $campus = $_POST['campus'];
    
    // checks if scanned student id exists in `stud_data` table
    $sel_stud_query = "SELECT * FROM `mis.student_info` a
@@ -105,6 +110,7 @@
                   var mess = "<?=$message?>";
                   var fullname = "<?=$fullname?>";
                   var status = "<?=$status?>";
+                  var campus = "<?=$campus?>";
 
                   $('#not-verified').show();
    
@@ -115,6 +121,7 @@
                      mess: mess,
                      fullname: fullname,
                      status: status,
+                     campus: campus,
                      stud_id: stud_id
 
                   });
@@ -128,9 +135,41 @@
       
             include "./entrance_log.php"; 
 
-      } else {
+      } else if($status === 'PUI'){ 
+        
+         $res_ins = entrance_log($conn, $student_id, $time_today, $date_today, $campus);
 
-            $res_ins = entrance_log($conn, $student_id, $time_today, $date_today);
+         if(!$res_ins) {
+               
+            echo mysqli_error($conn);
+         
+         } else{  ?>
+
+        <script>
+            
+            $(document).ready(function(){
+               
+               var status = "<?=$status?>";
+               // var mess = 'verified';
+               var qr_val = "<?=$qr_val?>";
+               var fullname = "<?=$fullname?>";
+               
+
+               $('#not-verified').show();
+               
+               $('#not-verified').load('./message.php', {
+                  fullname: fullname,
+                  status: status,
+                  qr_val: qr_val
+
+               });
+            });
+         </script>
+      <?php  include "./entrance_log.php";
+      
+         }}else {
+
+            $res_ins = entrance_log($conn, $student_id, $time_today, $date_today, $campus);
 
             if(!$res_ins) {
                
@@ -162,18 +201,13 @@
                
             <?php 
                include "./entrance_log.php";
-
             }
-
-
       }
-     
-
-   } else { 
+} else { 
 
       $role = 'outsider';
       
-      if(archive($conn, $stud_id, $role, $date_today, $time_today)) {  
+      if(archive($conn, $stud_id, $role,$campus ,$date_today, $time_today)) {  
          
          include "./entrance_log.php";
          ?> 
@@ -192,6 +226,7 @@
                $('#not-verified').load('./message.php', {
 
                   role: role,
+                  campus: campus,
                   qr_val: qr_val
 
                });

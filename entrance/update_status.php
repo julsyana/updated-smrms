@@ -4,10 +4,10 @@
    include "./date.php";
 
    $stud_id = $_POST['stud_id'];
+   $campus = $_POST['campus'];
+   $pend = pending($conn, $stud_id, $campus);
 
-   $pend = pending($conn, $stud_id);
-
-   $entrance = entrance_log($conn, $stud_id, $time_today, $date_today);
+   $entrance = entrance_log($conn, $stud_id, $campus ,$time_today, $date_today);
 
    if(!$pend || !$entrance){
       echo mysqli_error($conn);

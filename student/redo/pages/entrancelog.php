@@ -144,7 +144,7 @@
                               <?=$formattedDate?>
                            </div>
                         <td> 
-                           campus
+                              <?=$row['campus']?>
                         </td>
                         <td>
                            <div class="type">

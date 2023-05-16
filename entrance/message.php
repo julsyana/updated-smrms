@@ -1,10 +1,10 @@
 <?php
-   error_reporting(0);
+   // error_reporting(0);
    date_default_timezone_set("Asia/Manila");
    include "./connection.php";
    include "./function.php";
    // include "./validation_test.php";
-
+   
    $status = $_POST['status'];
    $fullname = $_POST['fullname'];
    $message = $_POST['mess'];
@@ -12,10 +12,11 @@
    $stud_id = $_POST['stud_id'];
    $role = $_POST['role'];
    $qr_val = $_POST['qr_val'];
+   $campus = $_POST['campus'];
 
    // echo $total;
 
-   if($role == 'outsider') { ?>
+   if($role === 'outsider') { ?>
 
          <div class="modal-message">
 
@@ -28,7 +29,20 @@
          </div>
       
 
-   <?php } else {
+   <?php } else if ($status === 'PUI') {?>
+
+      <div class="modal-message">
+      <!-- <i class="fa-sharp fa-solid fa-face-mask fa-bounce fa-sm" style="color: #ff0000;" aria-hidden="true"></i> -->
+      <i class="fa-sharp fa-solid fa-file-medical fa-beat fa-2xl" style="color: #ff0000;" aria-hidden="true"></i>
+            <p><?=$qr_val?> <?=$fullname?></p>
+            <p>Please Submit your Medical Documents to the Clinic ASAP!!!</p>
+   
+            <div class="form-button">
+               <button id="close"> close </button>
+            </div>
+         </div>
+
+   <?php }else {
 
       if($total == '1' && $status == 'Not Cleared') { ?>
 
@@ -63,7 +77,7 @@
          $date = date('Y-m-d');
          $time = date('h:i:s');
          
-         archive($conn, $stud_id, $role, $date, $time);
+         archive($conn, $stud_id, $role, $campus ,$date, $time);
    
       
    
@@ -82,7 +96,7 @@
             </div>
    
             <div class="form-button">
-               <button id="close"> close </button>
+              <center> <button id="close"> close </button> </center>
             </div>
          </div>
    
@@ -91,7 +105,7 @@
       
       <?php } else { ?>
    
-         <p id="notification" style="background-color: #4EC745; padding:10px; position:absolute;"> This student <b> <?=$fullname?> </b> is <?=$message?></p>
+         <p id="notification" style="background-color: #4EC745; padding:10px; position:absolute; transform:translateY(3em);"> This student <b> <?=$fullname?> </b> is <?=$message?></p>
    
       <?php }
 
