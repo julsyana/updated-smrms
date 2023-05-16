@@ -3,7 +3,7 @@ include('../includes/db_conn.php');
 session_start();
 
 
-if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['emp_id'])) {
   //redirect to login
   header("location: ../index.php");
 }

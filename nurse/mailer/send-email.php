@@ -2,6 +2,7 @@
 <?php
 $email = $_POST["email"];
 $attachment = $_POST['attachment'];
+$ref_no = $_POST['ref_no'];
 
 require "vendor/autoload.php";
 
@@ -43,8 +44,12 @@ $mail->addStringAttachment($attachment, 'Medical_certificate.pdf', 'base64', 'ap
 $mail->Subject = " Medical Certificate";
 $mail->Body = "Certificate";
 
-$mail-> send();
+if($mail-> send()){
 
-    
-    header("Location: student-verify-otp.php");
+    include "../includes/db_conn.php";
+
+    mysqli_query($conn1, "UPDATE `consultations` SET `isEmail`= 1 WHERE `reference_no` = '$ref_no';");
+
+}
+    // header("Location: student-verify-otp.php");
 ?>
