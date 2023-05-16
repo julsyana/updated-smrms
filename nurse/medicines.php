@@ -2,13 +2,13 @@
 include('./includes/db_conn.php');
 session_start();
 
-if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['emp_id'])) {
   //redirect to login
   header("location: index.php");
 }
-$emp_id = $_SESSION['emp_id'];
-$medicine = "SELECT * FROM `medicine` a JOIN `nurses` b ON a.campus = b.campus WHERE b.emp_id = '$emp_id'";
-$fetchAllMedicine = mysqli_query($conn1, $medicine);
+  $emp_id = $_SESSION['emp_id'];
+  $medicine = "SELECT * FROM `medicine` a JOIN `nurses` b ON a.campus = b.campus WHERE b.emp_id = '$emp_id'";
+  $fetchAllMedicine = mysqli_query($conn1, $medicine);
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ $fetchAllMedicine = mysqli_query($conn1, $medicine);
   <link rel="stylesheet" href="./css/medicine.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="action.js" defer></script>
+  <!-- <script src="action.js" defer></script> -->
 
 </head>
 <style>
@@ -77,7 +77,7 @@ $fetchAllMedicine = mysqli_query($conn1, $medicine);
             <ul class="navbar-nav ms-auto text-white d-flex align-items-left align-items-lg-center">
               <span></span>
               <li class="nav-item px-0 mx-2 d-flex align-items-center">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link logout" href="logout.php">Logout</a>
               </li>
 
             </ul>
@@ -263,6 +263,7 @@ $fetchAllMedicine = mysqli_query($conn1, $medicine);
 
 
 <!-- CUSTOM AJAX FILE -->
+<script src="./ajax/isArchive.js"></script>
 <script src="./ajax/search_medicine.js"> </script>
 <!-- <script src="../ajax/sort-search_medicine.js"></script> -->
 

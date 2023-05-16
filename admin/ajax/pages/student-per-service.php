@@ -7,7 +7,6 @@
    $app_id = $_POST['se_id'];
 
    $appRes = selApp($conn, $app_id);
-
    $allStudentsPerService = selStudPerService($conn, $app_id);
 
    $time = date("h:i A");

@@ -5,6 +5,12 @@
 
 
    $stud_med_info = fetchStudMedHistoryRef($conn, $ref_no, $stud_id);
+
+   $stud_medicine = fetchStudMedHistoryMedicine($conn, $ref_no);
+
+   // $dateConsult = ;
+   $dateConsult = new DateTime($stud_med_info['date_of_consultation']);
+   $dateConsult = $dateConsult->format("l, F d, Y h:i A");
 ?>
 
 <!DOCTYPE html>
@@ -168,7 +174,7 @@
                   <div class="sub-header">
                      <h2> Consultation Summary </h2>
                      
-                     <p> Date Consulted: <b> <?=$stud_med_info['date_of_consultation']?> </b></p>
+                     <p> Date Consulted: <b> <?= $dateConsult?> </b></p>
                   </div>
 
                   <div class="summary-consultation">
@@ -180,7 +186,16 @@
                            
                            <ul>
                               <li> <?=$stud_med_info['symptoms']?> </li>
-                              <li> <?=$stud_med_info['othersymptoms']?>  </li>
+                              <?php 
+                                 if(strtolower($stud_med_info['injuries']) != 'none'){
+                                    ?>
+                                       <li> <?=$stud_med_info['injuries']?>  </li>
+                                    <?php
+                                 } else {
+                                    echo "";
+                                 }
+                              ?>
+                              
                            </ul>
                         
                         </p>
@@ -195,23 +210,33 @@
                      </div>
 
                      <div class="consultation">
-                        <h3> Reason of referral </h3>
+                        <h3> Blood pressure </h3>
 
-                        <p> <span> <?=$stud_med_info['reason']?> </span> </p>
+                        <p> <span> <?=$stud_med_info['bp_systolic']?> / <?=$stud_med_info['bp_diastolic']?></span> </p>
 
                      </div>
 
                      <div class="consultation">
                         <h3> Have you been in close contact to suspected or confirmed covid case for the past 14 days? </h3>
 
-                        <p> <?=$stud_med_info['othersymptoms']?> </p>
+                        <p style="text-transform:capitalize;"> <?=$stud_med_info['suspected_covid']?> </p>
 
                      </div>
 
                      <div class="consultation">
                         <h3> Medicine Given </h3>
 
-                        <p> <span> 1pc/s <?=$stud_med_info['medicine']?> </span> </p>
+                        <?php 
+                           if(mysqli_num_rows($stud_medicine) > 0){
+                              while($med = mysqli_fetch_assoc($stud_medicine)){
+                                 
+                                 echo $med['medicine']." - ".$med['quantity']."<br>";
+
+                              }
+                           } else {
+                              echo "No Medicine";
+                           }
+                        ?>
 
                      </div>
 
@@ -232,7 +257,7 @@
                      <div class="consultation">
                         <h3> Confined? How long? </h3>
 
-                        <p> <span> <?=$stud_med_info['confined']?> | <?=$stud_med_info['how_long']?> hr </span> </p>
+                        <p> <span  style="text-transform:capitalize;"> <?=$stud_med_info['confined']?> | <?=$stud_med_info['how_long']?> hr </span> </p>
 
                      </div>
 

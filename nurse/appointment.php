@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
+  if (!isset($_SESSION['emp_id'])) {
     //redirect to login
     header("location: index.php");
   }
@@ -109,7 +109,7 @@ include('./includes/db_conn.php');
 
               <li class="nav-item px-2 mx-2 d-flex align-items-center">
 
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link logout" href="logout.php">Logout</a>
 
               </li>
              
@@ -367,6 +367,7 @@ include('./includes/db_conn.php');
 
 
 <!-- CUSTOM AJAX FILE -->
+<script src="./ajax/isArchive.js"></script>
 <script src="./ajax/search_appointments.js"> </script>
 
 </html>
