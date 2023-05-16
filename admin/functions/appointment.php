@@ -44,14 +44,14 @@ function selStudPerDate($conn, $dateID){
 
 function selStudPerService($conn, $appID){
 
-    $sel = "SELECT DISTINCT(b.email), b.*, d.app_type FROM `stud_appointment` a
-    JOIN `mis.student_info` b
-    ON a.student_id = b.student_id
-    JOIN `appointment_dates` c
-    ON a.se_id = c.app_id
-    JOIN `appointment` d
-    ON a.se_id = d.app_id
-    WHERE a.se_id = '$appID' AND c.app_dates > CURDATE() AND a.app_status != 'attended' AND c.app_status = 1;";
+    $sel = "SELECT DISTINCT(c.email), c.*, a.app_type FROM `appointment` a
+    JOIN `stud_appointment` b
+    ON a.app_id = b.se_id
+    JOIN `mis.student_info` c
+    ON b.student_id = c.student_id
+    JOIN `appointment_dates` d
+    ON a.app_id = d.app_id
+    WHERE A.app_id = '$appID' AND b.app_status != 'attended' AND d.app_dates > CURDATE() AND b.app_status = 1;";
 
     $res = mysqli_query($conn, $sel);
 
