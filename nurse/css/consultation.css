@@ -128,3 +128,8 @@
 span.required {
   color: red;
 }
+
+#emailer:disabled {
+  background-color: #cdcdcd;
+  cursor: not-allowed;
+}

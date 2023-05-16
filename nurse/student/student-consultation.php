@@ -5,7 +5,7 @@ session_start();
 
 
 
-if (!isset($_SESSION['emp_id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['emp_id'])) {
   //redirect to login
   header("location: ../index.php");
 }
@@ -20,6 +20,7 @@ JOIN `mis.enrollment_status` ON `mis.student_info`.`student_id` = `mis.enrollmen
 JOIN `mis.student_address` ON `mis.enrollment_status`.`student_id` = `mis.student_address`.`student_id` 
 JOIN `mis.emergency_contact` ON `mis.student_address`.`student_id` = `mis.emergency_contact`.`student_id` WHERE `student_account`.`student_id` = '$studID'";
 
+
 $run_query = mysqli_query($conn1, $select) or die(mysqli_error($conn1));
 
 if (mysqli_num_rows($run_query) === 1) {
@@ -30,6 +31,7 @@ if (mysqli_num_rows($run_query) === 1) {
   $middlename = $row['middlename'];
   $middleInitial = $row['mi'];
   $section = $row['section'];
+  $program = $row['code'];
 
   $formatBDate = $row['birthdate'];
   $formatBDate = new DateTime($formatBDate);
@@ -38,6 +40,12 @@ if (mysqli_num_rows($run_query) === 1) {
 
   $dquery = mysqli_query($conn1, "SELECT * FROM `sample_stud_data` WHERE student_id = '$student_id'");
   $drow = $dquery->fetch_assoc();
+
+  $depRes = mysqli_query($conn1, "SELECT * FROM `departments` WHERE `dept_name` = '$program'");
+  $dept = $depRes->fetch_assoc();
+
+  $deptEmail = $dept['email'];
+
 }
 
 
@@ -185,7 +193,7 @@ $medicine = mysqli_query($conn1, $medquery) or die(mysqli_error($conn1));
             </li>
 
             <li id="account_btn" class="px-4 w-100 mb-1 nav-item tab py-2">
-              <a href="../account.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-user-o mx-2" aria-hidden="true"></i><span> Manage Account</span></span></a>
+              <a href="../account.php" class="nav-link"><span class="fx-5 fw-800 text-light"><i class="fa fa-user-o mx-2" aria-hidden="true"></i><span> Manage Account </span></span></a>
             </li>
 
           </ul>
