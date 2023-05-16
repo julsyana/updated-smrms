@@ -1,13 +1,24 @@
 
 <?php
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require '../../PHPMailer/src/Exception.php';
+require '../../PHPMailer/src/PHPMailer.php';
+require '../../PHPMailer/src/SMTP.php';
+
 $email = $_POST["email"];
 $attachment = $_POST['attachment'];
 $ref_no = $_POST['ref_no'];
 
-require "vendor/autoload.php";
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+// require "vendor/autoload.php";
+
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
 
 $mail = new PHPMailer(true);
 
@@ -50,8 +61,9 @@ if($mail-> send()){
 
     $upd = mysqli_query($conn1, "UPDATE `consultations` SET `isEmail`= 1 WHERE `reference_no` = '$ref_no';");
 
-    // echo "Email sent";
+} else {
 
+    $email->ErrorInfo;
 }
     // header("Location: student-verify-otp.php");
 ?>

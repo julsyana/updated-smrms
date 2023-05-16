@@ -384,9 +384,9 @@ emailer.addEventListener("click", function () {
 
         emailer.innerHTML = "Email sent";
 
-        // setInterval(function(){
-        //   window.location.href = "./excuse-slip.php?ref-no=<?=$ref_no?>";
-        // }, 1000);
+        setInterval(function(){
+          window.location.href = "./excuse-slip.php?ref-no=<?=$ref_no?>";
+        }, 1000);
 
         // window.location.href = "./information.php?stud-id=<?=$student_id?>";
       
