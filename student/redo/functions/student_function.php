@@ -97,6 +97,17 @@ function fetchStudMedHistory($conn, $stud_id){
    return $res_query;
 }
 
+function fetchStudMedHistoryMedicine($conn, $ref_no){
+
+   $sel = "SELECT *  FROM `consultations_med`
+   WHERE `ref_no` = '$ref_no';";
+
+   $res_query = mysqli_query($conn, $sel);
+
+   return $res_query;
+}
+
+
 function fetchStudMedHistoryRef($conn, $ref_no, $stud_id) {
 
    $sel = "SELECT *, LEFT(b.middlename, 1) as `nurse_mi` FROM `consultations` a 
