@@ -48,7 +48,9 @@ if($mail-> send()){
 
     include "../includes/db_conn.php";
 
-    mysqli_query($conn1, "UPDATE `consultations` SET `isEmail`= 1 WHERE `reference_no` = '$ref_no';");
+    $upd = mysqli_query($conn1, "UPDATE `consultations` SET `isEmail`= 1 WHERE `reference_no` = '$ref_no';");
+
+    // echo "Email sent";
 
 }
     // header("Location: student-verify-otp.php");
