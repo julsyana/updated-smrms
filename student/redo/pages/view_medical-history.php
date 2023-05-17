@@ -5,6 +5,8 @@
 
 
    $stud_med_info = fetchStudMedHistoryRef($conn, $ref_no, $stud_id);
+   $attacment = selectAttachment($conn,$ref_no)
+   
 ?>
 
 <!DOCTYPE html>
@@ -251,7 +253,7 @@
 
                      <?php if($stud_med_info['status'] === 'cleared') { ?>
 
-                        <button> View medical Certificate </button>
+                        <button onclick="window.open('../../../nurse/certificates/<?=$attacment['med_files']?>', '_blank');"> View medical Certificate </button>
 
                      <?php } else { ?>
 
@@ -272,3 +274,10 @@
 
 </body>
 </html>
+
+<script>
+   function openPdf(){
+        
+
+   }
+</script>
