@@ -13,6 +13,7 @@ require '../../PHPMailer/src/SMTP.php';
 $email = $_POST["email"];
 $attachment = $_POST['attachment'];
 $ref_no = $_POST['ref_no'];
+$student_id = $_POST['student_id'];
 
 
 // require "vendor/autoload.php";
@@ -44,13 +45,16 @@ $mail->Port = 587; //TSL
 $mail->Username = 'qcu.clinic.smrms@gmail.com';
 $mail->Password = 'vptkkshttnjvnhde';
 
+$filename = '' . $student_id. '_'.$ref_no.'_excuse-slip.pdf';
 
 $mail->setFrom("studmed.recordms.2023@gmail.com", "Student Medical Record MS");
 // $mail->addAddress("arnejovincent03@gmail.com", "MGP INQUERIES");
 $mail->addAddress($email, "");//RECEPIENTS
 $attachment = base64_decode($attachment);
-$mail->addStringAttachment($attachment, 'Medical_certificate.pdf', 'base64', 'application/pdf');
+$mail->addStringAttachment($attachment, $filename, 'base64', 'application/pdf');
 
+$filepath = '../certificates/'. $filename;
+file_put_contents($filepath, $attachment);
 
 $mail->Subject = " Medical Certificate";
 $mail->Body = "Certificate";
@@ -60,6 +64,7 @@ if($mail-> send()){
     include "../includes/db_conn.php";
 
     $upd = mysqli_query($conn1, "UPDATE `consultations` SET `isEmail`= 1 WHERE `reference_no` = '$ref_no';");
+    $sql = mysqli_query($conn1, "INSERT INTO medical_attachments (reference_no,student_id,med_files,time_added) VALUES ('$ref_no','$student_id','$filename',NOW())");
 
 } else {
 

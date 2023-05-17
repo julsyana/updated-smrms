@@ -321,6 +321,15 @@ function setAppointmentStatus($conn, $stud_id, $ref_no, $status){
    return $result;
 }
 
+function selectAttachment($conn, $ref_no){
+   
+   $sql = "SELECT * FROM medical_attachments where reference_no = '$ref_no'";
+   $query = $conn->query($sql);
+   $row = $query->fetch_assoc();
+
+   return $row;
+}
+
 
 
 
