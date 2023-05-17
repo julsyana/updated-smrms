@@ -249,8 +249,8 @@ $date_today = $date_today->format("F d, Y");
 
                            if($row['confined'] == 'yes'){
                               ?>
-                                 <input type="radio" name="stay-home" id="stay-clinic" checked>
-
+                                 <input type="radio" name="stay-home" id="stay-clinic" value="stay" checked>
+                              
                               <?php 
                            } else {
                               ?>
@@ -264,16 +264,16 @@ $date_today = $date_today->format("F d, Y");
                      </div>
 
                      <div class="form-check">
-                        <input type="radio" name="stay-home" id="go-home">
+                        <input type="radio" name="stay-home" id="go-home" value="home">
                         <label for="go-home"> Go home </label>
 
                         <div class="form-input">
                            <label for=""> Fetched by: </label>
-                           <input type="text" name="" id="">
+                           <input type="text" name="" id="fetch">
                         </div>
                         <div class="form-input">
                            <label for=""> Relationship: </label>
-                           <input width="60%" type="text" name="" id="">
+                           <input width="60%" type="text" name="" id="relationship">
                         </div>
                        
                      </div>
@@ -282,7 +282,7 @@ $date_today = $date_today->format("F d, Y");
                         <?php 
                            if($row['referred'] == 'yes') {
                               ?> 
-                              <input type="checkbox" name="" id="refer-hospital" checked> 
+                              <input type="checkbox" name="" id="refer-hospital" value="yes" checked> 
                               <label for="refer-hospital"> Refer to the hospital </label>
 
                               <div class="form-input">
@@ -339,7 +339,7 @@ $date_today = $date_today->format("F d, Y");
                 }
                
                ?>
-               
+               <button id="downloadPdf" class="btn btn-success mx-2"> Download <i class="fa-solid fa-file-arrow-down"></i></button>
             </div>
             
               
@@ -356,12 +356,51 @@ $date_today = $date_today->format("F d, Y");
 
 <script>
 
+const downloadPdf = document.querySelector("#downloadPdf");
 const emailer = document.querySelector("#emailer");
 
+const data = () =>{
+
+  const fetch_by = $('#fetch').val();
+  const relationship = $('#relationship').val();
+  const refer_hospital = $('#refer-hospital').val()
+  const stay_home = $('[name="stay-home"]').val();
+  
+  return {
+    fetchBy: fetch_by,
+    relationship: relationship,
+    refer:refer_hospital,
+    stay_home: stay_home,
+    ref_no: "<?=$ref_no?>",
+    dept_email: "<?=$deptEmail?>",
+    studentId:  "<?= $student_id ?>",
+  }
+}
+
+downloadPdf.addEventListener("click", function(){
+  const studentData = data();
+  
+  const ref_no = studentData.ref_no;
+  const email = studentData.email;
+  const studentId = studentData.studentId;
+
+  
+  const certificate = generateCert(studentData.fetchBy,studentData.relationship,studentData.stay_home,studentData.refer);
+  let filename = `${studentData.studentId}_${studentData.ref_no}_excuse-slip`;
+  // certificate.download(filename);
+  certificate.open();
+})
+
 emailer.addEventListener("click", function () {
-  const ref_no = "<?=$ref_no?>";
-  const certificate = generateCert();
-  const email = "<?=$deptEmail?>";
+  const studentData = data();
+  
+  const ref_no = studentData.ref_no;
+  const email = studentData.email;
+  const studentId = studentData.studentId;
+
+  const certificate = generateCert(studentData.fetchBy,studentData.relationship,studentData.stay_home,studentData.refer);
+
+
   // const email = "mark.melvin.bacabis@gmail.com";
   certificate.getBase64((data) => {
 
@@ -372,9 +411,10 @@ emailer.addEventListener("click", function () {
       url: "../mailer/send-email.php",
       method: "POST",
       data: { 
-        email: email, 
+        email: studentData.dept_email, 
         attachment: data,
-        ref_no: ref_no
+        student_id: studentData.studentId,
+        ref_no: studentData.ref_no
       },
       success: function(data){
 
@@ -395,16 +435,23 @@ emailer.addEventListener("click", function () {
   });
 });
 
-const selectItem = (value) => {
-  if (value === 1) {
+const stay = (value) => {
+  if (value === "stay") {
+    return '<svg height="100" width="100"><circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="gray" /></svg>';
+  } else {
+    return '<svg height="100" width="100"><circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="white" /></svg>';
+  }
+};
+const home = (value) => {
+  if (value === "home") {
     return '<svg height="100" width="100"><circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="gray" /></svg>';
   } else {
     return '<svg height="100" width="100"><circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="white" /></svg>';
   }
 };
 
-const refer = (value) => {
-  if (value === "Yes") {
+const refer = (value) => {  
+  if (value === "yes") {
     return '<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Interface / Checkbox_Check"><path id="Vector" d="M8 12L11 15L16 9M4 16.8002V7.2002C4 6.08009 4 5.51962 4.21799 5.0918C4.40973 4.71547 4.71547 4.40973 5.0918 4.21799C5.51962 4 6.08009 4 7.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H7.19691C6.07899 20 5.5192 20 5.0918 19.7822C4.71547 19.5905 4.40973 19.2842 4.21799 18.9079C4 18.4801 4 17.9203 4 16.8002Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
   } else {
     return '<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Interface / Checkbox_Unchecked"><path id="Vector" d="M4 7.2002V16.8002C4 17.9203 4 18.4801 4.21799 18.9079C4.40973 19.2842 4.71547 19.5905 5.0918 19.7822C5.5192 20 6.07899 20 7.19691 20H16.8031C17.921 20 18.48 20 18.9074 19.7822C19.2837 19.5905 19.5905 19.2842 19.7822 18.9079C20 18.4805 20 17.9215 20 16.8036V7.19691C20 6.07899 20 5.5192 19.7822 5.0918C19.5905 4.71547 19.2837 4.40973 18.9074 4.21799C18.4796 4 17.9203 4 16.8002 4H7.2002C6.08009 4 5.51962 4 5.0918 4.21799C4.71547 4.40973 4.40973 4.71547 4.21799 5.0918C4 5.51962 4 6.08009 4 7.2002Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
@@ -412,7 +459,19 @@ const refer = (value) => {
 };
 
 // console.log(generateCert);
-function generateCert(name) {
+function generateCert(fetch_by,relationship,stay_home,refer_hospital) {
+
+
+  const date = new Date()
+const date_now = Intl.DateTimeFormat("en-US",{
+    dateStyle:'long',
+    timeStyle: 'short'
+  }).format(date);
+
+
+
+
+
   const h1 = {
     text: "EXCUSE SLIP \n\n",
     style: {
@@ -482,7 +541,7 @@ function generateCert(name) {
       {
         columns: [
           {
-            svg: selectItem(1),
+            svg: stay(stay_home),
             width: 10,
           },
           {
@@ -496,7 +555,7 @@ function generateCert(name) {
       {
         columns: [
           {
-            svg: selectItem(1),
+            svg: home(stay_home),
             width: 10,
           },
           {
@@ -513,14 +572,14 @@ function generateCert(name) {
           {
             text: [
               { text: "Fetched by : " },
-              boldData(""), //parent Name
+              boldData(fetch_by), //parent Name
             ],
             width: "50%",
           },
           {
             text: [
               { text: "Relationship : " },
-              boldData(""), //Relationship
+              boldData(relationship), //Relationship
             ],
             width: "50%",
           },
@@ -532,7 +591,7 @@ function generateCert(name) {
       {
         columns: [
           {
-            svg: refer("No"),
+            svg: refer(refer_hospital),
             width: 10,
           },
           {
@@ -550,10 +609,28 @@ function generateCert(name) {
         columnGap: 5,
         margin: [0, 5],
       },
-
       {
-        text: [{ text: "Nurse on duty : " }, boldData("<?=$row['firstname']?> <?=$row['middlename']?> <?=$row['lastname']?>")],
+        columns:[
+         
+          {
+            text:[
+                {text: 'Nurse on duty : '},
+                boldData("<?=$row['firstname']?> <?=$row['middlename']?> <?=$row['lastname']?>")
+                
+              ],
+              margin:[0,80,0,0]
+            },
+          {
+            stack:[
+              { qr: '<?=$ref_no?>', fit: '100', alignment:'right',margin:[0,0,3,0]},
+              {text: '<?=$ref_no?>',alignment: 'right',margin:[0,10],fontSize:9,color:'#777777'}
+            ]
+          }
+        ]
       },
+      {
+        text: date_now,
+      }
     ],
 
     pageSize: "A4",

@@ -5,12 +5,8 @@
 
 
    $stud_med_info = fetchStudMedHistoryRef($conn, $ref_no, $stud_id);
-
-   $stud_medicine = fetchStudMedHistoryMedicine($conn, $ref_no);
-
-   // $dateConsult = ;
-   $dateConsult = new DateTime($stud_med_info['date_of_consultation']);
-   $dateConsult = $dateConsult->format("l, F d, Y h:i A");
+   $attacment = selectAttachment($conn,$ref_no)
+     
 ?>
 
 <!DOCTYPE html>
@@ -276,7 +272,7 @@
 
                      <?php if($stud_med_info['status'] === 'cleared') { ?>
 
-                        <button> View medical Certificate </button>
+                        <button onclick="window.open('../../../nurse/certificates/<?=$attacment['med_files']?>', '_blank');"> View medical Certificate </button>
 
                      <?php } else { ?>
 
@@ -297,3 +293,10 @@
 
 </body>
 </html>
+
+<script>
+   function openPdf(){
+        
+
+   }
+</script>
