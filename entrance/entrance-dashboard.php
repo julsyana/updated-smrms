@@ -37,10 +37,7 @@ include './queries.php';
         <style>
           .error-message {
             color: red;
-<<<<<<< Updated upstream
-=======
             font-size: 10px;
->>>>>>> Stashed changes
           }
         </style>
 
@@ -93,22 +90,7 @@ include './queries.php';
               <h4>Visitors Form <span></span></h4>
               
               <form action="./insert_visitor.php" method="POST" enctype="multipart/form-data" id="form_visitor">
-<<<<<<< Updated upstream
-                <input type="text" id="visitor_name" name="visitor_name" placeholder="Name">
-                <div id="visitor_name_error" class="error"></div>
-
-                <input type="text" id="visitor_cnum" name="visitor_cnum" placeholder="Contact Number">
-                <div id="visitor_cnum_error" class="error"></div>
-
-                <input type="text" id="visitor_dept" name="visitor_dept" placeholder="Department">
-                <div id="visitor_dept_error" class="error"></div>
-
-                <input type="text" id="visitor_purp" name="visitor_purp" placeholder="Purpose">
-                <div id="visitor_purp_error" class="error"></div>
-
-                <input type="email" id="visitor_email" name="visitor_email" placeholder="Email">
-=======
-                <input type="text" id="visitor_name" name="visitor_name" placeholder="Name" disabled>
+                <input type="text" id="visitor_name" name="visitor_name" placeholder="Name" pattern="[A-Za-z\s,.\-]+" disabled>
                 <div id="visitor_name_error" class="error"></div>
 
                 <input type="text" id="visitor_cnum" name="visitor_cnum" placeholder="Contact Number" maxlength="11" disabled>
@@ -121,7 +103,6 @@ include './queries.php';
                 <div id="visitor_purp_error" class="error"></div>
 
                 <input type="email" id="visitor_email" name="visitor_email" placeholder="Email" disabled>
->>>>>>> Stashed changes
                 <div id="visitor_email_error" class="error-message"></div>
 
                 <input type="button" id="visitor_btn" name="visitor_btn" value="Submit">
@@ -142,15 +123,9 @@ include './queries.php';
             </div>
 
             <div class="form-scan">
-<<<<<<< Updated upstream
-              <form action="validation.php" method="post">
-                  <select name="campus" id="campus-select" class="form-control">
-                    <option value="">Select a campus</option>
-=======
               <form action="" method="post">
                   <select name="campus" id="campus-select" class="form-control" onchange="disableSelect()">
                     <option value=''>Select a campus</option>
->>>>>>> Stashed changes
                     <option value="San Bartolome">San Bartolome</option>
                     <option value="Batasan">Batasan</option>
                     <option value="San Francisco">San Francisco</option>
@@ -230,29 +205,9 @@ include './queries.php';
   // Validate visitor name
   function validateVisitorName() {
     var visitorName = $("#visitor_name").val().trim();
-    if (!/^[a-zA-Z\s,-.]+$/.test(visitorName)) {
+    if (!/^[a-zA-Z\s,.\-]+$/.test(visitorName)) {
       $("#visitor_name_error").html("<span class='error-message'>* Please enter a valid name (only letters, spaces, commas, hyphens, and periods are allowed)</span>");
       $("#visitor_name").addClass("error-input");
-<<<<<<< Updated upstream
-    } else {
-      $("#visitor_name_error").text("");
-      $("#visitor_name").removeClass("error-input");
-    }
-  }
-
-  // Validate visitor contact number
-  function validateVisitorCNum() {
-    var visitorCNum = $("#visitor_cnum").val().trim();
-    if (!/^09\d{9}$/.test(visitorCNum)) {
-      $("#visitor_cnum_error").html("<span class='error-message'>* Please enter a valid contact number (11 digits starting with '09')</span>");
-      $("#visitor_cnum").addClass("error-input");
-    } else {
-      $("#visitor_cnum_error").text("");
-      $("#visitor_cnum").removeClass("error-input");
-    }
-  }
-
-=======
       $("#visitor_btn").css('cursor', 'not-allowed');
       $("#visitor_btn").prop("disabled", true);
     } else {
@@ -261,7 +216,8 @@ include './queries.php';
       $("#visitor_btn").css('cursor', 'pointer');
       $("#visitor_btn").prop("disabled", false);
     }
-  }
+}
+
 
   $("#form_visitor").on("submit", function(event) {
       validateVisitorName();
@@ -294,21 +250,12 @@ include './queries.php';
       }
     });
 
->>>>>>> Stashed changes
   // Validate visitor department
   function validateVisitorDept() {
     var visitorDept = $("#visitor_dept").val().trim();
     if (!/^[a-zA-Z\s]+$/.test(visitorDept)) {
       $("#visitor_dept_error").html("<span class='error-message'>* Please enter a valid department (only letters and spaces are allowed)</span>");
       $("#visitor_dept").addClass("error-input");
-<<<<<<< Updated upstream
-    } else {
-      $("#visitor_dept_error").text("");
-      $("#visitor_dept").removeClass("error-input");
-    }
-  }
-
-=======
       $("#visitor_btn").css('cursor', 'not-allowed');
       $("#visitor_btn").prop("disabled", true);
     } else {
@@ -326,32 +273,12 @@ include './queries.php';
       }
     });
 
->>>>>>> Stashed changes
   // Validate visitor purpose
   function validateVisitorPurp() {
     var visitorPurp = $("#visitor_purp").val().trim();
     if (!/^[a-zA-Z\s]+$/.test(visitorPurp)) {
       $("#visitor_purp_error").html("<span class='error-message'>* Please enter a valid purpose (only letters and spaces are allowed)</span>");
       $("#visitor_purp").addClass("error-input");
-<<<<<<< Updated upstream
-    } else {
-      $("#visitor_purp_error").text("");
-      $("#visitor_purp").removeClass("error-input");
-    }
-  }
-
-  // Validate visitor email
-  function validateVisitorEmail() {
-    var visitorEmail = $("#visitor_email").val().trim();
-    if (!/^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/.test(visitorEmail)) {
-      $("#visitor_email_error").html("<span class='error-message'>* Please enter a valid email address</span>");
-      $("#visitor_email").addClass("error-input");
-    } else {
-      $("#visitor_email_error").text("");
-      $("#visitor_email").removeClass("error-input");
-    }
-  }
-=======
       $("#visitor_btn").css('cursor', 'not-allowed');
       $("#visitor_btn").prop("disabled", true);
     } else {
@@ -412,7 +339,6 @@ include './queries.php';
       }
     });
 
->>>>>>> Stashed changes
 });
 
 
@@ -430,14 +356,9 @@ include './queries.php';
       const visitor_name = $('#visitor_name').val();
       const visitor_dept = $('#visitor_dept').val();
       const visitor_email = $('#visitor_email').val();
-<<<<<<< Updated upstream
-
-      if(visitor_cnum == '' || visitor_name === ''  || visitor_purp === '' || visitor_dept === '' || visitor_email === ''){
-=======
       const campus = $('#campus-select').val();
 
       if(visitor_cnum == '' || visitor_name === ''  || visitor_purp === '' || visitor_dept === '' || visitor_email === '' || campus === ''){
->>>>>>> Stashed changes
 
         $('.visitor-form h4 span').html('<span> Fill up form </span>');
         // alert('fill up!');
@@ -452,10 +373,7 @@ include './queries.php';
           visitor_name: visitor_name,
           visitor_dept: visitor_dept,
           visitor_email: visitor_email,
-<<<<<<< Updated upstream
-=======
           campus: campus
->>>>>>> Stashed changes
         });
         
         $('#visitor_cnum').val('');
@@ -463,20 +381,14 @@ include './queries.php';
         $('#visitor_name').val('');
         $('#visitor_dept').val('');
         $('#visitor_email').val('');
-<<<<<<< Updated upstream
-=======
         // $('#campus-select').val('');
->>>>>>> Stashed changes
 
         $('#visitor_cnum').attr('placeholder', 'Contact Number');
         $('#visitor_purp').attr('placeholder', 'Purpose');
         $('#visitor_name').attr('placeholder', 'Name');
         $('#visitor_dept').attr('placeholder', 'Department');
         $('#visitor_email').attr('placeholder', 'Email');
-<<<<<<< Updated upstream
-=======
         // $('#campus-select').attr('placeholder', 'Campus');
->>>>>>> Stashed changes
       }
 
       
@@ -570,12 +482,8 @@ include './queries.php';
           });
 
           $('.student-id').load('./student_info.php', {
-<<<<<<< Updated upstream
-            stud_id: stud_id
-=======
             stud_id: stud_id,
             
->>>>>>> Stashed changes
           });
         });
       } else {
@@ -627,15 +535,6 @@ campusSelect.addEventListener('change', (event) => {
 });
 
 
-
-
-
-<<<<<<< Updated upstream
-
-  
-  
-=======
->>>>>>> Stashed changes
   function updateClock() {
     var now = new Date();
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -656,6 +555,7 @@ campusSelect.addEventListener('change', (event) => {
     }
   
     // Add leading zeros to minutes and seconds
+    //
     if (minutes < 10) {
       minutes = '0' + minutes;
     }

@@ -1,10 +1,10 @@
 <?php
-   // error_reporting(0);
+   error_reporting(0);
    date_default_timezone_set("Asia/Manila");
    include "./connection.php";
    include "./function.php";
    // include "./validation_test.php";
-   
+
    $status = $_POST['status'];
    $fullname = $_POST['fullname'];
    $message = $_POST['mess'];
@@ -16,10 +16,16 @@
 
    // echo $total;
 
-   if($role === 'outsider') { ?>
+   if($role == 'outsider') { ?>
 
          <div class="modal-message">
-
+            <audio id="soundoutsider">
+               <source src="../sounds/Outsider.mp3" type="audio/mpeg">
+            </audio>
+               <script>
+                  var soundoutsider = new Audio("./sounds/Outsider.mp3");
+                  soundoutsider.play();
+               </script>
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             <p> This qr code <b> <?=$qr_val?>  </b> didn't exist in student table </p>
    
@@ -29,24 +35,20 @@
          </div>
       
 
-   <?php } else if ($status === 'PUI') {?>
-
-      <div class="modal-message">
-      <!-- <i class="fa-sharp fa-solid fa-face-mask fa-bounce fa-sm" style="color: #ff0000;" aria-hidden="true"></i> -->
-      <i class="fa-sharp fa-solid fa-file-medical fa-beat fa-2xl" style="color: #ff0000;" aria-hidden="true"></i>
-            <p><?=$qr_val?> <?=$fullname?></p>
-            <p>Please Submit your Medical Documents to the Clinic ASAP!!!</p>
-   
-            <div class="form-button">
-               <button id="close"> close </button>
-            </div>
-         </div>
-
-   <?php }else {
+   <?php } else {
 
       if($total == '1' && $status == 'Not Cleared') { ?>
 
          <div class="modal-message">
+
+            <audio id="soundnotcleared">
+               <source src="../sounds/Not Cleared.mp3" type="audio/mpeg">
+            </audio>
+               <script>
+                  var soundnotcleared = new Audio("./sounds/Not Cleared.mp3");
+                  soundnotcleared.play();
+               </script>
+
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             <p> This student <b> <?=$stud_id?> <?=$fullname?> <b> has an issue in clinic. 
                <!-- <?=$total?> -->
@@ -78,13 +80,18 @@
          $time = date('h:i:s');
          
          archive($conn, $stud_id, $role, $campus ,$date, $time);
-   
-      
-   
+
          ?>
    
          <div class="modal-message">
-   
+            <audio id="soundnotcleared">
+               <source src="../sounds/Not Cleared.mp3" type="audio/mpeg">
+            </audio>
+               <script>
+                  var soundnotcleared = new Audio("./sounds/Not Cleared.mp3");
+                  soundnotcleared.play();
+               </script>
+
             <!-- <p>  <?=$total?> </p> -->
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             <p> This student <b> <?=$stud_id?> <?=$fullname?> <b> has an issue in clinic. </p>
@@ -94,19 +101,17 @@
                <div style="color: red;">  <?=$message?> </div>
    
             </div>
-   
-            <div class="form-button">
-              <center> <button id="close"> close </button> </center>
-            </div>
-         </div>
-   
-   
-   
-      
+            <center><button id="close"> close </button></center>
       <?php } else { ?>
-   
          <p id="notification" style="background-color: #4EC745; padding:10px; position:absolute; transform:translateY(3em);"> This student <b> <?=$fullname?> </b> is <?=$message?></p>
-   
+         <audio id="soundcleared">
+            <source src="../sounds/Cleared.mp3" type="audio/mpeg">
+         </audio>
+
+         <script>
+            var soundcleared = new Audio("./sounds/Cleared.mp3");
+            soundcleared.play();
+         </script>
       <?php }
 
    }
@@ -117,7 +122,20 @@
 ?>
 
 <script>
+//Sounds
+// var soundoutsider = new Audio("./sounds/Outsider.mp3");
+// soundoutsider.play();
 
+// var soundnotcleared = new Audio("./sounds/Not Cleared.mp3");
+// soundnotcleared.play();
+
+// var soundcleared = new Audio("./sounds/Cleared.mp3");
+// soundcleared.play();
+
+
+
+
+//notification 
 setTimeout(function(){
   var notification = document.getElementById('notification');
   notification.style.display = 'none';

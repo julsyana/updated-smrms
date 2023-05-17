@@ -1,9 +1,5 @@
 <?php
-<<<<<<< Updated upstream
    error_reporting(0);
-=======
-   // error_reporting(0);
->>>>>>> Stashed changes
    // session_start();
 
    include "./connection.php";
@@ -46,7 +42,9 @@
       ON a.student_id = b.student_id
       JOIN `sample_stud_data` c
       ON a.student_id = c.student_id
-      WHERE  a.student_id = '$student_id' AND a.`app_date` = CURRENT_DATE();";
+      JOIN `appointment_dates` d
+      ON a.app_date_id = d.app_date_id
+      WHERE  a.student_id = '$student_id' AND d.`app_dates` = CURRENT_DATE();";
 
       $res_appointment_today = mysqli_query($conn, $sel_appointment_today);
 
@@ -72,6 +70,7 @@
                   var mess = "<?=$message?>";
                   var fullname = "<?=$fullname?>";
                   var status = "<?=$status?>";
+                  var campus = "<?=$campus?>";
                
                
                   $('#not-verified').show();
@@ -83,7 +82,8 @@
                      mess: mess,
                      fullname: fullname,
                      status: status,
-                     role: role     
+                     role: role,
+                     campus: campus     
                                
                   });
                
@@ -143,7 +143,7 @@
                
             echo mysqli_error($conn);
          
-         } else{  ?>
+         } else {  ?>
 
         <script>
             
@@ -160,14 +160,18 @@
                $('#not-verified').load('./message.php', {
                   fullname: fullname,
                   status: status,
-                  qr_val: qr_val
+                  qr_val: qr_val,
+                  campus: campus
 
                });
             });
          </script>
-      <?php  include "./entrance_log.php";
+
+      <?php }
       
-         }}else {
+             include "./entrance_log.php";
+      
+         } else {
 
             $res_ins = entrance_log($conn, $student_id, $time_today, $date_today, $campus);
 
@@ -202,8 +206,10 @@
             <?php 
                include "./entrance_log.php";
             }
-      }
-} else { 
+
+         }
+
+      } else { 
 
       $role = 'outsider';
       
@@ -226,7 +232,6 @@
                $('#not-verified').load('./message.php', {
 
                   role: role,
-                  campus: campus,
                   qr_val: qr_val
 
                });
