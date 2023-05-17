@@ -46,7 +46,7 @@ $count_not_verified = mysqli_fetch_assoc($result2);
 $notverified_total = $count_not_verified['count'];
 
 
-$sel_archive = "SELECT * FROM `stud_archive` WHERE `date_archive` = CURRENT_DATE() ORDER BY id DESC LIMIT 5;";
+$sel_archive = "SELECT * FROM `stud_archive` WHERE `date_archive` = CURRENT_DATE() ORDER BY id DESC LIMIT 3;";
 
 $res_archive = mysqli_query($conn, $sel_archive);
 
@@ -75,12 +75,12 @@ JOIN `mis.student_info` b
 ON a.student_number = b.student_id
 JOIN `mis.enrollment_status` c
 ON a.student_number = c.student_id
-WHERE logdate = CURRENT_DATE() ORDER BY a.id DESC LIMIT 5;";
+WHERE logdate = CURRENT_DATE() ORDER BY a.id DESC LIMIT 3;";
 
 $res_entrance_log = mysqli_query($conn, $sel_entrance_log_query);
 
 
-$sel_visitor_query = "SELECT * FROM `visitors` WHERE `date` = CURRENT_DATE() ORDER BY id DESC LIMIT 5;";
+$sel_visitor_query = "SELECT * FROM `visitors` WHERE `date` = CURRENT_DATE() ORDER BY id DESC LIMIT 3;";
 
 $res_visitor = mysqli_query($conn, $sel_visitor_query);
 

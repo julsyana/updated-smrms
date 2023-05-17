@@ -19,7 +19,7 @@
          <div class="stud-img">
             
             <div class="image">
-               <img src="../assets/QCU_Logo.png" alt="">
+               <img src= "./ID PICTURE/<?=$student['id_image']?>" alt="">
             </div>
             
          </div>
