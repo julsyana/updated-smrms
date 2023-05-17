@@ -49,6 +49,9 @@
 
    // Select all services
    $sel_services = selAllServices($conn);
+   
+   // // Select all attachment
+   // $sel_attachment = selectAttachment($conn)
 
    
 

@@ -97,6 +97,17 @@ function fetchStudMedHistory($conn, $stud_id){
    return $res_query;
 }
 
+function fetchStudMedHistoryMedicine($conn, $ref_no){
+
+   $sel = "SELECT *  FROM `consultations_med`
+   WHERE `ref_no` = '$ref_no';";
+
+   $res_query = mysqli_query($conn, $sel);
+
+   return $res_query;
+}
+
+
 function fetchStudMedHistoryRef($conn, $ref_no, $stud_id) {
 
    $sel = "SELECT *, LEFT(b.middlename, 1) as `nurse_mi` FROM `consultations` a 
@@ -308,6 +319,15 @@ function setAppointmentStatus($conn, $stud_id, $ref_no, $status){
    $result = mysqli_query($conn, $update);
 
    return $result;
+}
+
+function selectAttachment($conn, $ref_no){
+   
+   $sql = "SELECT * FROM medical_attachments where reference_no = '$ref_no'";
+   $query = $conn->query($sql);
+   $row = $query->fetch_assoc();
+
+   return $row;
 }
 
 
