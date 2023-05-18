@@ -1,7 +1,29 @@
 <?php
-// error_reporting(0);
+error_reporting(0);
 include './connection.php';
+
+
+session_start();
+
+$gemp_id = $_SESSION['gemp_id'];
+
+if(empty($gemp_id)){
+
+  header("Location: ../admin/index.php");
+
+}
+
+$result = mysqli_query($conn,"SELECT * FROM `guard_info` WHERE `emp_id` = '$gemp_id'");
+$guard = mysqli_fetch_assoc($result);
+
+$campus = $guard['desginatedCampus'];
+
+
 include './queries.php';
+
+
+
+
 
 ?>
 
@@ -50,6 +72,15 @@ include './queries.php';
           <div class="header-name">
               <img src="./assets/QCULogo.png" alt="">
               <h3>Welcome to Quezon City University</h3>
+          </div>
+
+
+          <div class="account">
+            <p> <?=$guard['fname']?> <?=$guard['lname']?> <?=$guard['mi']?>. </p>
+
+            <div class="logout">
+              <a href="./logout.php"> Logout </a>
+            </div>
           </div>
 
           <div id="date">
@@ -124,11 +155,11 @@ include './queries.php';
 
             <div class="form-scan">
               <form action="" method="post">
-                  <select name="campus" id="campus-select" class="form-control" onchange="disableSelect()">
-                    <option value=''>Select a campus</option>
-                    <option value="San Bartolome">San Bartolome</option>
-                    <option value="Batasan">Batasan</option>
-                    <option value="San Francisco">San Francisco</option>
+                  <select name="campus" id="campus-select" class="form-control" onchange="disableSelect()" style="text-transform: capitalize;">
+                    <option value=''>Select campus</option>
+                    <option value="<?=$guard['desginatedCampus']?>"><?=$guard['desginatedCampus']?></option>
+                    <!-- <option value="Batasan">Batasan</option>
+                    <option value="San Francisco">San Francisco</option> -->
                   </select>
                   <input type="text" name="text" id="student_id" placeholder="Student Number" class="form-control class" method="get" style="visibility: hidden">
               </form>
@@ -138,7 +169,7 @@ include './queries.php';
 
               <button id="students-btn" class="selected students"> <?php //echo $verified_total;?>Cleared </button>
 
-              <button id="pending-btn"> <?php// echo $notverified_total?>PUI </button>
+              <button id="pending-btn"> <?// echo $notverified_total?>PUI </button>
 
               <button id="visitor-btn"><?//=$total_visitor?> Visitors </button>
 

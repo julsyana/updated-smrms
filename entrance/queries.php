@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 
 $sqltotal = "SELECT COUNT(*) as count FROM `entrance_log` a
 JOIN `sample_stud_data` b 
@@ -75,7 +75,7 @@ JOIN `mis.student_info` b
 ON a.student_number = b.student_id
 JOIN `mis.enrollment_status` c
 ON a.student_number = c.student_id
-WHERE logdate = CURDATE() ORDER BY a.id DESC LIMIT 3;";
+WHERE logdate = CURDATE() AND a.campus = '$campus' ORDER BY a.id DESC LIMIT 3;";
 
 $res_entrance_log = mysqli_query($conn, $sel_entrance_log_query);
 

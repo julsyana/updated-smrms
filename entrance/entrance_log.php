@@ -37,7 +37,7 @@
                   <td><?=$student_name?> </td>
                   <td><?=$entered_student['year_level']?></td>
                   <td><?=$entered_student['section']?></td>
-                  <td><?=$entered_student['campus']?></td>
+                  <td style="text-transform: capitalize;"><?=$entered_student['campus']?></td>
                   <td><?=$time_in?></td>
                </tr>
 

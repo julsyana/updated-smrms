@@ -11,17 +11,30 @@
 
 	$id = $_SESSION['user_id'];
 	$emp_id = $_SESSION['emp_id'];
+	$gemp_id = $_SESSION['gemp_id'];
 
 	if(!empty($id)) {
 
 		header("location: ./pages/dashboard.php");
 		
 
- 	} else if(!empty($emp_id)){
+ 	}
+	
+	if(!empty($emp_id)){
 
 		header("Location: ../nurse/dashboard.php");
 		
 	}
+
+	if(!empty($gemp_id)){
+
+		header("Location: ../entrance/entrance-dashboard.php");
+		
+	}
+	
+	
+
+
 
 
 ?>
@@ -71,6 +84,7 @@
 					<option value="">Select role</option>
 					<option value="admin">Head Nurse/Admin</option>
 					<option value="nurse">Nurse</option>
+					<option value="guard">Guard</option>
 				</select>
 			</div>
 			<div class="input">

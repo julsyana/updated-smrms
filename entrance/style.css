@@ -1,43 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
-*{
-    padding: 0;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: #eeeeee;
+body {
+  background-color: #eeeeee;
 }
-.header{
-    width: 100%;
-    height: 10vh;
-    background-color: #577CDC;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    top: 0;
+.header {
+  width: 100%;
+  height: 10vh;
+  background-color: #577cdc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  top: 0;
 }
-.header-name{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.header-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.header img{
-    width: 45px;
-    margin: 0 10px 0 0;
+.header img {
+  width: 45px;
+  margin: 0 10px 0 0;
 }
-.header h3{
-    font-size: 24px;
-    color: #ffffff;
-    font-weight: 600;
+.header h3 {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 600;
 }
-#date{
-    font-size: 20px;
-    color: #ffffff;
-    font-weight: 600;
+
+.header .account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  height: max-content;
+  /* background-color: red; */
+  background-color: #577cdc;
+}
+
+.header .account p {
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 1.3em;
+  margin: 0;
+  background-color: none;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.header .account .logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+}
+
+.header .account .logout a {
+  font-size: 1.1em;
+  color: #fff;
+  padding: 6px 15px;
+  background-color: rgb(194, 77, 77);
+  border-radius: 5em;
+  text-decoration: none;
+}
+
+#date {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 600;
+  position: fixed;
+  z-index: 1;
+  right: 2%;
+  bottom: 2%;
 }
 /* #time, #date, #day{
     font-size: 20px;
@@ -47,58 +91,58 @@ body{
 } */
 
 /* L O G I N */
-.logo{
-    display: flex;
-    justify-content: center;
-    margin: 20px 0 0 0;
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
 }
-.logo img{
-    width: 100px;
+.logo img {
+  width: 100px;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    margin-top: 0px;
+.container {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  margin-top: 0px;
 }
-.content{
-    display: grid;
-    justify-content: center;
-    padding: 0px 30px 20px;
-    width: 400px;
+.content {
+  display: grid;
+  justify-content: center;
+  padding: 0px 30px 20px;
+  width: 400px;
 }
 /* .content img{
     width: 100px;
     justify-self: center;
 } */
-.content h4{
-    text-align: center;
-    font-weight: 400;
-    font-size: 2.5em;
-    margin-bottom: 20px;
+.content h4 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
-.content video{
-    width: 100%;
-    border-radius: 10px;
+.content video {
+  width: 100%;
+  border-radius: 10px;
 }
-.content #text{
-    visibility: hidden;
+.content #text {
+  visibility: hidden;
 }
-.content .login-input{
-    width: 100%;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #dedede;
-    padding: 5px;
-    margin:  0 0 10px 0;
+.content .login-input {
+  width: 100%;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #dedede;
+  padding: 5px;
+  margin: 0 0 10px 0;
 }
-.content .login-submit{
-    margin: 10px 0 0 0;
-    width: 100%;
-    padding: 10px 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #577CDC;
+.content .login-submit {
+  margin: 10px 0 0 0;
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #577cdc;
 }
 /* .login-form{
     padding: 30px 10px 0 10px;
@@ -182,36 +226,36 @@ body{
 /* E N D  O F  L O G I N */
 
 /* D A S H B O A R D */
-.dashboard{  
-    display: flex;
-    justify-content: center;
-    position: relative;
-    top: 50px;
-    width: 100%;
-  }
-.dashboard-header{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0 50px;
+.dashboard {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 50px;
+  width: 100%;
 }
-.stats{
-    background-color: red;
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 50px;
 }
-.stats ul{
-    list-style: none;
-    display: flex;
+.stats {
+  background-color: red;
 }
-.stats ul li{
-    padding: 10px;
-    margin: 10px;
-    background-color: #577CDC;
+.stats ul {
+  list-style: none;
+  display: flex;
 }
-.account{
-    background-color: blue;
+.stats ul li {
+  padding: 10px;
+  margin: 10px;
+  background-color: #577cdc;
 }
-.account img{
-    width: 20px;
+.account {
+  background-color: blue;
+}
+.account img {
+  width: 20px;
 }
 /* E N D  O F  D A S H B O A R D */
 /* footer{
