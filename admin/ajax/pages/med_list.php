@@ -20,20 +20,43 @@
 
             $description = substr($med_row['description'], 0, 120);
 
-            $startingExpDate =  date('Y-m-d', strtotime('-30 day', strtotime($med_row['expirationDate'])));
-
             $remaining_stock = ($med_row['num_stocks'] - $med_row['med_used']);
             
-            $percent10 = (($med_row['num_stocks'] * 20) / 100);
-            
-          
-            
-            $p = ($remaining_stock / $med_row['num_stocks']) * 100;
-            
+            // $percent10 = (($med_row['num_stocks'] * 20) / 100);
 
-            // echo "$curr_date = $startingExpDate = ".$med_row['expirationDate']."<br>";
+
+            // stocks
+            $sel = "SELECT * FROM `critical_level`
+            WHERE `type` = 'stock'
+            ORDER BY `date_created` DESC LIMIT 1";
+   
+            $result = mysqli_query($conn, $sel);
+
+            $stock_cl = mysqli_fetch_assoc($result);
+
+
+            // expiration date
+            $resED = mysqli_query($conn, "SELECT * FROM `critical_level`
+            WHERE `type` = 'expDate'
+            ORDER BY `date_created` DESC LIMIT 1");
+
+            $expDate_cl = mysqli_fetch_assoc($resED);
+
+
+            if(mysqli_num_rows($resED) === 1){
+
+               $day = $expDate_cl['stock_expDate'];
+
+               $startingExpDate =  date('Y-m-d', strtotime('-'.$day.' day', strtotime($med_row['expirationDate'])));
+
+            } else {
+               $startingExpDate =  date('Y-m-d', strtotime('-30 day', strtotime($med_row['expirationDate'])));
+            }
+
+
+         
             
-            if ($p == 0) {
+            if ($remaining_stock == 0) {
 
                Archive($conn, $med_row['prod_id'], 'medicine', $date_today);
                ?>
@@ -46,10 +69,10 @@
 
             }
 
-            else if($p <= $percent10){
+            else if($remaining_stock <= $stock_cl['stock_expDate']){
 
                ?>
-                  <p> <b> WARNING!!! </b> Only <?=$p?>%  of the <?=$med_row['name']?> left! </p>
+                  <p> <b> WARNING!!! </b> Only <?=$remaining_stock?> of the <?=$med_row['name']?> stock left! </p>
                <?php 
 
             }  else {

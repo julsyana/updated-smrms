@@ -116,10 +116,20 @@
             <div class="content-header">
                <h3> Medicines </h3>
 
-               <button class="add-medicine">
-                  <i class="fas fa-medkit    "></i>
-                  <p>  Add medicine </p>
-               </button>
+               <div style="display: grid; grid-template-columns: 1fr 2fr; grid-gap: 5px;">
+                  
+                  <button class="med-settings" style="background-color: #c2c2c2; width: max-content;">
+                     <i class="fas fa-cog    "></i>
+                     <p>  Settings </p>
+                  </button>
+
+                  <button class="add-medicine">
+                     <i class="fas fa-medkit    "></i>
+                     <p>  Add medicine </p>
+                  </button>
+
+               </div>
+               
             </div>
 
             <div class="filter">

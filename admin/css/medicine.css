@@ -718,3 +718,149 @@
   padding: 0.5%;
   border-radius: 6px;
 }
+
+/* Settings */
+.medicine-modal-container .settings-med-container {
+  width: 40%;
+  height: max-content;
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.medicine-modal-container .settings-med-container .settings-container-header {
+  padding: 4%;
+  text-align: center;
+  background-color: #e3e3e3;
+}
+
+.medicine-modal-container .settings-med-container .settings-container-header p {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.medicine-modal-container .settings-med-container form {
+  padding: 4% 8%;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.medicine-modal-container .settings-med-container form .form-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.medicine-modal-container .settings-med-container form .form-input textarea,
+.form-input select {
+  padding: 8px 16px;
+  font-size: 0.9em;
+  outline: none;
+  border: 1px solid #0000001b;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  text-transform: capitalize;
+  resize: none;
+}
+
+.medicine-modal-container .settings-med-container form .form-input label {
+  margin-bottom: 2px;
+  font-size: 0.9em;
+  color: #3e3e3e;
+}
+
+.medicine-modal-container .settings-med-container form .form-input input {
+  padding: 5px 10px;
+  font-size: 0.9em;
+  outline: none;
+  border: 1px solid #0000001b;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.medicine-modal-container .settings-med-container form .form-input input:focus {
+  border: 1px solid #2a48cb91;
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-input
+  input:read-only {
+  background-color: #bbbbbb;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.medicine-modal-container .settings-med-container form .form-button {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid #0003;
+  padding: 4% 0;
+}
+
+.medicine-modal-container .settings-med-container form .form-button button {
+  padding: 6px 12px;
+  color: #fff;
+  background-color: #ababab;
+  border: none;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all ease-in 0.2s;
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-button
+  button:hover {
+  background-color: #919191;
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-button
+  button#submit-setting {
+  background-color: var(--successBgButton);
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 5px;
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-button
+  button#submit-setting
+  img {
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-button
+  button#submit-setting:hover {
+  background-color: var(--hoverSuccessButton);
+}
+
+.medicine-modal-container
+  .settings-med-container
+  form
+  .form-button
+  button#submit-setting:disabled {
+  background-color: #c2c2c2;
+  cursor: not-allowed;
+}

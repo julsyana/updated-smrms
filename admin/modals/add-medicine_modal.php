@@ -57,6 +57,7 @@
       $('#med-add-cancel').click(function(){
 
          $('#medicine-modal-container').hide();
+         $('#medicine-modal-container').css('display', 'none');
 
       });
 

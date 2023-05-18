@@ -4,8 +4,12 @@ $(document).ready(function () {
 
   $(".add-medicine").click(function () {
     $("#medicine-modal-container").show();
-
     $("#medicine-modal-container").load("../modals/add-medicine_modal.php");
+  });
+
+  $(".med-settings").click(function () {
+    $("#medicine-modal-container").show();
+    $("#medicine-modal-container").load("../modals/settings.php");
   });
 
   $("button[data-role=med-edit]").click(function () {
