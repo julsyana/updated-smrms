@@ -30,10 +30,11 @@ echo "<p>loading...</p>";
 //APPROVE POST
 if($_GET['action'] == "approve"){
 
-   $base_url = 'http://localhost/updated-smrms';
+//   $base_url = 'http://localhost/updated-smrms';
+   $base_url = 'https://qcu-smrms.site';
 
-   // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
-   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
+    $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
+//   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
 
    $postID = $_GET["postID"];
    $status = $_GET["status"];
@@ -53,11 +54,11 @@ if($_GET['action'] == "approve"){
 //DECLINE POST
 if($_GET['action'] == "decline"){
 
-    $base_url = 'http://localhost/updated-smrms';
-    //  $base_url = 'https://qcu-smrms.site';
+    // $base_url = 'http://localhost/updated-smrms';
+     $base_url = 'https://qcu-smrms.site';
  
-    // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
-    $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
+    $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
+    // $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
  
     $postID = $_GET["postID"];
     $status = $_GET["status"];
@@ -77,10 +78,11 @@ if($_GET['action'] == "decline"){
  //REVERT POST
  if($_GET['action'] == "revert"){
 
-    $base_url = 'http://localhost/updated-smrms';
+    // $base_url = 'http://localhost/updated-smrms';
+    $base_url = 'https://qcu-smrms.site';
  
-    // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
-    $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
+    $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
+    // $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
  
     $postID = $_GET["postID"];
     $status = $_GET["status"];
@@ -100,10 +102,11 @@ if($_GET['action'] == "decline"){
 //DELETE POST
  if($_GET['action'] == "delete"){
 
-   $base_url = 'http://localhost/updated-smrms';
+//   $base_url = 'http://localhost/updated-smrms';
+   $base_url = 'https://qcu-smrms.site';
 
-   // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
-   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
+    $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
+//   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
 
    $postID = $_GET["postID"];
    $status = $_GET["status"];
@@ -149,10 +152,11 @@ if($_GET['action'] == "decline"){
 //EDIT POST
 if($_GET['action'] == "edit"){
 
-   $base_url = 'http://localhost/updated-smrms';
+//   $base_url = 'http://localhost/updated-smrms';
+   $base_url = 'https://qcu-smrms.site';
 
-   // $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "clinicms_db");
-   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
+    $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
+//   $conn = mysqli_connect("localhost", "root", "", "clinicms_db");
 
    $postID = $_GET["postID"];
    $status = $_GET["status"];

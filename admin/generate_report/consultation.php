@@ -15,7 +15,9 @@
    
    
 
-   $range = $_GET['range'];
+   // $range = $_GET['range'];
+   $rangeStart = $_GET['start'];
+   $rangeEnd = $_GET['end'];
 
    $query = "SELECT *, LEFT(b.middlename, 1) as mi, b.firstname as s_fname, b.lastname as s_lname, b.gender as s_gender FROM consultations a
    JOIN `mis.student_info` b
@@ -23,36 +25,21 @@
    JOIN `mis.enrollment_status` c
    ON a.student_id = c.student_id
    JOIN nurses d
-   ON a.emp_id = d.emp_id";
+   ON a.emp_id = d.emp_id
+   WHERE DATE(a.date_of_consultation) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY a.date_of_consultation DESC";
 
-   switch ($range){
-      case "monthly": {
-
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(a.date_of_consultation) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(a.date_of_consultation) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
-
-   $query .= " ORDER BY a.date_of_consultation DESC";
-   
    $stud_app = mysqli_query($conn, $query);
 
-   $formatFromDate = new DateTime($fromDate);
-   $formatFromDate = $formatFromDate->format("F d, Y");
+   $date_today = new DateTime($date_today);
+   $date_today = $date_today->format("F d, Y h:i A");
 
-   $formatToDate = new DateTime($today);
-   $formatToDate = $formatToDate->format("F d, Y");
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
 
   
 ?>
@@ -133,10 +120,35 @@
 <main>
 <div class="report-box">
 
-<div class="report-header">
-         <h2> Consultation report  </h2>
-         <span> from <?=$formatFromDate?> to <?=$formatToDate?> </span>
-      </div>
+         <div class="report-header">
+             <p style="margin: 0 0 20px 0;"> MEDICAL AND DENTAL SERVICES  </p>
+             <br>
+             <h2> Consultation report  </h2>
+             <p> 
+                <?php 
+             
+                   if($rangeStart == $rangeEnd){
+       
+                      $range = $rangeStart;
+       
+                      ?> From <?=formatDate($range, "F d, Y");?> <?php 
+       
+                   } else {
+                      ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+                   }
+                ?>
+             </p>
+         
+         
+            
+             <div>
+                <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
+                <p style="display: flex; float: right;"> Date generate: <b><?=$date_today?> </b> </p>
+            </div>
+             <br>
+             <br><br><br>
+         
+        </div>
 
 <div class="list-of-data-tbl">
    
@@ -148,9 +160,8 @@
             <th> Gender </th>
             <th> Course </th>
             <th> Section </th>
-            <th> Patient's Complain </th>
-            <th> Medicine Given </th>
-            <th> Quantity </th>
+            <th width="15%"> Patient's Complain </th>
+            <th width="5%"> Medicine Given <br> (Name - Qty)</th>
             <th> Nurse Assisted </th>
             <th> Campus </th>
             <th> Date of Consultation </th>
@@ -165,6 +176,15 @@
                $cnt = 1;
 
                while($row = mysqli_fetch_assoc($stud_app)){
+                   
+                    $date_consult = $row['date_of_consultation'];
+                    $date_consult = new DateTime($date_consult);
+                    $date_consult = $date_consult->format("F d, Y");
+                   
+                   $refNo = $row['reference_no'];
+                   $med = mysqli_query($conn, "SELECT * FROM `consultations_med` WHERE `ref_no` = '$refNo'")
+                   
+                   
 
                   ?>
                   
@@ -175,11 +195,39 @@
                         <td> <?=$row['code']?> </td>
                         <td> <?=$row['section']?> </td>
                         <td> <?=$row['symptoms']?></td>
-                        <td> <?=$row['medicine']?> </td>
-                        <td> <?=$row['quantity']?> </td>
+                        
+                        
+                        
+                        <td>
+                            
+                                
+                                
+                            <?php 
+                                if(mysqli_num_rows($med) > 0){
+                                    while($mrow = mysqli_fetch_assoc($med)){
+                                        
+                                        ?>
+                                           - <?=$mrow['medicine']?>(<?=$mrow['quantity']?>) <br>
+                                        <?php 
+                                        
+                                    }
+                                    
+                                } else {
+                                    echo "No medicine given";
+                                }
+                            
+                            ?>
+                            
+                            
+                           
+                    
+                        
+                        </td>
+                      
+                        
                         <td> <?=$row['firstname']?> <?=$row['lastname']?>, RN </td>
                         <td> <?=$row['branch']?> </td>
-                        <td> <?=$row['date_of_consultation']?> </td>
+                        <td> <?=$date_consult?> </td>
                         
                         <!-- <td style="text-transform: capitalize"> <?=$row['app_status']?> </td> -->
                      </tr>
@@ -207,10 +255,10 @@
 </div>
 </main>
 
-<footer>
-   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
-   <p style="display: flex; float: right;"> Date generate: <b><?=$formatToDate?> </b> </p>
-</footer>
+<!--<footer>-->
+<!--   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>-->
+<!--   <p style="display: flex; float: right;"> Date generate: <b><?=$formatToDate?> </b> </p>-->
+<!--</footer>-->
 
 </body>
 </html>

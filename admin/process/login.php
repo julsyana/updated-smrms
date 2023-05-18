@@ -74,7 +74,8 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 					
 
 					if($row['isArchive'] == 1) {
-
+					    
+					    $_SESSION['errMessage'] = "This account is banned! Contact your superior.";
 						unset($_SESSION['emp_id']);
 						header("Location: ../index.php");
 
@@ -82,6 +83,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
 						$_SESSION['emp_id'] = $row['emp_id'];
 						header("Location: ../../nurse/dashboard.php");
+						
 					}
 
 					break;
@@ -95,9 +97,9 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 		} 
 		else {		// error validation if username and password didn't exist in database
 			
-			echo $_SESSION['errMessage'] = "Incorect email or password!"; 	// pass error message
-			// header("Location: ../index.php");									// redirecct to index/login page
-			// exit();
+			$_SESSION['errMessage'] = "You do not have an account yet"; 	// pass error message
+			header("Location: ../index.php");									// redirecct to index/login page
+			exit();
 
 		}
 		

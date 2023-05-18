@@ -15,6 +15,11 @@
 
    // student id
    $stud_id = $_POST['stud_id'];
+   
+   $nurseInfo = mysqli_query($conn1, "SELECT * FROM `nurses` WHERE `emp_id` = '$emp_id'");
+   $nurse = mysqli_fetch_assoc($nurseInfo);
+   
+   echo $nurseCampus = $nurse['campus'];
 
    // symptoms
    if(empty($_POST['symptoms'][0])){
@@ -88,12 +93,15 @@
       $hospitalAdd = "None";
 
    }
+   
+   
+  
 
    $isCleared = $_POST['cleared'];
 
-   $insert = insertConsultation($conn1, $ref_no, $stud_id, $emp_id, $date_today, $symptoms, $injuries, $bodyTemp, $bp_systolic, $bp_diastolic, $isSuspected, $isTested, $isConfined, $howLong, $isReferred, $hospitalName, $hospitalAdd, $isCleared);
+  $insert = insertConsultation($conn1, $ref_no, $stud_id, $emp_id, $date_today, $symptoms, $injuries, $bodyTemp, $bp_systolic, $bp_diastolic, $isSuspected, $isTested, $isConfined, $howLong, $isReferred, $hospitalName, $hospitalAdd, $isCleared);
 
-   if($insert){
+  if($insert){
 
       if(!empty($_POST['medicine'][0])){
 
@@ -101,9 +109,10 @@
          $med_slot = $_POST['med_slot'];
    
          foreach ($medicine as $key => $value) {
-
+             
+            mysqli_query($conn1, "UPDATE `medicine` SET `med_used`= (`med_used` + $med_slot[$key]) WHERE `name` LIKE '$value' AND `campus` = '$nurseCampus'");
             mysqli_query($conn1, "INSERT INTO `consultations_med`(`ref_no`, `medicine`, `quantity`) VALUES ('$ref_no','$value','$med_slot[$key]')");
-
+            
          }
    
       }
@@ -114,8 +123,7 @@
          
          <script>
 
-            // window.open('../student.php', '_blank');
-            window.location.href = "./excuse-slip.php?ref-no=<?=$ref_no?>";
+            window.location.href = "./information.php?stud-id=<?=$stud_id?>";
             
          </script>
          
@@ -139,7 +147,7 @@
 
       mysqli_query($conn1, "UPDATE `sample_stud_data` SET `Status` = '$isCleared' WHERE `student_id` = '$stud_id'");
 
-   }
+  }
    
    
 

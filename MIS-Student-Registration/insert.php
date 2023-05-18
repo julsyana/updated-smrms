@@ -50,12 +50,9 @@ if (isset($_POST['submit'])) {
 --  for address
             INSERT INTO `mis.student_address` (student_id,house_no, street, brgy, city, province, district, zip_code) VALUES ('$stud_num', '$house_no', '$street' ,'$barangay', '$city', '$province' ,'$district', '$zip_code');
 -- for emergency contact
-            INSERT INTO `mis.emergency_contact` (student_id,fullname, relation, emergency_number, address) VALUES ('$stud_num', '$fullname', '$relationship', '$emer_contactnum', '$address');
+            INSERT INTO `mis.emergency_contact` (student_id,fullname, relation, contact_number, address) VALUES ('$stud_num', '$fullname', '$relationship', '$emer_contactnum', '$address');
 -- for enrollment status
-            INSERT INTO `mis.enrollment_status` (student_id, code, program, year_level, section, branch) VALUES ('$stud_num', '$code', '$course', '$yrlvl', '$section', '$campus');
--- for status  
-            INSERT INTO `sample_stud_data` (student_id, Status) VALUES ('$stud_num', 'Cleared');";
-
+            INSERT INTO `mis.enrollment_status` (student_id, code, program, year_level, section, branch) VALUES ('$stud_num', '$code', '$course', '$yrlvl', '$section', '$campus')";
 
 	if ($conn->multi_query($sql) === TRUE) {
   echo "New records created successfully";

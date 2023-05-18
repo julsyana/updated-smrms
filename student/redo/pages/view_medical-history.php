@@ -5,8 +5,14 @@
 
 
    $stud_med_info = fetchStudMedHistoryRef($conn, $ref_no, $stud_id);
-   $attacment = selectAttachment($conn,$ref_no)
-     
+
+   $stud_medicine = fetchStudMedHistoryMedicine($conn, $ref_no);
+   
+   $attacment = selectAttachment($conn,$ref_no);
+
+   // $dateConsult = ;
+   $dateConsult = new DateTime($stud_med_info['date_of_consultation']);
+   $dateConsult = $dateConsult->format("l, F d, Y h:i A");
 ?>
 
 <!DOCTYPE html>
@@ -131,7 +137,7 @@
 
                   </div>
 
-                  <!-- <?php
+                  <?php
                      if($stud_med_info['status'] === 'cleared') { ?>
 
                         <div class="med-status" style="background-color: var(--approve);">
@@ -148,18 +154,18 @@
 
                         </div>
 
-                     <?php } ?> -->
+                     <?php } ?>
             
 
-                     <?php if($res_stud_health_status['Status'] === "Not Cleared") { ?>
+                     <!--<?php if(strtolower($res_stud_health_status['Status']) == "not cleared") { ?>-->
 
-                        <p> Status: <span style="background-color: var(--decline);"> <?=$res_stud_health_status['Status']?> </span> </p>
+                     <!--   <p> Status: <span style="background-color: var(--decline);"> <?=$res_stud_health_status['Status']?> </span> </p>-->
 
-                     <?php } else { ?>
+                     <!--<?php } else { ?>-->
 
-                        <p> Status: <span style="background-color: var(--approve);"> <?=$res_stud_health_status['Status']?> </span> </p>
+                     <!--   <p> Status: <span style="background-color: var(--approve);"> <?=$res_stud_health_status['Status']?> </span> </p>-->
 
-                     <?php } ?> 
+                     <!--<?php } ?> -->
                   
 
                </div>
@@ -181,16 +187,14 @@
                         <p>
                            
                            <ul>
-                              <li> <?=$stud_med_info['symptoms']?> </li>
+                              <li> <?=$stud_med_info['symptoms']?>
                               <?php 
                                  if(strtolower($stud_med_info['injuries']) != 'none'){
-                                    ?>
-                                       <li> <?=$stud_med_info['injuries']?>  </li>
-                                    <?php
-                                 } else {
-                                    echo "";
-                                 }
+                                    echo ", ".$stud_med_info['injuries'];
+                                 } 
                               ?>
+                              
+                               </li>
                               
                            </ul>
                         
@@ -293,10 +297,3 @@
 
 </body>
 </html>
-
-<script>
-   function openPdf(){
-        
-
-   }
-</script>

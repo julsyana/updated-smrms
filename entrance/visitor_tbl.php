@@ -9,7 +9,6 @@
          <tr>
             <td>Name.</td>
             <td>Purpose</td>
-            <td>Email</td>
             <td>Contact Number</td>
             <td>Department</td>
             <td>Time-In</td>
@@ -36,7 +35,6 @@
             <tr>
                <td> <?=$visitor['fullname']?> </td>
                <td> <?=$visitor['purpose']?> </td>
-               <td> <?=$visitor['email']?> </td>
                <td> <?=$visitor['contact_num']?> </td>
                <td> <?=$visitor['department']?> </td>
                <td> <?=$time_in?> </td>
@@ -46,7 +44,7 @@
 
       } else { ?>
 
-            <tr> <td colspan="6"> NO VISITOR </td></tr>
+            <tr> <td colspan="5"> NO VISITOR </td></tr>
 
       <?php } ?>
         

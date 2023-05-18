@@ -56,7 +56,11 @@
 
                <span class="fw-semibold"> Symptoms: </span>
 
-               <span class="mx-3"> <?=$row['symptoms']?></span>
+               <span class="mx-3"> <?=$row['symptoms']?>
+               <?php if(strtolower($row['injuries']) != 'none') {
+                    echo ", ".$row['injuries'];
+               }  ?>
+               </span>
 
             </div>
 

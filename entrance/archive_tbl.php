@@ -16,8 +16,7 @@
          <tr>
             <td>QR Code Value</td>
             <!-- <td>Name/td> -->
-            <td> Role </td>
-            <td> Campus </td>
+            <td>Role </td>
             <!-- <td> date</td> -->
             <td> Time-in </td>
          </tr>
@@ -33,7 +32,6 @@
                <tr>
                   <td> <?=$archive['student_id']?> </td>
                   <td> <?=$archive['role']?> </td>
-                  <td> <?=$archive['campus']?> </td>
                   <td> <?=$archive['date_archive']?> <?=$archive['time']?> </td>
                  
                </tr>

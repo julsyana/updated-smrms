@@ -20,23 +20,39 @@
 
             $description = substr($med_row['description'], 0, 120);
 
-            $startingExpDate =  date('Y-m-d', strtotime('-7 day', strtotime($med_row['expirationDate'])));
+            $startingExpDate =  date('Y-m-d', strtotime('-30 day', strtotime($med_row['expirationDate'])));
 
             $remaining_stock = ($med_row['num_stocks'] - $med_row['med_used']);
+            
+            $percent10 = (($med_row['num_stocks'] * 20) / 100);
+            
+          
+            
+            $p = ($remaining_stock / $med_row['num_stocks']) * 100;
+            
 
             // echo "$curr_date = $startingExpDate = ".$med_row['expirationDate']."<br>";
-
-            if($remaining_stock < 50){
-
-               ?>
-                  <p> <b> WARNING!!! </b> <?=$med_row['name']?> is getting out of stock! </p>
-               <?php 
-
-            } else if ($remaining_stock == 0) {
+            
+            if ($p == 0) {
 
                Archive($conn, $med_row['prod_id'], 'medicine', $date_today);
+               ?>
+                <script>
+                
+                    window.location.href = "./medicine.php";
+                
+                </script>
+               <?php 
 
-            } else {
+            }
+
+            else if($p <= $percent10){
+
+               ?>
+                  <p> <b> WARNING!!! </b> Only <?=$p?>%  of the <?=$med_row['name']?> left! </p>
+               <?php 
+
+            }  else {
 
 
                if($curr_date >= $startingExpDate && $curr_date < $med_row['expirationDate']) {

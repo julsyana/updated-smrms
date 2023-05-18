@@ -34,7 +34,7 @@
                                  <td> <?=$x--?></td>
                                  <td> <?=$rows['student_number']?> </td>
                                  <!-- <td> Mark Melvin E. Bacabis </td> -->
-                                 <td> <?=$rows['campus']?> </td>
+                                 <td>  </td>
                                  <td>  <?=$timein.' - '.$logdate?> </td>
                               </tr>
                               

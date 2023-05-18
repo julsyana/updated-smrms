@@ -62,7 +62,7 @@ $hosquery = "SELECT * FROM hospitals";
 $hos = mysqli_query($conn1, $hosquery) or die(mysqli_error($conn1));
 
 
-$medquery = "SELECT * FROM `medicine` WHERE `campus` = '$nurseCampus'";
+$medquery = "SELECT * FROM `medicine` WHERE `campus` = '$nurseCampus' AND `isArchive` = 0";
 $medicine = mysqli_query($conn1, $medquery) or die(mysqli_error($conn1));
 
 
@@ -513,7 +513,7 @@ $medicine = mysqli_query($conn1, $medquery) or die(mysqli_error($conn1));
                       
                       if (mysqli_num_rows($medicine) > 0) {
                         while ($row = mysqli_fetch_array($medicine)) {
-                          ?> <option value="<?=$row['name']?>"> <?=$row['name']?> </option> <?php
+                          ?> <option value="<?=$row['name']?>"><?=$row['name']?></option> <?php
                         }
                       }
                       
@@ -648,20 +648,27 @@ $medicine = mysqli_query($conn1, $medquery) or die(mysqli_error($conn1));
 
       const form = $('#consultation-form')[0];
       const formData = new FormData(form);
+      
+      let isConfirm = confirm("Are you sure you want to submit this consultation?");
+      
+      if(isConfirm) {
+          
+            $.ajax({
+                type: "POST",
+                url: "../process/consultation.php",
+                data: formData,
+                cache: false,
+                contentType: false, 
+                processData: false,
+                
+                success: function(data){
+                  $('#sample-mess').html(data);
+                }
+            });
+          
+      }
 
-      $.ajax({
-        type: "POST",
-        url: "../process/consultation.php",
-        data: formData,
-        cache: false,
-        contentType: false, 
-        processData: false,
-        
-        success: function(data){
-          $('#sample-mess').html(data);
-        }
-
-      });
+     
 
     })
 
@@ -670,5 +677,6 @@ $medicine = mysqli_query($conn1, $medquery) or die(mysqli_error($conn1));
 
 
 <!-- CUSTOM AJAX FILE -->
+<script src="./ajax/isArchive.js"></script>
 
 </html>

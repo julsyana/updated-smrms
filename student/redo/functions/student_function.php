@@ -90,12 +90,14 @@ function fetchStudAppointmentImages($conn, $reference_no, $stud_id){
 function fetchStudMedHistory($conn, $stud_id){
 
    $sel = "SELECT *  FROM consultations
-   WHERE student_id = '$stud_id';";
+   WHERE student_id = '$stud_id'
+   ORDER BY `id` DESC;";
 
    $res_query = mysqli_query($conn, $sel);
 
    return $res_query;
 }
+
 
 function fetchStudMedHistoryMedicine($conn, $ref_no){
 
@@ -106,6 +108,8 @@ function fetchStudMedHistoryMedicine($conn, $ref_no){
 
    return $res_query;
 }
+
+
 
 
 function fetchStudMedHistoryRef($conn, $ref_no, $stud_id) {
@@ -314,15 +318,16 @@ function setVerified($conn, $stud_id){
 
 function setAppointmentStatus($conn, $stud_id, $ref_no, $status){
 
-   $update = "UPDATE `stud_appointment` SET `app_status` = '$status' WHERE `reference_no` = '$ref_no' AND `student_id` = '$stud_id'";
+   $update = "UPDATE `stud_appointment` SET `app_status` = '$status' WHERE `reference_no` = '$ref_no' AND `student_id` = '$stud_id' AND `app_status` != 'attended'";
 
    $result = mysqli_query($conn, $update);
 
    return $result;
 }
 
+
 function selectAttachment($conn, $ref_no){
-   
+
    $sql = "SELECT * FROM medical_attachments where reference_no = '$ref_no'";
    $query = $conn->query($sql);
    $row = $query->fetch_assoc();

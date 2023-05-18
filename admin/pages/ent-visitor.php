@@ -45,7 +45,7 @@
                                  <td>  <?=$rows['contact_num']?></td>
                                  <td>  <?=$rows['purpose']?></td>
                                  <td>  <?=$rows['department']?></td>
-                                 <td>  <?=$rows['campus']?></td>
+                                 <td>  </td>
                                  <td>  <?=$timein.' <br> '.$logdate?> </td>
                                  
                               </tr>

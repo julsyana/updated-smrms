@@ -1,10 +1,11 @@
 <?php
 // Connect to database
 $host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "clinicms_db";
+$username = "u121162919_clinicsmrms";
+$password = "[MT^dz2w78wO";
+$dbname = "u121162919_clinicms_db";
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+// $conn = mysqli_connect("localhost", "u121162919_clinicsmrms", "[MT^dz2w78wO", "u121162919_clinicms_db");
 
 try {
   $pdo = new PDO($dsn, $username, $password);

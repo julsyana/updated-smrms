@@ -3,33 +3,46 @@
    include "../../functions/report.php";
    include "../../includes/date.php";
 
-   $range = $_POST['range'];
+  
+   $rangeStart = $_POST['start'];
+   $rangeEnd = $_POST['end'];
 
-   $query = "SELECT DISTINCT(name), expirationDate, `date_added` FROM `medicine` WHERE";
 
-   switch ($range){
-      case "monthly": {
+   $query = "SELECT DISTINCT(name), expirationDate, `date_added` FROM `medicine` 
+   WHERE DATE(date_added) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY `expirationDate` ASC";
 
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
+   // switch ($range){
+   //    case "monthly": {
 
-         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+   //       $fromDate = date('Y-m-d', strtotime('-30 days'));
+   //       $today = date("Y-m-d");
 
-         break;
-      }
+   //       $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
 
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
+   //       break;
+   //    }
 
-         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
+   //    case "yearly": {
+   //       $fromDate = date('Y-m-d', strtotime('-365 days'));
+   //       $today = date("Y-m-d");
 
-   $query .= " ORDER BY `expirationDate` ASC";
+   //       $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+   //       break;
+   //    }
+   // }
+
+   // $query .= " ORDER BY `expirationDate` ASC";
 
    $medicineRes =  mysqli_query($conn, $query);
+
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
+
    
 
 
@@ -38,7 +51,21 @@
 <div class="report-box">
 
    <div class="report-header">
-   <h2 style="text-transform:capitalize"> <?=$range?> Medicines report </h2>
+   <h2 style="text-transform:capitalize"> Medicines report </h2>
+      <p>   
+         <?php 
+      
+            if($rangeStart == $rangeEnd){
+
+               $range = $rangeStart;
+
+               ?> From <?=formatDate($range, "F d, Y");?> <?php 
+
+            } else {
+               ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+            }
+         ?>
+      </p>
    </div>
 
    <div class="list-of-data-tbl" id="divToPrint">
@@ -49,10 +76,12 @@
                <th> No. </th>
                <th> Medicine/Supply </th>
                <th> Expiration Date </th>
-               <th> Total Quantity</th>
                <th> SB (San Bartolome) </th>
                <th> BAT (Batasan) </th>
-               <th> SF (San Fransisco) </th>
+               <th> SF (San Fransisco)  </th>
+               <th> Total Quantity</th>
+               <th> Medicine Given </th>
+               <th> Remaining </th>
                <th> Date added </th>
             </tr>
          </thead>
@@ -78,14 +107,61 @@
                      ?>
                      
                         <tr> 
-                           <td> <?=$count?></td>
-                           <td> <?=$row['name']?> </td>
-                           <td> <?=$expDate?></td>
+                            <td> <?=$count?></td>
+                            <td> <span style="font-size: .9em;"> <?=$row['name']?> </span> </td>
+                            <td> <?=$expDate?></td>
+                            <td> 
+                            
+                                <?php if(empty($totalQty['sanBartolome'])){
+                                    
+                                    echo "0";
+                                
+                                } else { ?>
+                                
+                                    <?=$totalQty['rSB']?>
+                                
+                                <?php }
+                                
+                                ?>
+                               
+                                
+                            </td>
+                            
+                            <td>
+                                
+                                <?php if(empty($totalQty['batasan'])){
+                                    
+                                    echo "0";
+                                
+                                } else { ?>
+                                
+                                    <?=$totalQty['rBAT']?>
+                                    
+                                <?php }
+                                
+                                ?>
+                               
+                            </td>
+                            
+                            <td> 
+                            
+                                <?php if(empty($totalQty['sanFrancisco'])){
+                                    
+                                   echo "0";
+                                
+                                } else { ?>
+                                
+                                     <?=$totalQty['rSF']?>
+                                    
+                                <?php }
+                                
+                                ?>
+                               
+                            </td>
+                           
                            <td> <?=$totalQty['total']?> </td>
-                          
-                           <td> <?=$totalQty['sanBartolome']?> </td>
-                           <td> <?=$totalQty['batasan']?> </td>
-                           <td> <?=$totalQty['sanFrancisco']?> </td>
+                           <td> <?=$totalQty['totalUsed']?> </td>
+                           <td> <?=$totalQty['remaining']?></td>
                            
                            <td style="text-transform: capitalize"> <?=$dateAdded?> </td>
                         </tr>
@@ -114,6 +190,6 @@
 
 <script>
    $('#printAppointment').click(function(){
-      window.open('../print_details.php?type=medicine&range=<?=$range?>', '_blank');
+      window.open('../print_details.php?type=medicine&start=<?=$rangeStart?>&end=<?=$rangeEnd?>', '_blank');
    });
 </script>

@@ -56,9 +56,9 @@
                <a href="./appointment-list.php"> Appointment </a>
             </li>
 
-            <li> 
-               <a href="./entrancelog.php"> Entrace Log </a>
-            </li>
+            <!--<li> -->
+            <!--   <a href="./entrancelog.php"> Entrace Log </a>-->
+            <!--</li>-->
          </ul>
         
       </nav>
@@ -151,11 +151,11 @@
                         
                            <?php if($res_stud_health_status['Status'] === "Not Cleared") { ?>
 
-                              <span style="color: var(--decline)"> <?=$res_stud_health_status['Status']?> </span> 
+                              <span style="color: var(--approve)"> <?=$res_stud_health_status['Status']?> </span> 
 
                            <?php } else { ?>
                               
-                              <span style="color: var(--approve)"> <?=$res_stud_health_status['Status']?> </span>
+                              <span style="color: var(--decline)"> <?=$res_stud_health_status['Status']?> </span>
 
                            <?php } ?> 
                         </p>

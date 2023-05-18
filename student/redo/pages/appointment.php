@@ -78,9 +78,9 @@
                <a href="./appointment-list.php"> Appointment </a>
             </li>
 
-             <li> 
-               <a href="./entrancelog.php"> Entrace Log </a>
-            </li>
+            <!-- <li> -->
+            <!--   <a href="./entrancelog.php"> Entrace Log </a>-->
+            <!--</li>-->
          </ul>
         
       </nav>
@@ -302,7 +302,7 @@
                cache: false,
                success: function(data){
 
-                  window.location.href = "./appointment.php?mess=success";               
+                  window.location.href = "./appointment-list.php?mess=success";               
                },
 
             });

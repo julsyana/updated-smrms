@@ -15,39 +15,51 @@
    
    
 
-   $range = $_GET['range'];
+   // $range = $_GET['range'];
+   $rangeStart = $_GET['start'];
+   $rangeEnd = $_GET['end'];
 
-   $query = "SELECT DISTINCT(name), expirationDate, `date_added` FROM `medicine` WHERE";
 
-   switch ($range){
-      case "monthly": {
+   $query = "SELECT DISTINCT(name), expirationDate, `date_added` FROM `medicine` 
+   WHERE DATE(date_added) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY `expirationDate` ASC";
 
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
+   // switch ($range){
+   //    case "monthly": {
 
-         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+   //       $fromDate = date('Y-m-d', strtotime('-30 days'));
+   //       $today = date("Y-m-d");
+         
+   //       $title = "Monthly";
+   //       $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
 
-         break;
-      }
+   //       break;
+   //    }
 
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
+   //    case "yearly": {
+   //       $fromDate = date('Y-m-d', strtotime('-365 days'));
+   //       $today = date("Y-m-d");
+         
+   //       $title = "Yearly";
 
-         $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
+   //       $query .= " DATE(date_added) BETWEEN '$fromDate' AND '$today'";
+   //       break;
+   //    }
+   // }
 
-   $query .= " ORDER BY `expirationDate` ASC";
+   // $query .= " ORDER BY `expirationDate` ASC";
 
    $medicineRes =  mysqli_query($conn, $query);
 
-   $formatFromDate = new DateTime($fromDate);
-   $formatFromDate = $formatFromDate->format("F d, Y");
+   $date_today = new DateTime($date_today);
+   $date_today = $date_today->format("F d, Y h:i A");
 
-   $formatToDate = new DateTime($today);
-   $formatToDate = $formatToDate->format("F d, Y");
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
 
   
 ?>
@@ -128,26 +140,52 @@
 <main>
    
    <div class="report-box">
-      
-      <div class="report-header">
-         <h2> Medicine report  </h2>
-         <span> from <?=$formatFromDate?> to <?=$formatToDate?> </span>
-      </div>
+       
+         <div class="report-header">
+             <p style="margin: 0 0 20px 0;"> MEDICAL AND DENTAL SERVICES  </p>
+             <br>
+             <h2> Medicine Report  </h2>
+             <p>   
+               <?php 
+            
+                  if($rangeStart == $rangeEnd){
+
+                     $range = $rangeStart;
+
+                     ?> From <?=formatDate($range, "F d, Y");?> <?php 
+
+                  } else {
+                     ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+                  }
+               ?>
+            </p>
+               
+            
+             <div>
+                <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
+                <p style="display: flex; float: right;"> Date generate: <b><?=$date_today?> </b> </p>
+            </div>
+             <br>
+             <br><br><br>
+         
+        </div>
 
       <div class="list-of-data-tbl" id="divToPrint">
          
          <table border="0">
             <thead>
-               <tr> 
-                  <th> No. </th>
-                  <th> Medicine/Supply </th>
-                  <th> Expiration Date </th>
-                  <th> Total Quantity</th>
-                  <th> SB (San Bartolome) </th>
-                  <th> BAT (Batasan) </th>
-                  <th> SF (San Fransisco) </th>
-                  <th> Date added </th>
-               </tr>
+                <tr> 
+                   <th> No. </th>
+                   <th width="20%"> Medicine/Supply </th>
+                   <th width="15%"> Expiration Date </th>
+                   <th> SB (San Bartolome) </th>
+                   <th> BAT (Batasan) </th>
+                   <th> SF (San Fransisco)  </th>
+                   <th> Total Quantity</th>
+                   <th> Medicine Given </th>
+                   <th> Remaining </th>
+                   <th width="15%"> Date added </th>
+                </tr>
             </thead>
       
             <tbody>
@@ -170,18 +208,65 @@
       
                         ?>
                         
-                           <tr> 
-                              <td> <?=$count?> </td>
-                              <td> <?=$row['name']?> </td>
-                              <td> <?=$expDate?></td>
-                              <td> <?=$totalQty['total']?> </td>
-                             
-                              <td> <?=$totalQty['sanBartolome']?> </td>
-                              <td> <?=$totalQty['batasan']?> </td>
-                              <td> <?=$totalQty['sanFrancisco']?> </td>
-                              
-                              <td style="text-transform: capitalize"> <?=$dateAdded?> </td>
-                           </tr>
+                        <tr> 
+                            <td> <?=$count?></td>
+                            <td> <span style="font-size: .9em;"> <?=$row['name']?> </span> </td>
+                            <td> <?=$expDate?></td>
+                            <td> 
+                            
+                                <?php if(empty($totalQty['sanBartolome'])){
+                                    
+                                    echo "0";
+                                
+                                } else { ?>
+                                
+                                    <?=$totalQty['rSB']?>
+                                
+                                <?php }
+                                
+                                ?>
+                               
+                                
+                            </td>
+                            
+                            <td>
+                                
+                                <?php if(empty($totalQty['batasan'])){
+                                    
+                                    echo "0";
+                                
+                                } else { ?>
+                                
+                                    <?=$totalQty['rBAT']?>
+                                    
+                                <?php }
+                                
+                                ?>
+                               
+                            </td>
+                            
+                            <td> 
+                            
+                                <?php if(empty($totalQty['sanFrancisco'])){
+                                    
+                                   echo "0";
+                                
+                                } else { ?>
+                                
+                                     <?=$totalQty['rSF']?>
+                                    
+                                <?php }
+                                
+                                ?>
+                               
+                            </td>
+                           
+                           <td> <?=$totalQty['total']?> </td>
+                           <td> <?=$totalQty['totalUsed']?> </td>
+                           <td> <?=$totalQty['remaining']?></td>
+                           
+                           <td style="text-transform: capitalize"> <?=$dateAdded?> </td>
+                        </tr>
                         
                         
                         <?php
@@ -201,10 +286,10 @@
    </div>
 </main>
 
-<footer>
-   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
-   <p style="display: flex; float: right;"> Date generate: <b><?=$formatToDate?> </b> </p>
-</footer>
+<!--<footer>-->
+<!--   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>-->
+<!--   <p style="display: flex; float: right;"> Date generate: <b><?=$date_today?> </b> </p>-->
+<!--</footer>-->
 
 </body>
 </html>

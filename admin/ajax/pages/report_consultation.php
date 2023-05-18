@@ -3,7 +3,8 @@
    include "../../functions/report.php";
    include "../../includes/date.php";
 
-   $range = $_POST['range'];
+   $rangeStart = $_POST['start'];
+   $rangeEnd = $_POST['end'];
 
    $query = "SELECT *, LEFT(b.middlename, 1) as mi, b.firstname as s_fname, b.lastname as s_lname, b.gender as s_gender FROM consultations a
    JOIN `mis.student_info` b
@@ -11,36 +12,64 @@
    JOIN `mis.enrollment_status` c
    ON a.student_id = c.student_id
    JOIN nurses d
-   ON a.emp_id = d.emp_id";
+   ON a.emp_id = d.emp_id
+   WHERE DATE(a.date_of_consultation) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY a.date_of_consultation DESC";
 
-   switch ($range){
-      case "monthly": {
+   // switch ($range){
+   //    case "monthly": {
 
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
+   //       $fromDate = date('Y-m-d', strtotime('-30 days'));
+   //       $today = date("Y-m-d");
 
-         $query .= " AND DATE(a.date_of_consultation) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
+   //       $query .= " AND DATE(a.date_of_consultation) BETWEEN '$range' AND '$range'";
+   //       break;
+   //    }
 
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
+   //    case "yearly": {
+   //       $fromDate = date('Y-m-d', strtotime('-365 days'));
+   //       $today = date("Y-m-d");
 
-         $query .= " AND DATE(a.date_of_consultation) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
+   //       $query .= " AND DATE(a.date_of_consultation) BETWEEN '$fromDate' AND '$today'";
+   //       break;
+   //    }
+   // }
 
-   $query .= " ORDER BY a.date_of_consultation DESC";
+   // $query .= " ";
    
    $stud_app = mysqli_query($conn, $query);
+
+   
+   
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
+
+  
 
 ?>
 <div class="report-box">
 
    <div class="report-header">
-      <h2 style="text-transform:capitalize"> <?=$range?> Students consultation report </h2>
+      <h2 style="text-transform:capitalize"> Students consultation report </h2>
+      <p> 
+         
+         <?php 
+      
+            if($rangeStart == $rangeEnd){
+
+               $range = $rangeStart;
+
+               ?> From <?=formatDate($range, "F d, Y");?> <?php 
+
+            } else {
+               ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+            }
+         ?>
+      </p>
    </div>
 
    <div class="list-of-data-tbl" id="divToPrint">
@@ -53,9 +82,8 @@
                <th> Gender </th>
                <th> Course </th>
                <th> Section </th>
-               <th> Patient's Complain </th>
-               <th> Medicine Given </th>
-               <th> Quantity </th>
+               <th width="15%"> Patient's Complain </th>
+               <th width="5%"> Medicine Given <br> (Name - Qty)</th>
                <th> Nurse Assisted </th>
                <th> Campus </th>
                <th> Date of Consultation </th>
@@ -71,6 +99,9 @@
                      $date_consult = $row['date_of_consultation'];
                      $date_consult = new DateTime($date_consult);
                      $date_consult = $date_consult->format("F d, Y");
+                     
+                    $refNo = $row['reference_no'];
+                    $med = mysqli_query($conn, "SELECT * FROM `consultations_med` WHERE `ref_no` = '$refNo'")
 
                      ?>
                      
@@ -81,8 +112,28 @@
                            <td> <?=$row['code']?> </td>
                            <td> <?=$row['section']?> </td>
                            <td> <?=$row['symptoms']?></td>
-                           <td> <?=$row['medicine']?> </td>
-                           <td> <?=$row['quantity']?> </td>
+                           
+                           <td>
+                               
+                                <?php 
+                                if(mysqli_num_rows($med) > 0){
+                                    while($mrow = mysqli_fetch_assoc($med)){
+                                        
+                                        ?>
+                                            <?=$mrow['medicine']?> - <?=$mrow['quantity']?> <br>
+                                        <?php 
+                                        
+                                    }
+                                    
+                                } else {
+                                    echo "No medicine given";
+                                }
+                            
+                                ?>
+                            
+                               
+                           </td>
+                       
                            <td> <?=$row['firstname']?> <?=$row['lastname']?>, RN </td>
                            <td> <?=$row['branch']?> </td>
                            <td> <?=$date_consult?> </td>
@@ -118,6 +169,6 @@
 <script>
    $('#printAppointment').click(function(){
       // window.location.href("../print_details.php?type=appointment", '_blank');
-      window.open('../print_details.php?type=consultation&range=<?=$range?>', '_blank');
+      window.open('../print_details.php?type=consultation&start=<?=$rangeStart?>&end=<?=$rangeEnd?>', '_blank');
    });
 </script>

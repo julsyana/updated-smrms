@@ -3,8 +3,8 @@
    // include "../functions/dashboard.php";
    $id = $_SESSION['user_id'];
    // $emp_id = $_SESSION['emp_id'];
-   $base_url = 'http://localhost/updated-smrms';
-   //  $base_url = 'https://qcu-smrms.site';
+//   $base_url = 'http://localhost/updated-smrms';
+     $base_url = 'https://qcu-smrms.site';
 
    
 // SELECT ALL ANNOUNCEMENTS
@@ -281,8 +281,8 @@ $fetchActiveNurses = mysqli_query($conn, "SELECT * FROM `nurse_schedule` JOIN `n
                                                    ?>
                                                       <div class="div_approve_status_actions_container">
                                                          <button class="btn_revert" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=revert&postID=".$row['id']."&status=pending`" ?>">Revert</button>
-                                                         <button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=edit&postID=".$row['id']."&status=edited`"?>">Edit</button>
-                                                         <button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=delete&postID=".$row['id']."&status=deleted`"?>">Delete</button>
+                                                         <!--<button class="btn_approve" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=edit&postID=".$row['id']."&status=edited`"?>">Edit</button>-->
+                                                         <!--<button class="btn_decline" onclick="<?php echo "location.href = `".$base_url."/admin/functions/dashboard.php?action=delete&postID=".$row['id']."&status=deleted`"?>">Delete</button>-->
                                                       </div>
                                                    <?php
                                                 }

@@ -19,17 +19,14 @@
    $file_name = $_FILES['med_img']['name'];
    $file_tmp_name = $_FILES['med_img']['tmp_name'];
    $file_tmp_error = $_FILES['med_img']['error'];
+        
+        $path = "../assets";
+      
+      $imgName = moveImg($path, $file_name, $file_tmp_name, $file_tmp_error);
+      
+      $ins = insertMed($conn, $med_id, $med_name, $med_qty, $med_expDate, $med_desc, $imgName, $med_camp, $curr_date);
 
-
-   try {
-
-      $tempDir = "../qr_images/";
-
-      $qr_code = generateQR($tempDir, $med_id);
-   
-      $insMed = insertMed($conn, $med_id, $med_name, $med_qty, $med_expDate, $med_desc, $file_name, $med_camp, $qr_code, $curr_date);
-
-      if($insMed){
+      if($ins){
 
          ?>
    
@@ -37,7 +34,7 @@
             <h2> Medicine Added Successful </h2>
    
             <div class="icon">
-               <i class="fas fa-check-circle    "></i>
+              <i class="fas fa-check-circle    "></i>
             </div>
          </div>
    
@@ -51,32 +48,16 @@
          <div class="message-success">
             <h2> Query Failed </h2>
 
-            <p> <?=mysqli_error($conn);?> </p>
+            <p> <?=mysqli_error($conn)?> </p>
    
             <div class="icon">
-               <i class="fas fa-times-circle" style="color: var(--alertBgButton)"></i>
+              <i class="fas fa-times-circle" style="color: var(--alertBgButton)"></i>
             </div>
          </div>
    
          <?php 
       }
 
-
-   } catch (\Throwable $th) {
-      ?> 
-   
-      <div class="message-success">
-         <h2> Query Failed </h2>
-
-         <p> <?=mysqli_error($conn);?> </p>
-
-         <div class="icon">
-            <i class="fas fa-times-circle" style="color: var(--alertBgButton)"></i>
-         </div>
-      </div>
-
-      <?php 
-   }
 
   
 

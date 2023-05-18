@@ -5,9 +5,8 @@
 
    $stud_id = $_POST['stud_id'];
    $role = 'student';
-   $campus = $_POST['campus'];
 
-   $archive = archive($conn, $stud_id, $role,$campus ,$date_today, $time_today);
+   $archive = archive($conn, $stud_id, $role, $date_today, $time_today);
 
      if(!$archive){
       echo mysqli_error($conn);

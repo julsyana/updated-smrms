@@ -75,9 +75,9 @@
                                           <i class="fas fa-edit"></i>
                                        </button>
          
-                                       <button id="med-del" data-role="med-del" data-id="<?=$med_row['prod_id']?>">
-                                       <i class="fas fa-trash-alt"></i>
-                                       </button>
+                                       <!--<button id="med-del" data-role="med-del" data-id="<?=$med_row['prod_id']?>">-->
+                                       <!--<i class="fas fa-trash-alt"></i>-->
+                                       <!--</button>-->
                                     </div>
                                  </td>
                               </tr>

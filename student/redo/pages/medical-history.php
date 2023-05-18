@@ -54,9 +54,9 @@
                <a href="./appointment-list.php"> Appointment </a>
             </li>
 
-             <li> 
-               <a href="./entrancelog.php"> Entrace Log </a>
-            </li>
+            <!-- <li> -->
+            <!--   <a href="./entrancelog.php"> Entrace Log </a>-->
+            <!--</li>-->
          </ul>
         
       </nav>
@@ -137,13 +137,13 @@
                               <td> <?=$row['how_long']?> </td>
                               <td> 
                                  <div class="status">
-                                 <?php if($res_stud_health_status['Status'] === "Not Cleared") { ?>
+                                 <?php if(strtolower($row['status']) == "not cleared") { ?>
 
-                                 <span style="color: var(--decline)"> <?=$res_stud_health_status['Status']?> </span> 
+                                 <span style="color: var(--decline)"> <?=$row['status']?> </span> 
 
                                  <?php } else { ?>
 
-                                 <span style="color: var(--approve)"> <?=$res_stud_health_status['Status']?> </span>
+                                 <span style="color: var(--approve)"> <?=$row['status']?> </span>
 
                                  <?php } ?> 
                                  </div> 

@@ -12,14 +12,14 @@
 
    if($stud_logged['isVerified'] == 1){
 
-      header("location: ./pages/personal-information.php");
+      header("location: ./pages/dashboard.php");
 
    }
 
 
    if(empty($student_id)){
 
-      header("location: ./student-login.php");
+      header("location: ./redo/student-login.php");
    }
 
 

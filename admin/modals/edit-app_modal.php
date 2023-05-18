@@ -25,13 +25,13 @@
             <div class="se-details">
                 
                 <div class="form-input">
-                  <label for="app-slot"> Service ID: </label>
+                  <label> Service ID: </label>
                   <p> <b> <?=$appRes['app_id']?> </b></p>
                   <input type="text" name="app_id" value="<?=$appRes['app_id']?>" readonly hidden> 
                 </div>
 
                 <div class="form-input">
-                   <label for="app-type"> Service Type: </label>
+                   <label> Service Type: </label>
                    <!-- <input type="text" name="app_type" value="<?=$appRes['app_type']?>" readonly>  -->
                    <p> <b> <?=$appRes['app_type']?> </b></p>
                 </div>
@@ -61,7 +61,7 @@
                     </select>
                 </div>
 
-                <div class="students-email">
+                <div class="students-email" id="students-email">
             
                 </div>
                 
@@ -95,6 +95,40 @@
 
 <script>
    $(document).ready(function(){
+       
+       $('#app-status').change(function(){
+
+        // let se_status = $(this).val();
+
+        const se_id = "<?=$app_id?>";
+
+        $('#edit-app-save').attr('disabled', false);
+
+        $.ajax({
+
+            type: "POST",
+            url: "../ajax/pages/student_per_service.php",
+            data: {
+                se_id: se_id
+            },
+            success: function(data){
+                
+                $('#students-email').html(data);
+            }, 
+            
+            // error: function (error) {
+                
+            //     alert('error');
+            // }
+        });
+
+        // $('#students-email').load("../ajax/pages/student_per_service.php",{
+            
+        //     se_id: se_id,
+        //     // se_status: se_status
+        // });
+
+      });
 
       $('#edit-app-cancel').click(function(){
 
@@ -154,20 +188,7 @@
       });
 
 
-      $('#app-status').change(function(){
-
-        let se_status = $(this).val();
-
-        const se_id = "<?=$app_id?>";
-
-        $('#edit-app-save').attr('disabled', false);
-
-        $('.students-email').load('../ajax/pages/student-per-service.php',{
-            
-            se_id: se_id
-        });
-
-      });
+      
 
    });
 

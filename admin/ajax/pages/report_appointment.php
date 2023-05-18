@@ -3,7 +3,10 @@
    include "../../functions/report.php";
    include "../../includes/date.php";
 
-   $range = $_POST['range'];
+   
+   $rangeStart = $_POST['start'];
+   $rangeEnd = $_POST['end'];
+
 
    $query = "SELECT *, LEFT(b.middlename, 1) as `mi` FROM `stud_appointment` a
    JOIN `mis.student_info` b
@@ -14,37 +17,39 @@
    ON a.app_date_id = d.app_date_id
    JOIN `appointment` e
    ON a.se_id = e.app_id
-   WHERE a.app_status = 'attended'";
-
-   switch ($range){
-      case "monthly": {
-
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(d.app_dates) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(d.app_dates) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
-
-   $query .= " ORDER BY a.id DESC";
+   WHERE a.app_status = 'attended' AND DATE(d.app_dates) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY a.id DESC";
 
    $stud_app = mysqli_query($conn, $query);
+
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
+
 
 ?>
                
 <div class="report-box">
 
    <div class="report-header">
-   <h2 style="text-transform:capitalize"> <?=$range?> Appointments report </h2>
+   <h2 style="text-transform:capitalize"> Appointments report </h2>
+      <p>   
+         <?php 
+      
+            if($rangeStart == $rangeEnd){
+
+               $range = $rangeStart;
+
+               ?> From <?=formatDate($range, "F d, Y");?> <?php 
+
+            } else {
+               ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+            }
+         ?>
+      </p>
    </div>
 
    <div class="list-of-data-tbl" id="divToPrint">
@@ -124,6 +129,6 @@
 <script>
    $('#printAppointment').click(function(){
       // window.location.href("../print_details.php?type=appointment", '_blank');
-      window.open('../print_details.php?type=appointment&range=<?=$range?>', '_blank');
+      window.open('../print_details.php?type=appointment&start=<?=$rangeStart?>&end=<?=$rangeEnd?>', '_blank');
    });
 </script>

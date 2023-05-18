@@ -90,19 +90,19 @@ include './queries.php';
               <h4>Visitors Form <span></span></h4>
               
               <form action="./insert_visitor.php" method="POST" enctype="multipart/form-data" id="form_visitor">
-                <input type="text" id="visitor_name" name="visitor_name" placeholder="Name" pattern="[A-Za-z\s,.\-]+" disabled>
+                <input type="text" id="visitor_name" name="visitor_name" placeholder="Full Name (ex.: Juan C. Dela Cruz/Juan Dela Cruz)" pattern="[A-Za-z\s,.\-]+" disabled>
                 <div id="visitor_name_error" class="error"></div>
 
-                <input type="text" id="visitor_cnum" name="visitor_cnum" placeholder="Contact Number" maxlength="11" disabled>
+                <input type="text" id="visitor_cnum" name="visitor_cnum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Contact Number (ex.: 09123456789)" maxlength="11" disabled>
                 <div id="visitor_cnum_error" class="error"></div>
 
-                <input type="text" id="visitor_dept" name="visitor_dept" placeholder="Department" disabled>
+                <input type="text" id="visitor_dept" name="visitor_dept" placeholder="Department (ex.: Registrar)" disabled>
                 <div id="visitor_dept_error" class="error"></div>
 
-                <input type="text" id="visitor_purp" name="visitor_purp" placeholder="Purpose" disabled>
+                <input type="text" id="visitor_purp" name="visitor_purp" placeholder="Purpose (ex.: Inquiries)" disabled>
                 <div id="visitor_purp_error" class="error"></div>
 
-                <input type="email" id="visitor_email" name="visitor_email" placeholder="Email" disabled>
+                <input type="email" id="visitor_email" name="visitor_email" placeholder="Email (ex.: juandelacruz@gmail.com)" disabled>
                 <div id="visitor_email_error" class="error-message"></div>
 
                 <input type="button" id="visitor_btn" name="visitor_btn" value="Submit">

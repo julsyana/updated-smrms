@@ -1,5 +1,8 @@
 <?php
    include "../includes/header_process.php";
+   
+    date_default_timezone_set("Asia/Manila");
+    $curr_date = date("Y-m-d");
 
   
 ?>
@@ -64,9 +67,9 @@
                <a href="./appointment-list.php"> Appointment </a>
             </li>
 
-            <li > 
-               <a href="./entrancelog.php"> Entrace Log </a>
-            </li>
+            <!--<li > -->
+            <!--   <a href="./entrancelog.php"> Entrace Log </a>-->
+            <!--</li>-->
          </ul>
         
       </nav>
@@ -165,6 +168,13 @@
                            $formattedDate = date('F d, Y g:i A', $conDate);
 
                            $appID = $row['se_id'];
+                           
+                          if($row['app_dates'] < $curr_date){
+                               
+                              setAppointmentStatus($conn, $stud_id, $row['reference_no'], 'not attended');
+                               
+                          }
+                           
                         ?>
 
                      <tr>
@@ -178,7 +188,6 @@
                            <div class="type">
                             
                               <?=$row['app_type']?> 
-                            
                            </div>
                            
                         </td>

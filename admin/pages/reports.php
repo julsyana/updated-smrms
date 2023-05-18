@@ -1,5 +1,9 @@
 <?php
    include "../includes/function-header.php";
+
+   $curdate = date("Y-m-d");
+
+   // echo $curdate;
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +122,7 @@
                <h3> reports </h3>
 
                <div class="form-button">
+                  
                   <select name="" id="type">
                      <option value=""> --Select type of report-- </option>
                      <option value="consultation"> Consultation </option>
@@ -125,11 +130,14 @@
                      <option value="medicine"> Medicine </option>
                   </select>
 
-                  <select name="" id="range">
+
+                  <input type="text" name="" id="range" placeholder="Select date range">
+
+                  <!-- <select name="" id="range">
                      <option value=""> --Select date range-- </option>
                      <option value="monthly"> Monthly </option>
                      <option value="yearly"> Yearly </option>
-                  </select>
+                  </select> -->
                </div>
             </div>
             
@@ -151,6 +159,140 @@
 <!-- custom script -->
 <script>
 
+   let range = $('#range').flatpickr({
+
+      mode: "range",
+      altInput: true,
+      altFormat: "F d, Y",
+      dateFormat: "Y-m-d",
+      maxDate: "today",
+      disable: ["<?=$curdate?>"],
+
+      onChange: function(dates){
+
+         if(dates.length == 2){
+            let start = formatDate(dates[0]);
+            let end = formatDate(dates[1]);
+            let type = $("#type").val();
+
+
+            if (type != "" && (start != "" && end != "")) {
+               switch (type) {
+               case "appointments":
+                  $("#report-content-container").load(
+                     "../ajax/pages/report_appointment.php",
+                     {
+                        type: type,
+                        start: start,
+                        end: end,
+                     }
+                  );
+                  break;
+
+               case "consultation":
+                  $("#report-content-container").load(
+                     "../ajax/pages/report_consultation.php",
+                     {
+                        type: type,
+                        start: start,
+                        end: end,
+                     }
+                  );
+                  break;
+
+               case "medicine":
+                  $("#report-content-container").load(
+                     "../ajax/pages/report_medicine.php",
+                     {
+                        type: type,
+                        start: start,
+                        end: end,
+                     }
+                  );
+                  break;
+
+               default:
+                  break;
+               }
+            } else if ((start == "" || end == "") && type != "") {
+               $("#report-content-container").html("<h1> Select date range </h1>");
+            } else {
+               $("#report-content-container").html(
+               "<h1> Select type of report and date range. </h1>"
+               );
+            }
+
+            
+            $("#type").change(function () {
+               let start = formatDate(dates[0]);
+               let end = formatDate(dates[1]);
+               let type = $(this).val();
+               
+               if  (type != "" && (start != "" && end != "")) {
+
+                  switch (type) {
+
+                     case "appointments":
+                        $("#report-content-container").load("../ajax/pages/report_appointment.php", {
+                           type: type,
+                           start: start,
+                           end: end,
+                        });
+
+                     break;
+           
+                     case "consultation":
+                        $("#report-content-container").load("../ajax/pages/report_consultation.php", {
+                           type: type,
+                           start: start,
+                           end: end,
+                        });
+
+                     break;
+           
+                     case "medicine":
+
+                        $("#report-content-container").load("../ajax/pages/report_medicine.php", {
+                           type: type,
+                           start: start,
+                           end: end,
+                        });
+                     break;
+           
+                     default:
+                     break;
+                  }
+
+               } else if (type == "" && range != "") {
+                  $("#report-content-container").html("<h1> Select type of report </h1>");
+               } else {
+                  $("#report-content-container").html(
+                   "<h1> Select type of report and date range. </h1>"
+                  );
+               }
+               
+            });
+         }
+      }
+
+   });
+   
+   // format date
+   function formatDate(date) {
+
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+      if (month.length < 2) 
+         month = '0' + month;
+      if (day.length < 2) 
+         day = '0' + day;
+
+      return [year, month, day].join('-');
+   }
+  
 
 </script>
 </html>

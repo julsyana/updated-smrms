@@ -14,7 +14,9 @@
    $qcu_base64 = base64_encode($qcu_png);
    
 
-   $range = $_GET['range'];
+   $rangeStart = $_GET['start'];
+   $rangeEnd = $_GET['end'];
+
 
    $query = "SELECT *, LEFT(b.middlename, 1) as `mi` FROM `stud_appointment` a
    JOIN `mis.student_info` b
@@ -25,39 +27,24 @@
    ON a.app_date_id = d.app_date_id
    JOIN `appointment` e
    ON a.se_id = e.app_id
-   WHERE a.app_status = 'attended'";
+   WHERE a.app_status = 'attended' AND DATE(d.app_dates) BETWEEN '$rangeStart' AND '$rangeEnd'
+   ORDER BY a.id DESC";
 
-   switch ($range){
-      case "monthly": {
 
-         $fromDate = date('Y-m-d', strtotime('-30 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(d.app_dates) BETWEEN '$fromDate' AND '$today'";
-
-         break;
-      }
-
-      case "yearly": {
-         $fromDate = date('Y-m-d', strtotime('-365 days'));
-         $today = date("Y-m-d");
-
-         $query .= " AND DATE(d.app_dates) BETWEEN '$fromDate' AND '$today'";
-         break;
-      }
-   }
-
-   $formatFromDate = new DateTime($fromDate);
-   $formatFromDate = $formatFromDate->format("F d, Y");
-
-   $formatToDate = new DateTime($today);
-   $formatToDate = $formatToDate->format("F d, Y");
-
-   $query .= " ORDER BY a.id DESC";
-
-   echo $query;
 
    $stud_app = mysqli_query($conn, $query);
+
+   $date_today = new DateTime($date_today);
+   $date_today = $date_today->format("F d, Y h:i A");
+
+   function formatDate($date, $format){
+      $date = new DateTime($date);
+      $date = $date->format("$format");
+
+      return $date;
+   }
+
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,13 +123,43 @@
 <main>
   
    <div class="report-box">
+        
+       
 
-      <div class="report-header">
-         <h2> Appointments report  </h2>
-         <span> from <?=$formatFromDate?> to <?=$formatToDate?> </span>
-      </div>
+        <div class="report-header">
+             <p style="margin: 0 0 20px 0;"> MEDICAL AND DENTAL SERVICES  </p>
+             <br>
+             <h2> Appointments report  </h2>
+             <p>   
+               <?php 
+            
+                  if($rangeStart == $rangeEnd){
+
+                     $range = $rangeStart;
+
+                     ?> From <?=formatDate($range, "F d, Y");?> <?php 
+
+                  } else {
+                     ?> from <b><?=formatDate($rangeStart, "F d, Y");?></b> to <b><?=formatDate($rangeEnd, "F d, Y");?></b> <?php 
+                  }
+               ?>
+            </p>
+         
+            
+             <div>
+                <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
+                <p style="display: flex; float: right;"> Date generate: <b><?=$date_today?> </b> </p>
+            </div>
+             <br>
+             <br><br><br>
+         
+        </div>
+      
+      
 
       <div class="list-of-data-tbl">
+          
+        
          
          <table border="0">
             <thead>
@@ -206,10 +223,10 @@
    </div>
 </main>
 
-<footer>
-   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>
-   <p style="display: flex; float: right;"> Date generate: <b><?=$formatToDate?> </b> </p>
-</footer>
+<!--<footer>-->
+<!--   <p style="display: flex; float: left;"> Generate by: <b><?=$admin_logged['fname']?> <?=$admin_logged['lname']?></b></p>-->
+<!--   <p style="display: flex; float: right;"> Date generate: <b><?=$formatToDate?> </b> </p>-->
+<!--</footer>-->
 
 </body>
 </html>

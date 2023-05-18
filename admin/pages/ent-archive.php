@@ -42,7 +42,7 @@
                                  <td> <?=$x--?></td>
                                  <td> <?=$rows['student_id']?> </td>
                                  <td>  <?=$rows['role']?></td>
-                                 <td> <?=$rows['campus']?></td>
+                                 <td> </td>
                                  <td>  <?=$timein.' - '.$logdate?> </td>
                                  <!-- <td>  <?=$timein?></td> -->
                                  

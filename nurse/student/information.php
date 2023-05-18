@@ -121,7 +121,7 @@ if(mysqli_num_rows($run_query) === 1){
                 <span></span>
    
                 <li class="nav-item px-0 mx-2 d-flex align-items-center">
-                  <a class="nav-link" href="../logout.php">Logout</a>
+                  <a class="nav-link logout" href="../logout.php">Logout</a>
                 </li>
    
               </ul>
@@ -329,8 +329,26 @@ if(mysqli_num_rows($run_query) === 1){
                <div class="row mt-4 justify-content-between gap-4">
                 
                   <div class="container-fluid d-flex justify-content-end">
+                      
+                      <?php 
 
-                     <a href="./student-consultation.php?stud-id=<?=$student_id?>" class="btn px-2 text-light d-flex justify-content-end" style="background: #0C4079;width:max-content;"> New Consultation </a>
+                              if(strtolower($drow['Status']) == 'cleared'){
+                                 ?>
+                              
+                                   <a href="./student-consultation.php?stud-id=<?=$student_id?>" class="btn px-2 text-light d-flex justify-content-end" style="background: #0C4079;width:max-content;"> New Consultation </a>
+                              
+                                    
+                                 <?php 
+                              } else {
+                                 ?>
+                                 
+                                    <a class="btn px-2 text-light d-flex justify-content-end" style="background: #c2c2c2;width:max-content; cursor: not-allowed;"> New Consultation </a>
+                                    
+                                 <?php 
+                              }
+                           ?>
+
+                     
    
                      <!-- <input type="button" class="btn px-2 text-light d-flex justify-content-end" style="background: #0C4079;width:max-content;" id="consultation" value="New Consultation" data-id="<?=$student_id?>"> -->
    
@@ -377,15 +395,14 @@ if(mysqli_num_rows($run_query) === 1){
 
 <!-- custom ajax script -->
 <script>
-   $(document).ready(function(){
+    $(document).ready(function(){
 
-      $("#medical-content").load('../ajax/view/med_history.php?stud_id=<?=$student_id?>');
+        $("#medical-content").load('../ajax/view/med_history.php?stud_id=<?=$student_id?>');
 
-
-   });
+    });
 </script>
 
+<script src="./ajax/isArchive.js"></script>
 
-<!-- CUSTOM AJAX FILE -->
 
 </html>

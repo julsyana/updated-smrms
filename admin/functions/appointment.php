@@ -51,7 +51,7 @@ function selStudPerService($conn, $appID){
     ON b.student_id = c.student_id
     JOIN `appointment_dates` d
     ON a.app_id = d.app_id
-    WHERE A.app_id = '$appID' AND b.app_status != 'attended' AND d.app_dates > CURDATE() AND b.app_status = 1;";
+    WHERE A.app_id = '$appID' AND b.app_status != 'attended' AND d.app_dates >= CURDATE() AND b.app_status = 1;";
 
     $res = mysqli_query($conn, $sel);
 

@@ -87,7 +87,7 @@
 
                $('#medicine-message-modal').html(data);
 
-               window.location.href = "../pages/medicine.php";
+              window.location.href = "../pages/medicine.php";
 
             },
 

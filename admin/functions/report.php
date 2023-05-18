@@ -66,12 +66,22 @@ function totalBranch($conn, $branch){
 
 
 function totalQty($conn, $medicine){
-   $cnt = "SELECT prod_id, SUM(num_stocks) as total, 
-SUM((SELECT num_stocks FROM medicine WHERE campus = 'San Bartolome' AND prod_id = a.prod_id)) as sanBartolome,
-SUM((SELECT num_stocks FROM medicine WHERE campus = 'Batasan' AND prod_id = a.prod_id)) as batasan,
-SUM((SELECT num_stocks FROM medicine WHERE campus = 'San Francisco' AND prod_id = a.prod_id)) as sanFrancisco
-FROM medicine as a WHERE name = '$medicine'";
-   $res = mysqli_query($conn, $cnt);
+    $cnt = "SELECT prod_id, SUM(`num_stocks`) as total, SUM(`med_used`) as totalUsed, (SUM(`num_stocks`) - SUM(`med_used`)) as remaining,
+    SUM((SELECT `num_stocks` FROM medicine WHERE campus = 'San Bartolome' AND prod_id = a.prod_id)) as sanBartolome,
+    SUM((SELECT `num_stocks` FROM medicine WHERE campus = 'Batasan' AND prod_id = a.prod_id)) as batasan,
+    SUM((SELECT `num_stocks` FROM medicine WHERE campus = 'San Francisco' AND prod_id = a.prod_id)) as sanFrancisco,
+    
+    SUM((SELECT `med_used` FROM medicine WHERE campus = 'San Bartolome' AND prod_id = a.prod_id)) as usedSB,
+    SUM((SELECT `med_used` FROM medicine WHERE campus = 'Batasan' AND prod_id = a.prod_id)) as usedBAT,
+	SUM((SELECT `med_used` FROM medicine WHERE campus = 'San Francisco' AND prod_id = a.prod_id)) as usedSF,
+    
+    SUM((SELECT (`num_stocks` - `med_used`) FROM medicine WHERE campus = 'San Bartolome' AND prod_id = a.prod_id)) as rSB,
+    SUM((SELECT (`num_stocks` - `med_used`) FROM medicine WHERE campus = 'Batasan' AND prod_id = a.prod_id)) as rBAT,
+	SUM((SELECT (`num_stocks` - `med_used`) FROM medicine WHERE campus = 'San Francisco' AND prod_id = a.prod_id)) as rSF
+    
+    FROM medicine as a WHERE `name` = '$medicine';";
+    
+    $res = mysqli_query($conn, $cnt);
 
    $total = mysqli_fetch_assoc($res);
 

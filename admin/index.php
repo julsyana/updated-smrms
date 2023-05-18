@@ -103,7 +103,7 @@
 <script>
 	$(document).ready(function(){
 
-		$('.error').fadeOut(3500);
+		$('.error').fadeOut(5000);
 
 	});
 	
