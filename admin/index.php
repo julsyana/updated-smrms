@@ -54,6 +54,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	
 	
+	
 
 </head>
 <body>
@@ -101,15 +102,15 @@
 		</div>
 
      		<center><button type="submit">LOGIN</button></center>
-			<?php if(mysqli_num_rows($check_admin) > 0 ) { ?> 
+			
+			<div class="footer-form">
+				<div class="create"> 
 
-				<p style="color: #888; cursor:not-allowed;"> Create an account<a href="#">Forget Password?</a></p>
- 
-			<?php } else { ?>
-				
-				<center><p href="./registration.php" class="ca" disabled>Create an account<a href="#">Forget Password?</a></p></center>
-				
-			<?php } ?>
+				</div>
+
+				<div class="forgot">
+					<a href="#">Forget Password?</a> 
+				</div>
 			
    </form>
 </body>
@@ -121,6 +122,22 @@
 
 	});
 	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('#role').change(function(){
+			let role = $(this).val();
+
+			if(role == "guard"){
+				$('.create').html("<a href='../entrance/register.php'> Register account </a>");
+			} else {
+				$('.create').html("");
+			}
+		});
+
+	});
 </script>
 
 <script> 
