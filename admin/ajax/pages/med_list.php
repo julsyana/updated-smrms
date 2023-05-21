@@ -55,7 +55,9 @@
 
 
          
-            
+         
+         
+            // stocks   
             if ($remaining_stock == 0) {
 
                Archive($conn, $med_row['prod_id'], 'medicine', $date_today);
@@ -66,31 +68,33 @@
                 
                 </script>
                <?php 
+               
 
             }
 
-            else if($remaining_stock <= $stock_cl['stock_expDate']){
+            if($remaining_stock <= $stock_cl['stock_expDate']){
 
                ?>
                   <p> <b> WARNING!!! </b> Only <?=$remaining_stock?> of the <?=$med_row['name']?> stock left! </p>
                <?php 
 
-            }  else {
 
-
-               if($curr_date >= $startingExpDate && $curr_date < $med_row['expirationDate']) {
+            }
+            
+            // Expiration date
+            if($curr_date >= $startingExpDate && $curr_date < $med_row['expirationDate']) {
 
                   ?>
                      <p> <b> WARNING!!! </b> <?=$med_row['name']?> is in brinks of expiration! </p>
                   
                   <?php 
                   
-               } else if($curr_date == $med_row['expirationDate']) {
+            }
+            
+            
+            if($med_row['expirationDate'] <= $curr_date) {
                   
-                  Archive($conn, $med_row['prod_id'], 'medicine', $date_today);
-
-               }
-   
+                 Archive($conn, $med_row['prod_id'], 'medicine', $date_today);
 
             }
 
