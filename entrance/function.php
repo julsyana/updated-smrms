@@ -2,7 +2,7 @@
 
    function archive($conn, $stud_id, $role, $campus, $date, $time){
       
-      $ins = "INSERT INTO `stud_archive`(`student_id`, `role`,`campus`, `date_archive`, `time`) VALUES ('$stud_id','$role','$campus','$date', '$time')";
+      $ins = "INSERT INTO `stud_archive`(`student_id`, `role`, `campus`, `date_archive`, `time`) VALUES ('$stud_id','$role','$campus','$date', '$time')";
 
       $res = mysqli_query($conn, $ins);
 
@@ -24,7 +24,7 @@
    }
 
    
-   function pending($conn, $stud_id,$campus) {
+   function pending($conn, $stud_id) {
 
       $upd = "UPDATE `sample_stud_data` SET `Status`='PUI' WHERE `student_id` = '$stud_id'";
 

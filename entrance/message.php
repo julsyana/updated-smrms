@@ -37,7 +37,7 @@
 
    <?php } else {
 
-      if($total == '1' && $status == 'Not Cleared') { ?>
+      if($total == '1' && $status == 'not cleared') { ?>
 
          <div class="modal-message">
 
@@ -73,7 +73,7 @@
             </div>
          </div>
    
-      <?php } else if ($total == '0' && $status == 'Not Cleared') { 
+      <?php } else if ($total == '0' && $status == 'not cleared') { 
    
          $role = 'student';
          $date = date('Y-m-d');
@@ -146,11 +146,13 @@ setTimeout(function(){
       $('#validated-btn').click(function(){
 
          var stud_id = $(this).data('stud_id');
+         var campus = "<?=$campus?>";
          // alert('change status to pending ' + stud_id );
 
          $('.table-contents').load('./update_status.php',{
 
-            stud_id: stud_id, 
+            stud_id: stud_id,
+            campus: campus, 
 
          })
 
@@ -161,11 +163,13 @@ setTimeout(function(){
       $('#not-validated-btn').click(function(){
 
          var stud_id = $(this).data('stud_id');
+         var campus = "<?=$campus?>";
          alert('Go to archive table ' + stud_id);
 
           $('.table-contents').load('./update_status_archive.php',{
 
-            stud_id: stud_id, 
+            stud_id: stud_id,
+            campus: campus, 
 
          })
 

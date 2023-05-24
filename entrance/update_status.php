@@ -6,8 +6,9 @@
    $stud_id = $_POST['stud_id'];
 
    $pend = pending($conn, $stud_id);
+   $campus = $_POST['campus'];
 
-   $entrance = entrance_log($conn, $stud_id, $time_today, $date_today);
+   $entrance = entrance_log($conn, $stud_id, $time_today, $date_today,$campus);
 
    if(!$pend || !$entrance){
       echo mysqli_error($conn);

@@ -48,7 +48,7 @@
 
       $res_appointment_today = mysqli_query($conn, $sel_appointment_today);
 
-      if($status === 'Not Cleared') { 
+      if($status === 'not cleared') { 
          
          if(mysqli_num_rows($res_appointment_today) == 1) {
 
@@ -153,7 +153,7 @@
                // var mess = 'verified';
                var qr_val = "<?=$qr_val?>";
                var fullname = "<?=$fullname?>";
-               
+               var campus = "<?=$campus?>";
 
                $('#not-verified').show();
                
